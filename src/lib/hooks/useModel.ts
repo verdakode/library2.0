@@ -1,36 +1,26 @@
 import { useState, useEffect } from "react";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { useGLTF } from "@react-three/drei";
+import type { Group } from "three";
 
 interface UseModelReturn {
-  model: GLTF | null;
+  model: Group | null;
   loading: boolean;
   error: Error | null;
 }
 
 export const useModel = (modelPath: string): UseModelReturn => {
-  const [model, setModel] = useState<GLTF | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-
+  
+  const { scene } = useGLTF(modelPath);
+  
   useEffect(() => {
-    const loader = new GLTFLoader();
+    if (scene) {
+      setLoading(false);
+    }
+  }, [scene]);
 
-    loader.load(
-      modelPath,
-      (gltf) => {
-        setModel(gltf);
-        setLoading(false);
-      },
-      undefined,
-      (err) => {
-        setError(err);
-        setLoading(false);
-      }
-    );
-  }, [modelPath]);
-
-  return { model, loading, error };
+  return { model: scene, loading, error };
 };
 
 export default useModel;

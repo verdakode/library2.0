@@ -1,6 +1,5 @@
 import React from "react";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useGLTF } from "@react-three/drei";
 
 interface ModelViewerProps {
   modelPath: string;
@@ -13,9 +12,9 @@ export const ModelViewer: React.FC<ModelViewerProps> = ({
   scale = 1,
   position = [0, 0, 0],
 }) => {
-  const gltf = useLoader(GLTFLoader, modelPath);
+  const { scene } = useGLTF(modelPath);
 
-  return <primitive object={gltf.scene} scale={scale} position={position} />;
+  return <primitive object={scene} scale={scale} position={position} />;
 };
 
 export default ModelViewer;

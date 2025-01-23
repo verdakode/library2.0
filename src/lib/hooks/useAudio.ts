@@ -15,16 +15,14 @@ interface UseAudioReturn {
 }
 
 export const useAudio = ({ src, autoPlay = false }: UseAudioProps): UseAudioReturn => {
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio(src);
-    if (audioRef.current) {
-      audioRef.current = audio;
-    }
+    audioRef.current = new Audio(src);
+    const audio = audioRef.current;
 
     audio.addEventListener("loadedmetadata", () => {
       setDuration(audio.duration);

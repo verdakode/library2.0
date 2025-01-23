@@ -26,6 +26,7 @@ export const BookSpine: React.FC<BookSpineProps> = ({
     setIsPulled(true);
     setTimeout(() => {
       onClick?.();
+      setIsPulled(false);
     }, 300);
   };
 
