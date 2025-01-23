@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Digital Library",
+      "description": "A personal website organized like a library to showcase my life, projects, and thoughts.",
+      "status": "in-progress",
+      "startDate": "2024-01-17T00:00:00.000Z",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS"],
+      "links": {
+        "github": "https://github.com/username/digital-library"
+      }
+    }
+  ],
+  "categories": [
+    "web",
+    "mobile",
+    "data",
+    "art",
+    "research"
+  ]
+} 

@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Started My Digital Library",
+      "description": "Created a personal space to organize and share my life's journey.",
+      "date": "2024-01-17T00:00:00.000Z",
+      "category": "projects",
+      "tags": ["web", "personal"]
+    }
+  ]
+} 
