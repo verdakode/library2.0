@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { BookSpine } from '@/components/shared/BookSpine';
-import { Book } from '@/components/shared/Book';
+import React, { useState } from "react";
+import { BookSpine } from "@/components/shared/BookSpine";
+import { Book } from "@/components/shared/Book";
 
 interface BookData {
   id: string;
@@ -14,10 +14,10 @@ interface BookData {
 
 const books: BookData[] = [
   {
-    id: '1',
-    title: 'The Art of Reading',
-    author: 'Verda K.',
-    color: 'bg-rose-700',
+    id: "1",
+    title: "The Art of Reading",
+    author: "Verda K.",
+    color: "bg-rose-700",
     content: `
       # The Art of Reading
 
@@ -43,14 +43,14 @@ const books: BookData[] = [
       - Write notes in the margins
       - Dog-ear important pages
       - Use sticky notes for quick reference
-    `
+    `,
   },
   {
-    id: '2',
-    title: 'Book Notes: 2024',
-    author: 'Verda K.',
-    color: 'bg-rose-800',
-    content: 'A collection of thoughts and reflections on books read in 2024...'
+    id: "2",
+    title: "Book Notes: 2024",
+    author: "Verda K.",
+    color: "bg-rose-800",
+    content: "A collection of thoughts and reflections on books read in 2024...",
   },
   // Add more books as needed
 ];
@@ -86,13 +86,15 @@ export default function LiteratureShelf() {
           title={selectedBook.title}
           author={selectedBook.author}
           content={
-            <div dangerouslySetInnerHTML={{ 
-              __html: require('marked').parse(selectedBook.content) 
-            }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: require("marked").parse(selectedBook.content),
+              }}
+            />
           }
           onClose={() => setSelectedBook(null)}
         />
       )}
     </div>
   );
-} 
+}

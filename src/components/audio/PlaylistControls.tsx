@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface PlaylistControlsProps {
   onPrevious: () => void;
@@ -18,13 +18,11 @@ export const PlaylistControls: React.FC<PlaylistControlsProps> = ({
   return (
     <div className="playlist-controls">
       <button onClick={onPrevious}>Previous</button>
-      <button onClick={onPlayPause}>
-        {isPlaying ? 'Pause' : 'Play'}
-      </button>
+      <button onClick={onPlayPause}>{isPlaying ? "Pause" : "Play"}</button>
       <button onClick={onNext}>Next</button>
       <button onClick={onShuffle}>Shuffle</button>
     </div>
   );
 };
 
-export default PlaylistControls; 
+export default PlaylistControls;

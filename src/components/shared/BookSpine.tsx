@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface BookSpineProps {
   title: string;
@@ -14,7 +14,7 @@ interface BookSpineProps {
 export const BookSpine: React.FC<BookSpineProps> = ({
   title,
   author,
-  color = 'bg-amber-700',
+  color = "bg-amber-700",
   width = 40,
   height = 200,
   onClick,
@@ -44,8 +44,8 @@ export const BookSpine: React.FC<BookSpineProps> = ({
         className={`absolute inset-0 ${color} rounded-r shadow-lg cursor-pointer
                    transition-all duration-300 origin-left
                    hover:shadow-xl
-                   ${isHovered ? 'translate-x-2' : ''}
-                   ${isPulled ? 'translate-x-8 rotate-y-12' : ''}`}
+                   ${isHovered ? "translate-x-2" : ""}
+                   ${isPulled ? "translate-x-8 rotate-y-12" : ""}`}
       >
         {/* Book spine content */}
         <div className="h-full flex flex-col items-center justify-center p-2">
@@ -71,4 +71,4 @@ export const BookSpine: React.FC<BookSpineProps> = ({
       </div>
     </div>
   );
-}; 
+};

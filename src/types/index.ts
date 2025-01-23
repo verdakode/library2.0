@@ -13,20 +13,20 @@ export interface Model3D {
   description?: string;
   src: string;
   thumbnail?: string;
-  category: 'character' | 'environment';
+  category: "character" | "environment";
 }
 
 export interface Document {
   id: string;
   title: string;
   author?: string;
-  type: 'article' | 'transcript';
+  type: "article" | "transcript";
   content: string;
   dateCreated: Date;
   lastModified: Date;
 }
 
-export type AssetType = 'audio' | 'model' | 'image' | 'document';
+export type AssetType = "audio" | "model" | "image" | "document";
 
 export interface Asset {
   id: string;
@@ -36,4 +36,4 @@ export interface Asset {
   metadata: Record<string, unknown>;
   dateAdded: Date;
   lastAccessed?: Date;
-} 
+}

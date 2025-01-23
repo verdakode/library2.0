@@ -1,7 +1,7 @@
 interface AssetMetadata {
   name: string;
   path: string;
-  type: 'audio' | 'model' | 'image' | 'document';
+  type: "audio" | "model" | "image" | "document";
   size?: number;
   lastModified?: number;
 }
@@ -10,9 +10,9 @@ export const loadAssetMetadata = async (path: string): Promise<AssetMetadata> =>
   try {
     const response = await fetch(path);
     const blob = await response.blob();
-    
+
     return {
-      name: path.split('/').pop() || '',
+      name: path.split("/").pop() || "",
       path,
       type: getAssetType(path),
       size: blob.size,
@@ -23,32 +23,32 @@ export const loadAssetMetadata = async (path: string): Promise<AssetMetadata> =>
   }
 };
 
-export const getAssetType = (path: string): AssetMetadata['type'] => {
-  const extension = path.split('.').pop()?.toLowerCase() || '';
-  
-  const typeMap: Record<string, AssetMetadata['type']> = {
-    mp3: 'audio',
-    wav: 'audio',
-    ogg: 'audio',
-    gltf: 'model',
-    glb: 'model',
-    obj: 'model',
-    png: 'image',
-    jpg: 'image',
-    jpeg: 'image',
-    pdf: 'document',
-    doc: 'document',
-    docx: 'document',
+export const getAssetType = (path: string): AssetMetadata["type"] => {
+  const extension = path.split(".").pop()?.toLowerCase() || "";
+
+  const typeMap: Record<string, AssetMetadata["type"]> = {
+    mp3: "audio",
+    wav: "audio",
+    ogg: "audio",
+    gltf: "model",
+    glb: "model",
+    obj: "model",
+    png: "image",
+    jpg: "image",
+    jpeg: "image",
+    pdf: "document",
+    doc: "document",
+    docx: "document",
   };
 
-  return typeMap[extension] || 'document';
+  return typeMap[extension] || "document";
 };
 
 export const preloadAsset = async (path: string): Promise<void> => {
   const type = getAssetType(path);
-  
+
   switch (type) {
-    case 'image':
+    case "image":
       await new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = resolve;
@@ -56,7 +56,7 @@ export const preloadAsset = async (path: string): Promise<void> => {
         img.src = path;
       });
       break;
-    case 'audio':
+    case "audio":
       await new Promise((resolve, reject) => {
         const audio = new Audio();
         audio.oncanplaythrough = resolve;
@@ -67,4 +67,4 @@ export const preloadAsset = async (path: string): Promise<void> => {
     default:
       await fetch(path);
   }
-}; 
+};

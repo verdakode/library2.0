@@ -12,11 +12,5 @@
       }
     }
   ],
-  "categories": [
-    "web",
-    "mobile",
-    "data",
-    "art",
-    "research"
-  ]
-} 
+  "categories": ["web", "mobile", "data", "art", "research"]
+}

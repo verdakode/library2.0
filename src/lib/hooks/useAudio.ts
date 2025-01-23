@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 interface UseAudioProps {
   src: string;
@@ -26,11 +26,11 @@ export const useAudio = ({ src, autoPlay = false }: UseAudioProps): UseAudioRetu
       audioRef.current = audio;
     }
 
-    audio.addEventListener('loadedmetadata', () => {
+    audio.addEventListener("loadedmetadata", () => {
       setDuration(audio.duration);
     });
 
-    audio.addEventListener('timeupdate', () => {
+    audio.addEventListener("timeupdate", () => {
       setCurrentTime(audio.currentTime);
     });
 
@@ -75,4 +75,4 @@ export const useAudio = ({ src, autoPlay = false }: UseAudioProps): UseAudioRetu
   };
 };
 
-export default useAudio; 
+export default useAudio;

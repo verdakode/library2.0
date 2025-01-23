@@ -1,5 +1,5 @@
-import React from 'react';
-import { BookSpine } from './BookSpine';
+import React from "react";
+import { BookSpine } from "./BookSpine";
 
 interface Book {
   id: string;
@@ -13,11 +13,7 @@ interface ShelfSectionProps {
   onBookClick: (bookId: string) => void;
 }
 
-export const ShelfSection: React.FC<ShelfSectionProps> = ({
-  title,
-  books,
-  onBookClick,
-}) => {
+export const ShelfSection: React.FC<ShelfSectionProps> = ({ title, books, onBookClick }) => {
   return (
     <div className="mb-8">
       <h2 className="text-2xl font-semibold text-amber-900 mb-4">{title}</h2>
@@ -35,4 +31,4 @@ export const ShelfSection: React.FC<ShelfSectionProps> = ({
       </div>
     </div>
   );
-}; 
+};

@@ -4,25 +4,26 @@
 
 :root {
   /* Library color palette */
-  --wood-dark: #2B1810;    /* Deep mahogany */
-  --wood-medium: #5E3023;  /* Rich walnut */
-  --wood-light: #8B4513;   /* Warm oak */
-  --parchment: #F5E6D3;    /* Warm cream */
-  --leather-dark: #2C1810; /* Dark leather */
+  --wood-dark: #2b1810; /* Deep mahogany */
+  --wood-medium: #5e3023; /* Rich walnut */
+  --wood-light: #8b4513; /* Warm oak */
+  --parchment: #f5e6d3; /* Warm cream */
+  --leather-dark: #2c1810; /* Dark leather */
   --leather-medium: #703624; /* Aged leather */
-  --leather-light: #A65D37;  /* Cognac leather */
-  --book-brown1: #3C2A21;  /* Deep brown */
-  --book-brown2: #513B2C;  /* Rich brown */
-  --book-brown3: #7D5A50;  /* Medium brown */
-  --book-red: #8B3A3A;     /* Subdued red */
-  --book-green: #4A5D4B;   /* Forest green */
-  --book-blue: #394756;    /* Navy blue */
-  --book-burgundy: #6B4449; /* Deep burgundy */
+  --leather-light: #a65d37; /* Cognac leather */
+  --book-brown1: #3c2a21; /* Deep brown */
+  --book-brown2: #513b2c; /* Rich brown */
+  --book-brown3: #7d5a50; /* Medium brown */
+  --book-red: #8b3a3a; /* Subdued red */
+  --book-green: #4a5d4b; /* Forest green */
+  --book-blue: #394756; /* Navy blue */
+  --book-burgundy: #6b4449; /* Deep burgundy */
   --shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* Base styles to prevent white borders */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: var(--wood-dark);
@@ -33,8 +34,7 @@ html, body {
 /* Custom utility classes */
 .library-wall {
   background-color: var(--wood-dark);
-  background-image: 
-    linear-gradient(90deg, var(--shadow) 0px, transparent 1px),
+  background-image: linear-gradient(90deg, var(--shadow) 0px, transparent 1px),
     linear-gradient(var(--shadow) 0px, transparent 1px);
   background-size: 20px 20px;
 }
@@ -86,21 +86,27 @@ html, body {
   position: relative;
   transform-style: preserve-3d;
   /* Shelf boards */
-  background-image: 
-    linear-gradient(0deg, var(--wood-dark) 0%, var(--wood-dark) 2px, transparent 2px),
+  background-image: linear-gradient(
+      0deg,
+      var(--wood-dark) 0%,
+      var(--wood-dark) 2px,
+      transparent 2px
+    ),
     linear-gradient(0deg, var(--wood-dark) 0%, var(--wood-dark) 2px, transparent 2px);
   background-size: 100% 50%;
-  background-position: 0 0, 0 bottom;
+  background-position:
+    0 0,
+    0 bottom;
   background-repeat: no-repeat;
 }
 /* Specific styles for center wall */
 .bookshelf-wall.center {
-  gap: 0.9rem;  /* Reduced gap between shelves */
-  padding: 1.5rem;  /* Slightly reduced padding */
+  gap: 0.9rem; /* Reduced gap between shelves */
+  padding: 1.5rem; /* Slightly reduced padding */
 }
 
 .bookshelf-wall.center .bookshelf-unit {
-  height: 200px;  /* Reduced height from 250px */
+  height: 200px; /* Reduced height from 250px */
 }
 
 .bookshelf-wall.center .book-row {
@@ -108,12 +114,12 @@ html, body {
 }
 
 .bookshelf-wall.center .book-spine {
-  font-size: 0.5rem;  /* Slightly smaller font for book spines */
+  font-size: 0.5rem; /* Slightly smaller font for book spines */
 }
 
 .bookshelf-unit h2 {
   color: var(--parchment);
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
   text-decoration: none;
@@ -135,7 +141,7 @@ html, body {
 
 .bookshelf-unit p {
   color: var(--parchment);
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 0.75rem;
   text-decoration: none;
   opacity: 0.8;
@@ -155,13 +161,13 @@ html, body {
 }
 
 .bookshelf-unit::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: 
+  box-shadow:
     inset 0 10px 20px -10px var(--shadow),
     inset 0 -10px 20px -10px var(--shadow);
   pointer-events: none;
@@ -198,14 +204,14 @@ html, body {
 
 .book-spine:hover {
   transform: translateX(8px) rotateY(-20deg);
-  box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .book-spine h3 {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   color: var(--parchment);
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 0.6rem;
   line-height: 1;
   text-align: center;
@@ -218,17 +224,18 @@ html, body {
 }
 
 .book-spine::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
-    rgba(0,0,0,0.2) 0%, 
-    rgba(0,0,0,0) 20%, 
-    rgba(0,0,0,0) 80%, 
-    rgba(0,0,0,0.2) 100%
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 80%,
+    rgba(0, 0, 0, 0.2) 100%
   );
 }
 
@@ -257,14 +264,13 @@ html, body {
   right: -25%;
   height: 20vh;
   background-color: var(--wood-medium);
-  background-image: 
-    repeating-linear-gradient(
-      90deg,
-      var(--wood-dark) 0px,
-      var(--wood-dark) 2px,
-      transparent 2px,
-      transparent 30px
-    );
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--wood-dark) 0px,
+    var(--wood-dark) 2px,
+    transparent 2px,
+    transparent 30px
+  );
   transform: rotateX(45deg);
   transform-origin: bottom;
   z-index: 1;

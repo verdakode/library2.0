@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface AudioPlayerProps {
   src: string;
@@ -17,4 +17,4 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title }) => {
   );
 };
 
-export default AudioPlayer; 
+export default AudioPlayer;

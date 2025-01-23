@@ -12,11 +12,7 @@ export const metadata: Metadata = {
   description: "A personal digital library organizing life, projects, and thoughts",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={playfair.className}>
       <body className="antialiased">{children}</body>

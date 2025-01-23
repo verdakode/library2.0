@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useState, useEffect } from "react";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 interface UseModelReturn {
   model: GLTF | null;
@@ -33,4 +33,4 @@ export const useModel = (modelPath: string): UseModelReturn => {
   return { model, loading, error };
 };
 
-export default useModel; 
+export default useModel;

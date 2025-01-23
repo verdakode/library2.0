@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface SignatureFormProps {
   onSubmit: (signature: { name: string; message: string; date: string }) => void;
 }
 
 export const SignatureForm: React.FC<SignatureFormProps> = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +20,8 @@ export const SignatureForm: React.FC<SignatureFormProps> = ({ onSubmit }) => {
       date: new Date().toISOString(),
     });
 
-    setName('');
-    setMessage('');
+    setName("");
+    setMessage("");
   };
 
   return (
@@ -65,4 +65,4 @@ export const SignatureForm: React.FC<SignatureFormProps> = ({ onSubmit }) => {
       </button>
     </form>
   );
-}; 
+};
