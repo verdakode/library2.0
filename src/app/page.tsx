@@ -1,10 +1,5 @@
-import React from "react";
-import { LibraryEntrance } from "@/components/entrance/LibraryEntrance";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className="h-screen w-screen">
-      <LibraryEntrance />
-    </main>
-  );
+  redirect("/entrance");
 }

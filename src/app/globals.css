@@ -246,12 +246,13 @@ body {
 
 /* Lighting effects */
 .room-lighting {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: radial-gradient(
-    circle at 50% 0%,
-    rgba(255, 248, 220, 0.15) 0%,
-    rgba(74, 59, 39, 0.3) 100%
+    ellipse at 50% 0%,
+    rgba(255, 248, 220, 0.3) 0%,
+    rgba(74, 59, 39, 0.2) 50%,
+    rgba(0, 0, 0, 0.4) 100%
   );
   pointer-events: none;
   z-index: 2;
@@ -261,8 +262,8 @@ body {
   position: fixed;
   bottom: -5vh;
   left: -25%;
-  right: -25%;
-  height: 20vh;
+  right: -30%;
+  height: 40vh;
   background-color: var(--wood-medium);
   background-image: repeating-linear-gradient(
     90deg,
@@ -278,4 +279,679 @@ body {
 
 .bookshelf-wall.center .book-spine h3 {
   font-size: 0.5rem;
+}
+
+/* Base door styles */
+.door-container {
+  position: absolute;
+  top: 45%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Left Door */
+.left-door {
+  left: -30%;
+  transform: translate(-50%, -50%) rotateY(89deg) translateZ(700px);
+  width: 350px;
+  height: 600px;
+}
+
+.left-door .door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
+  border-radius: 8px;
+  transition: transform 1s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 10;
+  border: 4px solid #A0522D;
+}
+
+.left-door.door-open .door {
+  transform: rotateY(-105deg) translateX(-20px);
+  transform-origin: left;
+}
+
+/* Center Door */
+.center-door {
+  left: 50%;
+  transform: translate(-50%, -57%) translateZ(-1500px);
+  width: 500px;
+  height: 850px;
+}
+
+.center-door .door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
+  border-radius: 8px;
+  transition: transform 1s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 10;
+  border: 4px solid #A0522D;
+}
+
+.center-door.door-open .door {
+  transform: rotateY(-105deg) translateX(-20px);
+  transform-origin: left;
+}
+
+/* Right Door */
+.right-door {
+  left: 90%;
+  transform: translate(-50%, -50%) rotateY(-88deg) translateZ(49px);
+  width: 350px;
+  height: 600px;
+}
+
+.right-door .door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
+  border-radius: 8px;
+  transition: transform 1s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 20;
+  border: 4px solid #A0522D;
+}
+
+.right-door.door-open .door {
+  transform: rotateY(-105deg) translateX(-20px);
+  transform-origin: left;
+}
+
+/* Door handle and panel styles */
+.door-handle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 15px;
+  height: 50px;
+  background: #CD853F;
+  border-radius: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #DEB887;
+}
+
+/* Left door handle position */
+.left-door .door-handle {
+  right: auto;
+  left: 20px;
+}
+
+.door-panel {
+  position: absolute;
+  inset: 40px;
+  border: 2px solid #DEB887;
+  border-radius: 4px;
+  opacity: 0.6;
+  pointer-events: none;
+  background: linear-gradient(to bottom right, rgba(222, 184, 135, 0.1), transparent);
+}
+
+.door-title {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--parchment);
+  font-family: "Playfair Display", serif;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px var(--shadow);
+  opacity: 0.9;
+}
+
+/* Door Styles */
+.rotate-y-30 {
+  transform: rotateY(-30deg);
+}
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.-translate-z-2 {
+  transform: translateZ(-2px);
+}
+
+/* Entrance Room Styles */
+.entrance-room {
+  position: fixed;
+  inset: 0;
+  background: var(--wood-dark);
+  overflow: hidden;
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hallway Styles */
+.hallway {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: hallwayEntrance 1s ease-out forwards;
+}
+
+@keyframes hallwayEntrance {
+  from {
+    transform: translateZ(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+/* Hallway walls */
+.hallway-wall {
+  position: absolute;
+  background: linear-gradient(to bottom, #8B4513, #654321);
+  box-shadow: 
+    inset 0 0 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 100px rgba(222, 184, 135, 0.1);
+  border: 4px solid #A0522D;
+}
+
+.hallway-wall.left {
+  left: -29.3%;
+  top: -50%;
+  bottom: -20%;
+  width: 2000px;
+  transform: rotateY(88deg) translateX(-1300px);
+  background-image: 
+    linear-gradient(90deg, rgba(139, 69, 19, 0.5) 1px, transparent 1px),
+    linear-gradient(rgba(139, 69, 19, 0.5) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+.hallway-wall.right {
+  right: -29.3%;
+  top: -50%;
+  bottom: -20%;
+  width: 2000px;
+  transform: rotateY(-88deg) translateX(1300px);
+  background-image: 
+    linear-gradient(90deg, rgba(139, 69, 19, 0.5) 1px, transparent 1px),
+    linear-gradient(rgba(139, 69, 19, 0.5) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+.hallway-wall.back {
+  left: -9%;
+  right: -9%;
+  top: -67%;
+  bottom: -5%;
+  transform: translateZ(-2000px);
+  background: linear-gradient(to bottom, #654321, #3d2914);
+  background-image: 
+    linear-gradient(90deg, rgba(139, 69, 19, 0.5) 1px, transparent 1px),
+    linear-gradient(rgba(139, 69, 19, 0.5) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+/* Ceiling */
+.hallway-ceiling {
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  top: -60%;
+  height: 2500px;
+  transform: rotateX(-89deg);
+  transform-origin: top;
+  background: linear-gradient(to bottom, #8B4513, #654321);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 100px rgba(0, 0, 0, 0.3);
+  background-image: 
+    linear-gradient(90deg, rgba(139, 69, 19, 0.5) 1px, transparent 1px),
+    linear-gradient(rgba(139, 69, 19, 0.5) 1px, transparent 1px);
+  background-size: 100px 100px;
+  border: 4px solid #A0522D;
+  pointer-events: none;
+}
+
+/* Floor with tiles */
+.hallway-floor {
+  position: absolute;
+  left: -15%;
+  right: -15%;
+  bottom: 0;
+  height: 2400px;
+  transform: rotateX(89deg);
+  transform-origin: bottom;
+  background-color: #8B4513;
+  background-image: 
+    linear-gradient(90deg, #DEB887 1px, transparent 1px),
+    linear-gradient(#DEB887 1px, transparent 1px);
+  background-size: 100px 100px;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Welcome text positioning and styling */
+.welcome-text {
+  position: absolute;
+  top: -2%;
+  left: 50%;
+  transform: translate(-50%, 0) translateZ(-200px);
+  text-align: center;
+  z-index: 10;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  cursor: default;
+}
+
+.welcome-text h1 {
+  font-family: "Cinzel", serif;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+  background: linear-gradient(45deg, #FFE5B4, #DEB887, #FFE5B4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(222, 184, 135, 0.2);
+  font-weight: 600;
+}
+
+.welcome-text p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.3em;
+  color: #DEB887;
+  text-transform: uppercase;
+  opacity: 0;
+  margin-top: 0.5rem;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(222, 184, 135, 0.3);
+  font-style: italic;
+  font-weight: 500;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+}
+
+.welcome-text:hover p {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
+/* Study Room Styles */
+.study-room {
+  position: fixed;
+  inset: 0;
+  background: var(--wood-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.study-area {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.desk {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+}
+
+.desk-surface {
+  position: absolute;
+  inset: 0;
+  background: var(--wood-medium);
+  border-radius: 4px;
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+.desk-lamp {
+  position: absolute;
+  top: -100px;
+  right: 20px;
+  width: 40px;
+  height: 120px;
+  background: var(--leather-dark);
+}
+
+.desk-items {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  right: 80px;
+  height: 40px;
+  display: flex;
+  gap: 20px;
+}
+
+.book-stack {
+  width: 80px;
+  height: 100%;
+  background: var(--leather-medium);
+  box-shadow: 2px 2px 10px var(--shadow);
+}
+
+.notebook {
+  width: 60px;
+  height: 80%;
+  background: var(--parchment);
+  box-shadow: 2px 2px 10px var(--shadow);
+}
+
+.pencil-holder {
+  width: 30px;
+  height: 60%;
+  background: var(--wood-light);
+  border-radius: 15px;
+}
+
+.armchair {
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background: var(--leather-light);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+.window {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 300px;
+}
+
+.window-frame {
+  position: absolute;
+  inset: 0;
+  border: 20px solid var(--wood-medium);
+  border-radius: 10px;
+}
+
+.window-view {
+  position: absolute;
+  inset: 20px;
+  background: linear-gradient(to bottom, #87CEEB, #B0E0E6);
+  opacity: 0.8;
+}
+
+/* Reading Room Styles */
+.reading-room {
+  position: fixed;
+  inset: 0;
+  background: var(--wood-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reading-area {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.reading-nook {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  transform-style: preserve-3d;
+}
+
+.reading-nook.left {
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%) rotateY(15deg);
+}
+
+.reading-nook.center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.reading-nook.right {
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%) rotateY(-15deg);
+}
+
+.sofa {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background: var(--leather-medium);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+.coffee-table {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 100px;
+  background: var(--wood-light);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow);
+}
+
+.fireplace {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 300px;
+}
+
+.mantel {
+  position: absolute;
+  inset: 0;
+  background: var(--wood-medium);
+  border-radius: 10px 10px 0 0;
+}
+
+.fire-glow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 150px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 160, 60, 0.4) 0%,
+    rgba(255, 100, 0, 0.2) 50%,
+    transparent 100%
+  );
+  animation: fireGlow 3s infinite alternate;
+}
+
+@keyframes fireGlow {
+  from {
+    opacity: 0.4;
+    transform: translateX(-50%) scale(0.95);
+  }
+  to {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+/* Art Room Styles */
+.art-room {
+  position: fixed;
+  inset: 0;
+  background: var(--wood-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.art-gallery {
+  position: relative;
+  width: 90%;
+  height: 85vh;
+  margin: 0 auto;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--wood-medium) var(--wood-dark);
+}
+
+.art-gallery::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.art-gallery::-webkit-scrollbar-track {
+  background: var(--wood-dark);
+}
+
+.art-gallery::-webkit-scrollbar-thumb {
+  background-color: var(--wood-medium);
+  border-radius: 4px;
+}
+
+.painting-frame {
+  position: absolute;
+  background: var(--wood-medium);
+  padding: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.painting-frame:hover {
+  transform: scale(1.02);
+}
+
+.painting {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.painting-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Painting Modal */
+.painting-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 2rem;
+}
+
+.painting-modal-content {
+  background: var(--wood-medium);
+  padding: 1rem;
+  border-radius: 4px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+
+.painting-modal-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.painting-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--wood-dark);
+  color: var(--parchment);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.painting-modal-close:hover {
+  background: var(--wood-medium);
+}
+
+/* Ornate door design - simplified */
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 3px double #DEB887;
+  border-radius: 4px;
+  opacity: 0.7;
+}
+
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 35px;
+  border: 2px solid #DEB887;
+  border-radius: 4px;
+  opacity: 0.5;
+  background: linear-gradient(to bottom, 
+    rgba(222, 184, 135, 0.1),
+    rgba(222, 184, 135, 0.05)
+  );
 }
