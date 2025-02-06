@@ -286,132 +286,185 @@ body {
   position: absolute;
   top: 45%;
   transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
   transition: transform 0.3s ease;
-  pointer-events: auto;
-  will-change: transform;
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
-  -moz-backface-visibility: visible;
-  z-index: 10;
+  cursor: pointer;
+  z-index: 1000;
+  pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
+  border-radius: 8px;
+  transition: transform 1s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  border: 4px solid #A0522D;
+  transform-origin: left;
+  pointer-events: none;
 }
 
 /* Left Door */
 .left-door {
   left: -30%;
-  transform: translate3d(-50%, -50%, 0) rotateY(89deg) translateZ(700px);
-  -webkit-transform: translate3d(-50%, -50%, 0) rotateY(89deg) translateZ(700px);
-  -moz-transform: translate3d(-50%, -50%, 0) rotateY(89deg) translateZ(700px);
+  transform: translate(-50%, -50%) rotateY(89deg) translateZ(700px);
   width: 350px;
   height: 600px;
-  z-index: 20;
-}
-
-.left-door .door {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
-  border-radius: 8px;
-  transition: transform 1s ease;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
-  -moz-backface-visibility: visible;
-  cursor: pointer;
-  pointer-events: auto !important;
-  z-index: 20;
-  border: 4px solid #A0522D;
-  transform-origin: left;
-  -webkit-transform-origin: left;
-  -moz-transform-origin: left;
-}
-
-.left-door.door-open .door {
-  transform: rotateY(-105deg) translateX(-20px);
-  -webkit-transform: rotateY(-105deg) translateX(-20px);
-  -moz-transform: rotateY(-105deg) translateX(-20px);
+  z-index: 1001;
 }
 
 /* Center Door */
 .center-door {
   left: 50%;
-  transform: translate3d(-50%, -57%, 0) translateZ(-1500px);
-  -webkit-transform: translate3d(-50%, -57%, 0) translateZ(-1500px);
-  -moz-transform: translate3d(-50%, -57%, 0) translateZ(-1500px);
+  transform: translate(-50%, -57%) translateZ(-1500px);
   width: 500px;
   height: 850px;
-  z-index: 30;
-}
-
-.center-door .door {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
-  border-radius: 8px;
-  transition: transform 1s ease;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
-  -moz-backface-visibility: visible;
-  cursor: pointer;
-  pointer-events: auto !important;
-  z-index: 30;
-  border: 4px solid #A0522D;
-  transform-origin: left;
-  -webkit-transform-origin: left;
-  -moz-transform-origin: left;
-}
-
-.center-door.door-open .door {
-  transform: rotateY(-105deg) translateX(-20px);
-  -webkit-transform: rotateY(-105deg) translateX(-20px);
-  -moz-transform: rotateY(-105deg) translateX(-20px);
+  z-index: 1002;
 }
 
 /* Right Door */
 .right-door {
   left: 90%;
-  transform: translate3d(-50%, -50%, 0) rotateY(-88deg) translateZ(49px);
-  -webkit-transform: translate3d(-50%, -50%, 0) rotateY(-88deg) translateZ(49px);
-  -moz-transform: translate3d(-50%, -50%, 0) rotateY(-88deg) translateZ(49px);
+  transform: translate(-50%, -50%) rotateY(-88deg) translateZ(49px);
   width: 350px;
   height: 600px;
-  z-index: 40;
+  z-index: 1001;
 }
 
-.right-door .door {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
-  border-radius: 8px;
-  transition: transform 1s ease;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
-  -moz-backface-visibility: visible;
+/* Door hitbox styles */
+.door-hitbox {
+  position: fixed;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  pointer-events: auto !important;
-  z-index: 40;
-  border: 4px solid #A0522D;
-  transform-origin: left;
-  -webkit-transform-origin: left;
-  -moz-transform-origin: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  pointer-events: all;
 }
 
-.right-door.door-open .door {
+.door-hitbox:focus {
+  outline: none;
+}
+
+/* Door animations */
+.door-open .door {
   transform: rotateY(-105deg) translateX(-20px);
-  -webkit-transform: rotateY(-105deg) translateX(-20px);
-  -moz-transform: rotateY(-105deg) translateX(-20px);
+}
+
+/* Remove all Firefox-specific overlays and styles */
+.firefox-door-overlay,
+.left-door-overlay,
+.center-door-overlay,
+.right-door-overlay {
+  display: none;
+}
+
+@-moz-document url-prefix() {
+  .door-container {
+    pointer-events: all !important;
+  }
+}
+
+/* Mobile clickable areas */
+.door-clickable-area {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2000;
+  background: transparent;
+  display: none;
+  transform: translate(-50%, -50%);
+  top: 45%;
+}
+
+/* Show clickable areas only on mobile */
+@media (max-width: 768px) {
+  .door-clickable-area {
+    display: block;
+    width: 150px;
+    height: 400px;
+  }
+
+  .door-clickable-area.left {
+    left: 30%;
+    z-index: 2001;
+  }
+
+  .door-clickable-area.center {
+    left: 50%;
+    z-index: 2002;
+    width: 200px;
+    height: 500px;
+  }
+
+  .door-clickable-area.right {
+    left: 70%;
+    z-index: 2001;
+  }
+
+  .left-door {
+    left: -15%;
+    transform: translate(-50%, -50%) rotateY(75deg) translateZ(300px);
+    width: 220px;
+    height: 380px;
+  }
+
+  .center-door {
+    transform: translate(-50%, -57%) translateZ(-600px);
+    width: 280px;
+    height: 450px;
+  }
+
+  .right-door {
+    left: 100%;
+    transform: translate(-50%, -50%) rotateY(-88deg) translateZ(25px);
+    width: 220px;
+    height: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .door-clickable-area {
+    width: 120px;
+    height: 350px;
+  }
+
+  .door-clickable-area.left {
+    left: 35%;
+  }
+
+  .door-clickable-area.center {
+    width: 150px;
+    height: 400px;
+  }
+
+  .door-clickable-area.right {
+    left: 65%;
+  }
+
+  .left-door {
+    left: -35%;
+    width: 180px;
+    height: 320px;
+    transform: translate(-50%, -50%) rotateY(70deg) translateZ(200px);
+  }
+
+  .center-door {
+    width: 220px;
+    height: 380px;
+    transform: translate(-50%, -57%) translateZ(-400px);
+  }
+
+  .right-door {
+    left: 95%;
+    width: 180px;
+    height: 320px;
+    transform: translate(-50%, -50%) rotateY(-75deg) translateZ(20px);
+  }
 }
 
 /* Door handle and panel styles */
@@ -554,99 +607,6 @@ body {
 .welcome-text:hover p {
   opacity: 0.9;
   transform: translateY(0);
-}
-
-/* Mobile responsive styles */
-@media (max-width: 768px) {
-  .door-container {
-    transform-origin: center center;
-  }
-
-  .left-door {
-    left: -15%;
-    transform: translate(-50%, -50%) rotateY(75deg) translateZ(300px);
-    width: 220px;
-    height: 380px;
-  }
-
-  .center-door {
-    left: 50%;
-    transform: translate(-50%, -57%) translateZ(-600px);
-    width: 280px;
-    height: 450px;
-  }
-
-  .right-door {
-    left: 100%;
-    transform: translate(-50%, -50%) rotateY(-88deg) translateZ(25px);
-    width: 220px;
-    height: 380px;
-  }
-
-  .hallway-wall.left {
-    left: -40%;
-    width: 1500px;
-  }
-
-  .hallway-wall.right {
-    right: -40%;
-    width: 1500px;
-  }
-
-  .hallway-wall.back {
-    left: -20%;
-    right: -20%;
-  }
-
-  .welcome-text {
-    width: 90%;
-    padding: 1rem;
-    top: 5%;
-  }
-}
-
-/* Small mobile styles */
-@media (max-width: 480px) {
-  .left-door {
-    left: -35%;
-    width: 180px;
-    height: 320px;
-    transform: translate(-50%, -50%) rotateY(70deg) translateZ(200px);
-  }
-
-  .center-door {
-    width: 220px;
-    height: 380px;
-    transform: translate(-50%, -57%) translateZ(-400px);
-  }
-
-  .right-door {
-    left: 95%;
-    width: 180px;
-    height: 320px;
-    transform: translate(-50%, -50%) rotateY(-75deg) translateZ(20px);
-  }
-
-  .door-title {
-    font-size: 1rem;
-  }
-
-  .welcome-text {
-    padding: 0.5rem;
-  }
-
-  .door-clickable-area {
-    width: 100px;
-    height: 320px;
-  }
-
-  .door-clickable-area.left {
-    left: 15%;
-  }
-
-  .door-clickable-area.right {
-    left: 85%;
-  }
 }
 
 /* Hallway walls */
@@ -1084,60 +1044,6 @@ body {
     rgba(222, 184, 135, 0.1),
     rgba(222, 184, 135, 0.05)
   );
-}
-
-/* Clickable areas */
-.door-clickable-area {
-  position: absolute;
-  cursor: pointer;
-  z-index: 1000;
-  display: none;
-  transform: translate(-50%, -50%);
-  top: 45%;
-}
-
-/* Only show clickable areas on mobile */
-@media (max-width: 768px) {
-  .door-clickable-area {
-    display: block;
-  }
-
-  .door-clickable-area.left {
-    width: 150px;
-    height: 400px;
-    left: 30%;
-  }
-
-  .door-clickable-area.center {
-    width: 200px;
-    height: 500px;
-    left: 50%;
-  }
-
-  .door-clickable-area.right {
-    width: 150px;
-    height: 400px;
-    left: 70%;
-  }
-}
-
-@media (max-width: 480px) {
-  .door-clickable-area.left {
-    width: 120px;
-    height: 350px;
-    left: 35%;
-  }
-
-  .door-clickable-area.center {
-    width: 150px;
-    height: 400px;
-  }
-
-  .door-clickable-area.right {
-    width: 120px;
-    height: 350px;
-    left: 65%;
-  }
 }
 
 /* Large screen styles */
