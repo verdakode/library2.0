@@ -144,9 +144,7 @@ export default function Entrance() {
             pointerEvents: 'all',
             touchAction: 'manipulation',
             WebkitTransformStyle: 'preserve-3d',
-            WebkitBackfaceVisibility: 'hidden',
-            background: 'rgba(255, 0, 0, 0.3)',
-            border: '2px solid red'
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
 

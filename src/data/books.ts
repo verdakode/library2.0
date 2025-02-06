@@ -33,195 +33,177 @@ export const SHELF_BOOKS: ShelfBooks = {
   "000": [
     {
       id: "000-1",
-      title: "Life Chronicles: Volume I",
-      content: `# Life Chronicles: Volume I
-
-## Personal History and Memories
-A comprehensive collection of life events, milestones, and memories.
-
-### Chapters
-1. Early Years
-2. Family History
-3. Educational Journey
-4. Career Path
-5. Major Life Events
-
-*Includes photographs and personal memorabilia*`,
+      title: "Personal Memoirs Vol. I",
+      content: `# Personal Memoirs Volume I: Early Years
+A chronological documentation of formative experiences and early development.`,
       color: BOOK_COLORS[0]
     },
+    {
+      id: "000-2",
+      title: "Photographic Records",
+      content: `# Photographic Documentation
+A curated collection of visual historical records and significant moments.`,
+      color: BOOK_COLORS[1]
+    },
+    {
+      id: "000-3",
+      title: "Family Records",
+      content: `# Family Historical Documentation
+Genealogical records and family historical documentation.`,
+      color: BOOK_COLORS[2]
+    }
   ],
   "100": [
     {
       id: "100-1",
-      title: "Dreams & Aspirations",
-      content: `# Dreams & Aspirations
-
-## Personal Goals and Future Plans
-A living document of hopes, dreams, and concrete plans for the future.
-
-### Contents
-1. Life Goals
-2. Career Aspirations
-3. Personal Development
-4. Future Projects
-5. Travel Plans`,
-      color: BOOK_COLORS[1]
+      title: "Strategic Planning",
+      content: `# Strategic Life Planning
+Documentation of long-term objectives and methodological approaches.`,
+      color: BOOK_COLORS[3]
     },
+    {
+      id: "100-2",
+      title: "Growth Analysis",
+      content: `# Personal Development Analysis
+Systematic review of growth trajectories and milestone achievements.`,
+      color: BOOK_COLORS[4]
+    }
   ],
   "200": [
     {
       id: "200-1",
-      title: "Inspiring Individuals",
-      content: `# Inspiring Individuals
-
-## Profiles of Notable People
-Collection of stories and insights about people who have made an impact.
-
-### Featured Profiles
-- Innovators
-- Mentors
-- Leaders
-- Artists
-- Scientists`,
-      color: BOOK_COLORS[2]
+      title: "Influence Analysis",
+      content: `# Analysis of Notable Influences
+Detailed studies of significant figures and their impact.`,
+      color: BOOK_COLORS[5]
     },
+    {
+      id: "200-2",
+      title: "Mentor Documentation",
+      content: `# Mentorship Records
+Documentation of guidance and influential relationships.`,
+      color: BOOK_COLORS[6]
+    }
   ],
   "300": [
     {
       id: "300-1",
-      title: "Project Portfolio",
-      content: `# Project Portfolio
-
-## Complete Project Archives
-Comprehensive documentation of all projects undertaken.
-
-### Categories
-1. Personal Projects
-2. Professional Work
-3. Collaborative Efforts
-4. Research Projects
-5. Creative Works`,
-      color: BOOK_COLORS[3]
+      title: "Project Specifications",
+      content: `# Technical Project Specifications
+Detailed documentation of project parameters and outcomes.`,
+      color: BOOK_COLORS[7]
     },
+    {
+      id: "300-2",
+      title: "Research Records",
+      content: `# Research Documentation
+Comprehensive records of research methodologies and findings.`,
+      color: BOOK_COLORS[8]
+    }
   ],
   "400": [
     {
       id: "400-1",
-      title: "Tips & Techniques",
-      content: `# Tips & Techniques
-
-## Collected Knowledge
-A compilation of useful methods, tricks, and solutions.
-
-### Topics
-1. Problem-Solving Approaches
-2. Technical Solutions
-3. Life Hacks
-4. Professional Tips
-5. Learning Methods`,
-      color: BOOK_COLORS[4]
+      title: "Technical Procedures",
+      content: `# Procedural Documentation
+Systematic documentation of technical methodologies.`,
+      color: BOOK_COLORS[9]
     },
+    {
+      id: "400-2",
+      title: "Solution Archives",
+      content: `# Problem-Solving Records
+Archive of technical solutions and methodological approaches.`,
+      color: BOOK_COLORS[10]
+    }
   ],
   "500": [
     {
       id: "500-1",
-      title: "Michigan Chronicles",
-      content: `# Michigan Chronicles
-
-## State History and Culture
-Exploration of Michigan's heritage and personal connections.
-
-### Sections
-1. Local History
-2. Cultural Heritage
-3. Notable Locations
-4. Personal Experiences
-5. Community Stories`,
-      color: BOOK_COLORS[5]
+      title: "Michigan Historical Record",
+      content: `# Michigan Historical Documentation
+Comprehensive study of regional history and development.`,
+      color: BOOK_COLORS[11]
     },
+    {
+      id: "500-2",
+      title: "Local Cultural Studies",
+      content: `# Cultural Documentation
+Analysis of local customs and community development.`,
+      color: BOOK_COLORS[12]
+    }
   ],
   "600": [
     {
       id: "600-1",
-      title: "Personal Library",
-      content: `# Personal Library
-
-## Reading Collection
-Catalog of books, reviews, and reading experiences.
-
-### Contents
-1. Book List
-2. Reading Notes
-3. Favorite Quotes
-4. Reviews
-5. Reading Goals`,
-      color: BOOK_COLORS[6]
+      title: "Literary Catalog",
+      content: `# Literary Collection Documentation
+Systematic catalog of literary acquisitions and analyses.`,
+      color: BOOK_COLORS[13]
     },
+    {
+      id: "600-2",
+      title: "Reading Records",
+      content: `# Reading Documentation
+Chronological documentation of literary consumption and review.`,
+      color: BOOK_COLORS[14]
+    }
   ],
   "700": [
     {
       id: "700-1",
-      title: "Health Records",
+      title: "Medical Documentation",
       content: `# Health Records
-
-## Personal Health Documentation
-Comprehensive health and wellness information.
-
-### Sections
-1. Medical History
-2. Fitness Journey
-3. Wellness Goals
-4. Health Tracking
-5. Medical References`,
-      color: BOOK_COLORS[7]
+Systematic documentation of medical history and wellness data.`,
+      color: BOOK_COLORS[0]
     },
+    {
+      id: "700-2",
+      title: "Wellness Records",
+      content: `# Wellness Documentation
+Records of physical maintenance and health optimization.`,
+      color: BOOK_COLORS[1]
+    }
   ],
   "800": [
     {
       id: "800-1",
-      title: "3D Printing Guide",
-      content: `# 3D Printing Guide
-
-## Technical Documentation
-Comprehensive guide to 3D printing technology and projects.`,
-      color: BOOK_COLORS[8]
+      title: "Additive Manufacturing",
+      content: `# 3D Printing Technical Documentation
+Comprehensive documentation of additive manufacturing processes.`,
+      color: BOOK_COLORS[2]
     },
     {
       id: "800-2",
-      title: "Robotics Manual",
-      content: `# Robotics Manual
-
-## Project Documentation
-Collection of robotics projects and technical knowledge.`,
-      color: BOOK_COLORS[9]
+      title: "Robotics Systems",
+      content: `# Robotics Technical Documentation
+Systematic documentation of robotics development and implementation.`,
+      color: BOOK_COLORS[3]
     },
     {
       id: "800-3",
-      title: "Programming Reference",
-      content: `# Programming Reference
-
-## Code Documentation
-Programming languages, projects, and technical notes.`,
-      color: BOOK_COLORS[10]
-    },
+      title: "Programming Documentation",
+      content: `# Software Development Records
+Technical documentation of programming methodologies and implementations.`,
+      color: BOOK_COLORS[4]
+    }
   ],
   "900": [
     {
       id: "900-1",
-      title: "Guest Book",
-      content: `# Guest Book
-
-## Visitor Registry
-A collection of signatures and messages from visitors.
-
-### Contents
-- Visitor Signatures
-- Messages
-- Dates
-- Special Notes`,
-      color: BOOK_COLORS[11]
+      title: "Visitor Documentation",
+      content: `# Visitor Records
+Chronological documentation of visitation and guest entries.`,
+      color: BOOK_COLORS[5]
     },
-  ],
+    {
+      id: "900-2",
+      title: "Guest Registry",
+      content: `# Guest Registration Records
+Formal documentation of visitor signatures and messages.`,
+      color: BOOK_COLORS[6]
+    }
+  ]
 };
 
 // Helper function to get random book color
