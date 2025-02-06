@@ -95,31 +95,11 @@ export default function Entrance() {
 
         {/* Manual clickable areas for side doors */}
         <div 
-          style={{
-            position: 'absolute',
-            width: '180px',
-            height: '550px',
-            left: '10%',
-            top: '45%',
-            transform: 'translate(-50%, -50%)',
-            background: 'transparent',
-            cursor: 'pointer',
-            zIndex: 1000
-          }}
+          className="door-clickable-area left"
           onClick={handleLeftDoor}
         />
         <div 
-          style={{
-            position: 'absolute',
-            width: '180px',
-            height: '550px',
-            left: '88%',
-            top: '45%',
-            transform: 'translate(-50%, -50%)',
-            background: 'transparent',
-            cursor: 'pointer',
-            zIndex: 1000
-          }}
+          className="door-clickable-area right"
           onClick={handleRightDoor}
         />
 
@@ -134,7 +114,7 @@ export default function Entrance() {
           {/* Welcome Text */}
           <div className="welcome-text">
             <h1>The Quantum Libris</h1>
-            <p>To read the lines</p>
+            <p>Reading Between the Lines</p>
           </div>
 
           {/* Three Doors */}

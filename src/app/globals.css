@@ -571,7 +571,7 @@ body {
 
 .welcome-text h1 {
   font-family: "Cinzel", serif;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 4.5rem);
   margin-bottom: 0.5rem;
   letter-spacing: 0.1em;
   background: linear-gradient(45deg, #FFE5B4, #DEB887, #FFE5B4);
@@ -586,7 +586,7 @@ body {
 
 .welcome-text p {
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.6rem;
+  font-size: clamp(1rem, 3vw, 1.6rem);
   letter-spacing: 0.3em;
   color: #DEB887;
   text-transform: uppercase;
@@ -604,6 +604,99 @@ body {
 .welcome-text:hover p {
   opacity: 0.9;
   transform: translateY(0);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .door-container {
+    transform-origin: center center;
+  }
+
+  .left-door {
+    left: -15%;
+    transform: translate(-50%, -50%) rotateY(75deg) translateZ(300px);
+    width: 220px;
+    height: 380px;
+  }
+
+  .center-door {
+    left: 50%;
+    transform: translate(-50%, -57%) translateZ(-600px);
+    width: 280px;
+    height: 450px;
+  }
+
+  .right-door {
+    left: 100%;
+    transform: translate(-50%, -50%) rotateY(-88deg) translateZ(25px);
+    width: 220px;
+    height: 380px;
+  }
+
+  .hallway-wall.left {
+    left: -40%;
+    width: 1500px;
+  }
+
+  .hallway-wall.right {
+    right: -40%;
+    width: 1500px;
+  }
+
+  .hallway-wall.back {
+    left: -20%;
+    right: -20%;
+  }
+
+  .welcome-text {
+    width: 90%;
+    padding: 1rem;
+    top: 5%;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .left-door {
+    left: -35%;
+    width: 180px;
+    height: 320px;
+    transform: translate(-50%, -50%) rotateY(70deg) translateZ(200px);
+  }
+
+  .center-door {
+    width: 220px;
+    height: 380px;
+    transform: translate(-50%, -57%) translateZ(-400px);
+  }
+
+  .right-door {
+    left: 95%;
+    width: 180px;
+    height: 320px;
+    transform: translate(-50%, -50%) rotateY(-75deg) translateZ(20px);
+  }
+
+  .door-title {
+    font-size: 1rem;
+  }
+
+  .welcome-text {
+    padding: 0.5rem;
+  }
+
+  .door-clickable-area {
+    width: 100px;
+    height: 320px;
+  }
+
+  .door-clickable-area.left {
+    left: 15%;
+  }
+
+  .door-clickable-area.right {
+    left: 85%;
+  }
 }
 
 /* Study Room Styles */
@@ -954,4 +1047,54 @@ body {
     rgba(222, 184, 135, 0.1),
     rgba(222, 184, 135, 0.05)
   );
+}
+
+/* Clickable areas */
+.door-clickable-area {
+  position: absolute;
+  width: 180px;
+  height: 450px;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.door-clickable-area.left {
+  left: 10%;
+}
+
+.door-clickable-area.right {
+  left: 88%;
+}
+
+@media (max-width: 768px) {
+  .door-clickable-area {
+    width: 150px;
+    height: 400px;
+  }
+
+  .door-clickable-area.left {
+    left: 5%;
+  }
+
+  .door-clickable-area.right {
+    left: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .door-clickable-area {
+    width: 120px;
+    height: 350px;
+  }
+
+  .door-clickable-area.left {
+    left: 2%;
+  }
+
+  .door-clickable-area.right {
+    left: 98%;
+  }
 }
