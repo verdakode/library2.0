@@ -2,78 +2,19 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-
-const shelves = [
-  {
-    id: "000",
-    name: "Generalities",
-    description: "Tools, Hacks, General Knowledge",
-    color: "from-[#4A3B27] to-[#785C38]",
-  },
-  {
-    id: "100",
-    name: "Philosophy",
-    description: "Personal Philosophy, Life Events",
-    color: "from-[#5C4033] to-[#8B4513]",
-  },
-  {
-    id: "200",
-    name: "Spirituality",
-    description: "Personal Growth, Meditation",
-    color: "from-[#785C38] to-[#C4A484]",
-  },
-  {
-    id: "300",
-    name: "Social",
-    description: "Guestbook, Social Connections",
-    color: "from-[#8B4513] to-[#D2691E]",
-  },
-  {
-    id: "400",
-    name: "Language",
-    description: "Writing, Blog Posts",
-    color: "from-[#4A3B27] to-[#785C38]",
-  },
-  {
-    id: "500",
-    name: "Science",
-    description: "Health Tracking, Data",
-    color: "from-[#5C4033] to-[#8B4513]",
-  },
-  {
-    id: "600",
-    name: "Technology",
-    description: "Tech Projects Archive",
-    color: "from-[#785C38] to-[#C4A484]",
-  },
-  {
-    id: "700",
-    name: "Arts",
-    description: "Media Consumption, Creative Works",
-    color: "from-[#8B4513] to-[#D2691E]",
-  },
-  {
-    id: "800",
-    name: "Literature",
-    description: "Reading List, Book Notes",
-    color: "from-[#4A3B27] to-[#785C38]",
-  },
-  {
-    id: "900",
-    name: "History",
-    description: "Personal Timeline, Memory Archive",
-    color: "from-[#5C4033] to-[#8B4513]",
-  },
-];
+import { SHELF_BOOKS } from '@/data/books';
+import { shelves } from '@/data/shelves';
 
 export default function BookPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [shelfId, bookNumber] = params.id.split('-');
   
-  const shelf = shelves.find((s: { id: string }) => s.id === shelfId);
+  const shelf = shelves.find(s => s.id === shelfId);
   if (!shelf) return null;
 
-  const bookContent = {
+  const shelfBooks = SHELF_BOOKS[shelfId] || [];
+  const bookIndex = parseInt(bookNumber) - 1;
+  const book = shelfBooks[bookIndex] || {
     title: `${shelf.name} - Volume ${bookNumber}`,
     content: `# ${shelf.name} - Volume ${bookNumber}
 
@@ -112,10 +53,10 @@ ${shelf.description}
              }}>
           <div className="prose prose-lg max-w-none">
             <h1 className="text-4xl font-bold text-[#2B1810] mb-8 pb-4 border-b border-[#2B1810]/20">
-              {bookContent.title}
+              {book.title}
             </h1>
             <div className="text-[#2B1810] leading-relaxed whitespace-pre-wrap markdown-content">
-              {bookContent.content}
+              {book.content}
             </div>
           </div>
         </div>

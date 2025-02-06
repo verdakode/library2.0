@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { SHELF_BOOKS, getRandomBookColor } from '@/data/books';
 
 const shelves = [
   {
@@ -172,6 +173,7 @@ ${shelf.description}
 const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
   const router = useRouter();
   const isCenter = position === "center";
+  const shelfBooks = SHELF_BOOKS[shelf.id] || [];
 
   const handleBookClick = (index: number) => {
     router.push(`/books/${shelf.id}-${index + 1}`);
@@ -191,33 +193,43 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
         zIndex: 1000,
         transformStyle: 'preserve-3d'
       }}>
-        {[...Array(5)].map((_, i) => (
-          <button
-            key={i}
-            className="book-spine"
-            onClick={() => handleBookClick(i)}
-            style={{
-              height: isCenter ? "85%" : "65%",
-              backgroundColor: bookColors[Math.floor(Math.random() * bookColors.length)],
-              cursor: 'pointer',
-              minWidth: isCenter ? "8px" : "10px",
-              maxWidth: isCenter ? "20px" : "22px",
-              transform: 'translateY(-10%) translateZ(50px)',
-              zIndex: 1000,
-              border: 'none',
-              padding: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              touchAction: 'manipulation',
-              transformStyle: 'preserve-3d',
-              pointerEvents: 'auto'
-            }}
-          >
-            <h3 className={isCenter ? "text-xs" : "text-sm"}>{getBookContent(shelf, i).title}</h3>
-          </button>
-        ))}
+        {[...Array(5)].map((_, i) => {
+          const book = shelfBooks[i] || {
+            title: `${shelf.name} - Volume ${i + 1}`,
+            color: getRandomBookColor()
+          };
+          
+          return (
+            <button
+              key={i}
+              className="book-spine"
+              onClick={() => handleBookClick(i)}
+              style={{
+                height: isCenter ? "85%" : "65%",
+                backgroundColor: book.color,
+                cursor: 'pointer',
+                minWidth: isCenter ? "14px" : "18px",
+                maxWidth: isCenter ? "30px" : "35px",
+                margin: "0 2px",
+                transform: 'translateY(-10%) translateZ(50px)',
+                zIndex: 1000,
+                border: 'none',
+                padding: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                touchAction: 'manipulation',
+                transformStyle: 'preserve-3d',
+                pointerEvents: 'auto',
+                boxShadow: '2px 2px 5px rgba(0,0,0,0.3)',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              <h3 className={`${isCenter ? "text-xs" : "text-sm"} whitespace-normal px-1`}>{book.title}</h3>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -226,15 +238,54 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
 export default function LibraryRoom() {
   const router = useRouter();
   const [isMobile, setIsMobile] = React.useState(false);
+  const [roomRotation, setRoomRotation] = useState({ x: 0, y: 0 });
+  const [isGyroAvailable, setIsGyroAvailable] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Check if device orientation is available
+    if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
+      // Request permission for iOS devices
+      if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+        (DeviceOrientationEvent as any).requestPermission()
+          .then((permissionState: string) => {
+            if (permissionState === 'granted') {
+              setIsGyroAvailable(true);
+              window.addEventListener('deviceorientation', handleOrientation);
+            }
+          })
+          .catch(console.error);
+      } else {
+        // Non-iOS devices
+        setIsGyroAvailable(true);
+        window.addEventListener('deviceorientation', handleOrientation);
+      }
+    }
+
     setIsMobile(window.innerWidth <= 768);
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
+    
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (isGyroAvailable) {
+        window.removeEventListener('deviceorientation', handleOrientation);
+      }
+    };
+  }, [isGyroAvailable]);
+
+  const handleOrientation = (event: DeviceOrientationEvent) => {
+    // Limit the rotation range to keep the room visible
+    const beta = Math.max(-20, Math.min(20, event.beta || 0)); // x-axis rotation
+    const gamma = Math.max(-30, Math.min(30, event.gamma || 0)); // y-axis rotation
+    
+    setRoomRotation({
+      x: beta / 2, // Reduce the rotation effect
+      y: gamma / 2
+    });
+  };
 
   return (
     <div className="library-room" style={{ touchAction: 'none', pointerEvents: 'none' }}>
@@ -266,7 +317,8 @@ export default function LibraryRoom() {
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        transition: 'transform 0.2s ease-out'
       }}>
         <div style={{ 
           width: '100%',
@@ -274,20 +326,22 @@ export default function LibraryRoom() {
           position: 'relative',
           transformStyle: 'preserve-3d',
           pointerEvents: 'none',
-          transform: 'translateY(-5%)'
+          transform: `translateY(-5%) rotateX(${roomRotation.x}deg) rotateY(${roomRotation.y}deg)`
         }}>
           {/* Left Wall */}
-          <div className="bookshelf-wall left space-y-8" style={{ 
+          <div className="bookshelf-wall left space-y-12" style={{ 
             transform: isMobile 
-              ? `translateY(-50%) rotateY(15deg) translateZ(-50px)` 
+              ? `translateY(-50%) rotateY(15deg) translateZ(-200px)` 
               : `translateY(-50%) rotateY(20deg) translateZ(-150px)`, 
             position: 'absolute', 
             top: '50%', 
-            left: isMobile ? '-5%' : '5%', 
-            width: isMobile ? '30%' : '25%',
+            left: isMobile ? '-15%' : '5%', 
+            width: isMobile ? '35%' : '25%',
             transformStyle: 'preserve-3d',
             pointerEvents: 'auto',
-            height: '90vh'
+            height: '90vh',
+            gap: isMobile ? '3rem' : '2rem',
+            padding: isMobile ? '4rem 1rem' : '2rem'
           }}>
             {leftShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
@@ -295,17 +349,19 @@ export default function LibraryRoom() {
           </div>
 
           {/* Center Wall */}
-          <div className="bookshelf-wall center space-y-4" style={{ 
+          <div className="bookshelf-wall center space-y-8" style={{ 
             transform: isMobile 
-              ? `translate(-50%, -50%) translateZ(-100px)` 
+              ? `translate(-50%, -50%) translateZ(-300px)` 
               : `translate(-50%, -50%) translateZ(-200px)`, 
             position: 'absolute', 
             top: '50%', 
             left: '50%', 
-            width: isMobile ? '50%' : '45%',
+            width: isMobile ? '45%' : '45%',
             transformStyle: 'preserve-3d',
             pointerEvents: 'auto',
-            height: '90vh'
+            height: '90vh',
+            gap: isMobile ? '3rem' : '2rem',
+            padding: isMobile ? '4rem 1rem' : '2rem'
           }}>
             {centerShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
@@ -313,17 +369,19 @@ export default function LibraryRoom() {
           </div>
 
           {/* Right Wall */}
-          <div className="bookshelf-wall right space-y-8" style={{ 
+          <div className="bookshelf-wall right space-y-12" style={{ 
             transform: isMobile 
-              ? `translateY(-50%) rotateY(-15deg) translateZ(-50px)` 
+              ? `translateY(-50%) rotateY(-15deg) translateZ(-200px)` 
               : `translateY(-50%) rotateY(-20deg) translateZ(-150px)`, 
             position: 'absolute', 
             top: '50%', 
-            right: isMobile ? '-5%' : '5%', 
-            width: isMobile ? '30%' : '25%',
+            right: isMobile ? '-15%' : '5%', 
+            width: isMobile ? '35%' : '25%',
             transformStyle: 'preserve-3d',
             pointerEvents: 'auto',
-            height: '90vh'
+            height: '90vh',
+            gap: isMobile ? '3rem' : '2rem',
+            padding: isMobile ? '4rem 1rem' : '2rem'
           }}>
             {rightShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="right" />

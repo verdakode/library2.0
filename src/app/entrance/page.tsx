@@ -41,7 +41,7 @@ export default function Entrance() {
 
         {/* Welcome Text */}
         <div className="welcome-text">
-          <h1>The Quantum Libris</h1>
+          <h1>Quantum Libris</h1>
           <p>Reading Between the Lines</p>
         </div>
 
@@ -90,9 +90,7 @@ export default function Entrance() {
             zIndex: Z_INDEX.DOOR_LEFT,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation',
-            background: 'rgba(255, 0, 0, 0.2)',
-            border: '2px solid red'
+            touchAction: 'manipulation'
           }}
         />
 
@@ -115,9 +113,7 @@ export default function Entrance() {
             zIndex: Z_INDEX.DOOR_CENTER,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation',
-            background: 'rgba(0, 255, 0, 0.2)',
-            border: '2px solid green'
+            touchAction: 'manipulation'
           }}
         />
 
@@ -140,9 +136,7 @@ export default function Entrance() {
             zIndex: Z_INDEX.DOOR_RIGHT,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation',
-            background: 'rgba(0, 0, 255, 0.2)',
-            border: '2px solid blue'
+            touchAction: 'manipulation'
           }}
         />
       </div>
