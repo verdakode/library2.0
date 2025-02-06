@@ -177,9 +177,7 @@ export default function Entrance() {
               (isMobile ? 
                 'translate(-50%, -57%) translateZ(-300px)' :
                 'translate(-50%, -57%) translateZ(-1500px)'
-              ),
-            background: 'rgba(0, 255, 0, 0.3)',
-            border: '2px solid green'
+              )
           }}
         />
 
@@ -204,9 +202,7 @@ export default function Entrance() {
             pointerEvents: 'all',
             touchAction: 'manipulation',
             WebkitTransformStyle: 'preserve-3d',
-            WebkitBackfaceVisibility: 'hidden',
-            background: 'rgba(0, 0, 255, 0.3)',
-            border: '2px solid blue'
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
       </div>

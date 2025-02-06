@@ -33,45 +33,196 @@ export const SHELF_BOOKS: ShelfBooks = {
   "000": [
     {
       id: "000-1",
-      title: "Tools & Methods",
-      content: `# Tools & Methods
+      title: "Life Chronicles: Volume I",
+      content: `# Life Chronicles: Volume I
 
-## Overview
-A collection of useful tools, methods, and approaches I've learned and developed.
+## Personal History and Memories
+A comprehensive collection of life events, milestones, and memories.
 
-### Key Topics
-1. Problem-Solving Frameworks
-2. Productivity Systems
-3. Learning Techniques
-4. Digital Tools
+### Chapters
+1. Early Years
+2. Family History
+3. Educational Journey
+4. Career Path
+5. Major Life Events
 
-*More content coming soon...*`,
+*Includes photographs and personal memorabilia*`,
       color: BOOK_COLORS[0]
     },
-    // Add more books for this shelf...
   ],
   "100": [
     {
       id: "100-1",
-      title: "Life Philosophy",
-      content: `# Life Philosophy
+      title: "Dreams & Aspirations",
+      content: `# Dreams & Aspirations
 
-## Personal Beliefs
-Exploring the fundamental questions and principles that guide my life.
+## Personal Goals and Future Plans
+A living document of hopes, dreams, and concrete plans for the future.
 
-### Key Topics
-1. Core Values
-2. Decision Making
-3. Personal Growth
-4. Ethics & Morality
-
-*More content coming soon...*`,
+### Contents
+1. Life Goals
+2. Career Aspirations
+3. Personal Development
+4. Future Projects
+5. Travel Plans`,
       color: BOOK_COLORS[1]
     },
-    // Add more books...
   ],
-  // Add more shelves...
-} as const;
+  "200": [
+    {
+      id: "200-1",
+      title: "Inspiring Individuals",
+      content: `# Inspiring Individuals
+
+## Profiles of Notable People
+Collection of stories and insights about people who have made an impact.
+
+### Featured Profiles
+- Innovators
+- Mentors
+- Leaders
+- Artists
+- Scientists`,
+      color: BOOK_COLORS[2]
+    },
+  ],
+  "300": [
+    {
+      id: "300-1",
+      title: "Project Portfolio",
+      content: `# Project Portfolio
+
+## Complete Project Archives
+Comprehensive documentation of all projects undertaken.
+
+### Categories
+1. Personal Projects
+2. Professional Work
+3. Collaborative Efforts
+4. Research Projects
+5. Creative Works`,
+      color: BOOK_COLORS[3]
+    },
+  ],
+  "400": [
+    {
+      id: "400-1",
+      title: "Tips & Techniques",
+      content: `# Tips & Techniques
+
+## Collected Knowledge
+A compilation of useful methods, tricks, and solutions.
+
+### Topics
+1. Problem-Solving Approaches
+2. Technical Solutions
+3. Life Hacks
+4. Professional Tips
+5. Learning Methods`,
+      color: BOOK_COLORS[4]
+    },
+  ],
+  "500": [
+    {
+      id: "500-1",
+      title: "Michigan Chronicles",
+      content: `# Michigan Chronicles
+
+## State History and Culture
+Exploration of Michigan's heritage and personal connections.
+
+### Sections
+1. Local History
+2. Cultural Heritage
+3. Notable Locations
+4. Personal Experiences
+5. Community Stories`,
+      color: BOOK_COLORS[5]
+    },
+  ],
+  "600": [
+    {
+      id: "600-1",
+      title: "Personal Library",
+      content: `# Personal Library
+
+## Reading Collection
+Catalog of books, reviews, and reading experiences.
+
+### Contents
+1. Book List
+2. Reading Notes
+3. Favorite Quotes
+4. Reviews
+5. Reading Goals`,
+      color: BOOK_COLORS[6]
+    },
+  ],
+  "700": [
+    {
+      id: "700-1",
+      title: "Health Records",
+      content: `# Health Records
+
+## Personal Health Documentation
+Comprehensive health and wellness information.
+
+### Sections
+1. Medical History
+2. Fitness Journey
+3. Wellness Goals
+4. Health Tracking
+5. Medical References`,
+      color: BOOK_COLORS[7]
+    },
+  ],
+  "800": [
+    {
+      id: "800-1",
+      title: "3D Printing Guide",
+      content: `# 3D Printing Guide
+
+## Technical Documentation
+Comprehensive guide to 3D printing technology and projects.`,
+      color: BOOK_COLORS[8]
+    },
+    {
+      id: "800-2",
+      title: "Robotics Manual",
+      content: `# Robotics Manual
+
+## Project Documentation
+Collection of robotics projects and technical knowledge.`,
+      color: BOOK_COLORS[9]
+    },
+    {
+      id: "800-3",
+      title: "Programming Reference",
+      content: `# Programming Reference
+
+## Code Documentation
+Programming languages, projects, and technical notes.`,
+      color: BOOK_COLORS[10]
+    },
+  ],
+  "900": [
+    {
+      id: "900-1",
+      title: "Guest Book",
+      content: `# Guest Book
+
+## Visitor Registry
+A collection of signatures and messages from visitors.
+
+### Contents
+- Visitor Signatures
+- Messages
+- Dates
+- Special Notes`,
+      color: BOOK_COLORS[11]
+    },
+  ],
+};
 
 // Helper function to get random book color
 export const getRandomBookColor = () => {
