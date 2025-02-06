@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Position {
   left: number;
@@ -50,6 +51,7 @@ const paintings: Painting[] = [
 ];
 
 export default function ArtRoom() {
+  const router = useRouter();
   const [selectedPainting, setSelectedPainting] = useState<Painting | null>(null);
   const [positionedPaintings, setPositionedPaintings] = useState<Painting[]>([]);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -119,6 +121,16 @@ export default function ArtRoom() {
 
   return (
     <div className="art-room">
+      {/* Back button */}
+      <button
+        onClick={() => router.push('/entrance')}
+        className="fixed top-4 left-4 px-4 py-2 bg-[#2B1810] text-[#F5E6D3] rounded-lg 
+                  hover:bg-[#5E3023] transition-colors z-50
+                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+      >
+        ← Back to Entrance
+      </button>
+
       {/* Room lighting effect */}
       <div className="room-lighting" />
 

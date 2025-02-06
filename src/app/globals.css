@@ -653,6 +653,58 @@ body {
     padding: 1rem;
     top: 5%;
   }
+
+  /* Library Room Mobile Styles */
+  .library-room {
+    perspective: 1200px;
+  }
+
+  .bookshelf-wall {
+    height: 85vh;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .bookshelf-wall.left {
+    left: -10%;
+    width: 35%;
+    transform: translateY(-50%) rotateY(30deg) translateZ(-100px);
+  }
+
+  .bookshelf-wall.right {
+    right: -10%;
+    width: 35%;
+    transform: translateY(-50%) rotateY(-30deg) translateZ(-100px);
+  }
+
+  .bookshelf-wall.center {
+    left: 50%;
+    width: 60%;
+    transform: translate(-50%, -55%) translateZ(-300px);
+  }
+
+  .bookshelf-unit {
+    height: 180px;
+    padding: 0.5rem;
+  }
+
+  .book-row {
+    height: 120px;
+    padding: 0.3rem;
+  }
+
+  .book-spine {
+    min-width: 8px;
+    max-width: 20px;
+  }
+
+  .bookshelf-unit h2 {
+    font-size: 0.8rem;
+  }
+
+  .bookshelf-unit p {
+    font-size: 0.7rem;
+  }
 }
 
 /* Small mobile styles */
@@ -696,6 +748,63 @@ body {
 
   .door-clickable-area.right {
     left: 85%;
+  }
+
+  /* Library Room Small Mobile Styles */
+  .library-room {
+    perspective: 1000px;
+  }
+
+  .bookshelf-wall {
+    height: 80vh;
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .bookshelf-wall.left {
+    left: -15%;
+    width: 40%;
+    transform: translateY(-50%) rotateY(35deg) translateZ(-150px);
+  }
+
+  .bookshelf-wall.right {
+    right: -15%;
+    width: 40%;
+    transform: translateY(-50%) rotateY(-35deg) translateZ(-150px);
+  }
+
+  .bookshelf-wall.center {
+    width: 70%;
+    transform: translate(-50%, -55%) translateZ(-400px);
+  }
+
+  .bookshelf-unit {
+    height: 150px;
+    padding: 0.4rem;
+  }
+
+  .book-row {
+    height: 100px;
+    padding: 0.2rem;
+  }
+
+  .book-spine {
+    min-width: 6px;
+    max-width: 15px;
+  }
+
+  .book-spine h3 {
+    font-size: 0.45rem;
+  }
+
+  .bookshelf-unit h2 {
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .bookshelf-unit p {
+    font-size: 0.6rem;
+    padding-left: 2rem;
   }
 }
 
@@ -1052,49 +1161,53 @@ body {
 /* Clickable areas */
 .door-clickable-area {
   position: absolute;
-  width: 180px;
-  height: 450px;
-  top: 45%;
-  transform: translate(-50%, -50%);
-  background: transparent;
   cursor: pointer;
   z-index: 1000;
+  display: none;
+  transform: translate(-50%, -50%);
+  top: 45%;
 }
 
-.door-clickable-area.left {
-  left: 10%;
-}
-
-.door-clickable-area.right {
-  left: 88%;
-}
-
+/* Only show clickable areas on mobile */
 @media (max-width: 768px) {
   .door-clickable-area {
-    width: 150px;
-    height: 400px;
+    display: block;
   }
 
   .door-clickable-area.left {
-    left: 5%;
+    width: 150px;
+    height: 400px;
+    left: 30%;
+  }
+
+  .door-clickable-area.center {
+    width: 200px;
+    height: 500px;
+    left: 50%;
   }
 
   .door-clickable-area.right {
-    left: 95%;
+    width: 150px;
+    height: 400px;
+    left: 70%;
   }
 }
 
 @media (max-width: 480px) {
-  .door-clickable-area {
+  .door-clickable-area.left {
     width: 120px;
     height: 350px;
+    left: 35%;
   }
 
-  .door-clickable-area.left {
-    left: 2%;
+  .door-clickable-area.center {
+    width: 150px;
+    height: 400px;
   }
 
   .door-clickable-area.right {
-    left: 98%;
+    width: 120px;
+    height: 350px;
+    left: 65%;
   }
 }

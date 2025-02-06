@@ -93,10 +93,14 @@ export default function Entrance() {
         {/* Room lighting effect */}
         <div className="room-lighting" />
 
-        {/* Manual clickable areas for side doors */}
+        {/* Manual clickable areas for mobile */}
         <div 
           className="door-clickable-area left"
           onClick={handleLeftDoor}
+        />
+        <div 
+          className="door-clickable-area center"
+          onClick={handleCenterDoor}
         />
         <div 
           className="door-clickable-area right"
@@ -118,9 +122,9 @@ export default function Entrance() {
           </div>
 
           {/* Three Doors */}
-          <Door title="Art Gallery" route="/art-room" position="left" isOpen={leftDoorOpen} />
+          <Door title="Art Gallery" route="/art-room" position="left" isOpen={leftDoorOpen} onClick={handleLeftDoor} />
           <Door title="Library" route="/library-room" position="center" isOpen={centerDoorOpen} onClick={handleCenterDoor} />
-          <Door title="Reading Room" route="/reading-room" position="right" isOpen={rightDoorOpen} />
+          <Door title="Reading Room" route="/reading-room" position="right" isOpen={rightDoorOpen} onClick={handleRightDoor} />
         </div>
       </div>
     </>
