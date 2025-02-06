@@ -31,6 +31,54 @@ export default function Entrance() {
       {/* Room lighting effect */}
       <div className="room-lighting" />
 
+      {/* Mobile Safari Specific Hitboxes */}
+      <div className="safari-mobile-hitboxes" style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        zIndex: 99999,
+        pointerEvents: 'all',
+        touchAction: 'manipulation'
+      }}>
+        <button
+          onClick={() => handleDoorClick(ROUTES.ART_ROOM, 'left-door')}
+          style={{
+            flex: 1,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            height: '100%',
+            WebkitTapHighlightColor: 'transparent'
+          }}
+          aria-label="Art Gallery Door"
+        />
+        <button
+          onClick={() => handleDoorClick(ROUTES.LIBRARY_ROOM, 'center-door')}
+          style={{
+            flex: 1,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            height: '100%',
+            WebkitTapHighlightColor: 'transparent'
+          }}
+          aria-label="Library Door"
+        />
+        <button
+          onClick={() => handleDoorClick(ROUTES.READING_ROOM, 'right-door')}
+          style={{
+            flex: 1,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            height: '100%',
+            WebkitTapHighlightColor: 'transparent'
+          }}
+          aria-label="Reading Room Door"
+        />
+      </div>
+
       {/* Hallway Structure */}
       <div className="hallway">
         <div className="hallway-wall left" />
@@ -54,7 +102,11 @@ export default function Entrance() {
           <div className="door-title">Art Gallery</div>
         </div>
 
-        <div className="door-container center-door" onClick={() => handleDoorClick(ROUTES.LIBRARY_ROOM, 'center-door')} style={{ pointerEvents: 'auto' }}>
+        <div className="door-container center-door" onClick={() => handleDoorClick(ROUTES.LIBRARY_ROOM, 'center-door')} style={{ 
+          pointerEvents: 'auto',
+          WebkitTransformStyle: 'preserve-3d',
+          WebkitBackfaceVisibility: 'hidden'
+        }}>
           <div className="door">
             <div className="door-handle" />
             <div className="door-panel" />
@@ -90,7 +142,11 @@ export default function Entrance() {
             zIndex: Z_INDEX.DOOR_LEFT,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation'
+            touchAction: 'manipulation',
+            WebkitTransformStyle: 'preserve-3d',
+            WebkitBackfaceVisibility: 'hidden',
+            background: 'rgba(255, 0, 0, 0.3)',
+            border: '2px solid red'
           }}
         />
 
@@ -105,15 +161,25 @@ export default function Entrance() {
             width: isSmallMobile ? '220px' : (isMobile ? '280px' : '500px'),
             height: isSmallMobile ? '380px' : (isMobile ? '450px' : '850px'),
             transform: isSmallMobile ? 
-              'translate(-50%, -57%) translateZ(-400px)' :
+              'translate(-50%, -57%) translateZ(-200px)' :
               (isMobile ? 
-                'translate(-50%, -57%) translateZ(-600px)' :
+                'translate(-50%, -57%) translateZ(-300px)' :
                 'translate(-50%, -57%) translateZ(-1500px)'
               ),
             zIndex: Z_INDEX.DOOR_CENTER,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation'
+            touchAction: 'manipulation',
+            WebkitTransformStyle: 'preserve-3d',
+            WebkitBackfaceVisibility: 'hidden',
+            WebkitTransform: isSmallMobile ? 
+              'translate(-50%, -57%) translateZ(-200px)' :
+              (isMobile ? 
+                'translate(-50%, -57%) translateZ(-300px)' :
+                'translate(-50%, -57%) translateZ(-1500px)'
+              ),
+            background: 'rgba(0, 255, 0, 0.3)',
+            border: '2px solid green'
           }}
         />
 
@@ -136,7 +202,11 @@ export default function Entrance() {
             zIndex: Z_INDEX.DOOR_RIGHT,
             cursor: 'pointer',
             pointerEvents: 'all',
-            touchAction: 'manipulation'
+            touchAction: 'manipulation',
+            WebkitTransformStyle: 'preserve-3d',
+            WebkitBackfaceVisibility: 'hidden',
+            background: 'rgba(0, 0, 255, 0.3)',
+            border: '2px solid blue'
           }}
         />
       </div>

@@ -326,7 +326,7 @@ export default function LibraryRoom() {
           position: 'relative',
           transformStyle: 'preserve-3d',
           pointerEvents: 'none',
-          transform: `translateY(-5%) rotateX(${roomRotation.x}deg) rotateY(${roomRotation.y}deg)`
+          transform: `translateY(${isMobile ? '-15%' : '-5%'}) rotateX(${roomRotation.x}deg) rotateY(${roomRotation.y}deg)`
         }}>
           {/* Left Wall */}
           <div className="bookshelf-wall left space-y-12" style={{ 
@@ -334,7 +334,7 @@ export default function LibraryRoom() {
               ? `translateY(-50%) rotateY(15deg) translateZ(-200px)` 
               : `translateY(-50%) rotateY(20deg) translateZ(-150px)`, 
             position: 'absolute', 
-            top: '50%', 
+            top: isMobile ? '40%' : '50%', 
             left: isMobile ? '-15%' : '5%', 
             width: isMobile ? '35%' : '25%',
             transformStyle: 'preserve-3d',
@@ -354,7 +354,7 @@ export default function LibraryRoom() {
               ? `translate(-50%, -50%) translateZ(-300px)` 
               : `translate(-50%, -50%) translateZ(-200px)`, 
             position: 'absolute', 
-            top: '50%', 
+            top: isMobile ? '40%' : '50%', 
             left: '50%', 
             width: isMobile ? '45%' : '45%',
             transformStyle: 'preserve-3d',
@@ -374,7 +374,7 @@ export default function LibraryRoom() {
               ? `translateY(-50%) rotateY(-15deg) translateZ(-200px)` 
               : `translateY(-50%) rotateY(-20deg) translateZ(-150px)`, 
             position: 'absolute', 
-            top: '50%', 
+            top: isMobile ? '40%' : '50%', 
             right: isMobile ? '-15%' : '5%', 
             width: isMobile ? '35%' : '25%',
             transformStyle: 'preserve-3d',
