@@ -125,8 +125,9 @@ export default function ArtRoom() {
       <button
         onClick={() => router.push('/entrance')}
         className="fixed top-4 left-4 px-4 py-2 bg-[#2B1810] text-[#F5E6D3] rounded-lg 
-                  hover:bg-[#5E3023] transition-colors z-50
+                  hover:bg-[#5E3023] transition-colors z-[2000]
                   shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+        style={{ pointerEvents: 'auto' }}
       >
         ← Back to Entrance
       </button>

@@ -261,26 +261,33 @@ export default function LibraryRoom() {
         position: 'fixed',
         inset: 0,
         transformStyle: 'preserve-3d',
-        perspective: '2000px',
+        perspective: isMobile ? '1000px' : '2000px',
         perspectiveOrigin: '50% 50%',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
         <div style={{ 
           width: '100%',
           height: '100%',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          transform: 'translateY(-5%)'
         }}>
           {/* Left Wall */}
           <div className="bookshelf-wall left space-y-8" style={{ 
-            transform: `translateY(-55%) rotateY(20deg) translateZ(-150px)`, 
+            transform: isMobile 
+              ? `translateY(-50%) rotateY(15deg) translateZ(-50px)` 
+              : `translateY(-50%) rotateY(20deg) translateZ(-150px)`, 
             position: 'absolute', 
-            top: '45%', 
-            left: '0%', 
-            width: '25%',
+            top: '50%', 
+            left: isMobile ? '-5%' : '5%', 
+            width: isMobile ? '30%' : '25%',
             transformStyle: 'preserve-3d',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
+            height: '90vh'
           }}>
             {leftShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
@@ -289,13 +296,16 @@ export default function LibraryRoom() {
 
           {/* Center Wall */}
           <div className="bookshelf-wall center space-y-4" style={{ 
-            transform: `translate(-45%, -60%) translateZ(-200px)`, 
+            transform: isMobile 
+              ? `translate(-50%, -50%) translateZ(-100px)` 
+              : `translate(-50%, -50%) translateZ(-200px)`, 
             position: 'absolute', 
-            top: '45%', 
-            left: '45%', 
-            width: '45%',
+            top: '50%', 
+            left: '50%', 
+            width: isMobile ? '50%' : '45%',
             transformStyle: 'preserve-3d',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
+            height: '90vh'
           }}>
             {centerShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
@@ -304,13 +314,16 @@ export default function LibraryRoom() {
 
           {/* Right Wall */}
           <div className="bookshelf-wall right space-y-8" style={{ 
-            transform: `translateY(-55%) rotateY(-20deg) translateZ(-150px)`, 
+            transform: isMobile 
+              ? `translateY(-50%) rotateY(-15deg) translateZ(-50px)` 
+              : `translateY(-50%) rotateY(-20deg) translateZ(-150px)`, 
             position: 'absolute', 
-            top: '45%', 
-            right: '0%', 
-            width: '30%',
+            top: '50%', 
+            right: isMobile ? '-5%' : '5%', 
+            width: isMobile ? '30%' : '25%',
             transformStyle: 'preserve-3d',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
+            height: '90vh'
           }}>
             {rightShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
