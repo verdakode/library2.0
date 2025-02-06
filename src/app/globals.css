@@ -289,9 +289,9 @@ body {
   transition: transform 0.3s ease;
   cursor: pointer;
   z-index: 1000;
-  pointer-events: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  pointer-events: all;
 }
 
 .door {
@@ -304,7 +304,6 @@ body {
   transform-style: preserve-3d;
   border: 4px solid #A0522D;
   transform-origin: left;
-  pointer-events: none;
 }
 
 /* Left Door */
@@ -336,7 +335,7 @@ body {
 
 /* Door hitbox styles */
 .door-hitbox {
-  position: fixed;
+  position: absolute;
   background: transparent;
   border: none;
   padding: 0;
@@ -345,6 +344,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   pointer-events: all;
+  transform-style: preserve-3d;
 }
 
 .door-hitbox:focus {
@@ -1143,4 +1143,66 @@ body {
   color: #F5E6D3;
   margin: 0.5rem 0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Firefox-specific styles */
+@-moz-document url-prefix() {
+  .entrance-room {
+    transform-style: preserve-3d;
+  }
+  
+  .hallway {
+    transform-style: preserve-3d;
+  }
+
+  .door-container {
+    pointer-events: all !important;
+    transform-style: preserve-3d !important;
+  }
+
+  /* Override 3D transforms for hitboxes in Firefox */
+  .hallway .door-hitbox {
+    position: fixed !important;
+    transform: none !important;
+    pointer-events: all !important;
+    z-index: 999999 !important;
+  }
+
+  /* Left door hitbox */
+  .hallway button.door-hitbox[aria-label="Art Gallery Door"] {
+    left: 0% !important;
+    top: 0% !important;
+    width: 33.33% !important;
+    height: 100% !important;
+    z-index: 999999 !important;
+  }
+
+  /* Center door hitbox */
+  .hallway button.door-hitbox[aria-label="Library Door"] {
+    left: 33.33% !important;
+    top: 0% !important;
+    width: 33.33% !important;
+    height: 100% !important;
+    z-index: 999999 !important;
+  }
+
+  /* Right door hitbox */
+  .hallway button.door-hitbox[aria-label="Reading Room Door"] {
+    left: 66.66% !important;
+    top: 0% !important;
+    width: 33.33% !important;
+    height: 100% !important;
+    z-index: 999999 !important;
+  }
+
+  /* Make sure walls don't block hitboxes */
+  .hallway-wall {
+    pointer-events: none !important;
+  }
+  
+  .hallway-wall.left,
+  .hallway-wall.right,
+  .hallway-wall.back {
+    pointer-events: none !important;
+  }
 }

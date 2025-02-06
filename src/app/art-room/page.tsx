@@ -22,31 +22,31 @@ const paintings: Painting[] = [
     src: "/images/librarypic.jpeg",
     size: [800, 600],
   },
-  {
-    id: "2",
-    src: "/images/art/painting1.jpg",
-    size: [600, 800],
-  },
-  {
-    id: "3",
-    src: "/images/art/painting2.jpg",
-    size: [700, 500],
-  },
-  {
-    id: "4",
-    src: "/images/librarypic.jpeg",
-    size: [800, 600],
-  },
-  {
-    id: "5",
-    src: "/images/librarypic.jpeg",
-    size: [800, 600],
-  },
-  {
-    id: "6",
-    src: "/images/librarypic.jpeg",
-    size: [800, 600],
-  },
+  //{
+   // id: "2",
+    //src: "/images/art/painting1.jpg",
+    //size: [600, 800],
+  //},
+  //{
+    //id: "3",
+    //src: "/images/art/painting2.jpg",
+    //size: [700, 500],
+  //},
+    //{
+    //id: "4",
+    //src: "/images/librarypic.jpeg",
+    //size: [800, 600],
+  //},
+  //{
+    //id: "5",
+    //src: "/images/librarypic.jpeg",
+    //size: [800, 600],
+  //},
+  //{
+    //id: "6",
+    //src: "/images/librarypic.jpeg",
+    //size: [800, 600],
+  //},
   // Add more paintings as needed
 ];
 
