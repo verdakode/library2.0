@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { SHELF_BOOKS, getRandomBookColor } from '@/data/books';
 
@@ -240,8 +240,14 @@ export default function LibraryRoom() {
   const [isMobile, setIsMobile] = React.useState(false);
   const [roomRotation, setRoomRotation] = useState({ x: 0, y: 0 });
   const [isGyroAvailable, setIsGyroAvailable] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [initialTouchDistance, setInitialTouchDistance] = useState(0);
+  const roomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Set initial zoom for mobile
+    setZoom(isMobile ? 0.7 : 1);
+    
     // Check if device orientation is available
     if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
       // Request permission for iOS devices
@@ -264,6 +270,7 @@ export default function LibraryRoom() {
     setIsMobile(window.innerWidth <= 768);
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
+      setZoom(window.innerWidth <= 768 ? 0.7 : 1);
     };
     
     window.addEventListener('resize', handleResize);
@@ -287,8 +294,55 @@ export default function LibraryRoom() {
     });
   };
 
+  // Handle touch events for pinch zoom
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const distance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      setInitialTouchDistance(distance);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const distance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      
+      if (initialTouchDistance > 0) {
+        const delta = distance - initialTouchDistance;
+        const newZoom = Math.max(0.5, Math.min(1.5, zoom + (delta * 0.005)));
+        setZoom(newZoom);
+      }
+      setInitialTouchDistance(distance);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setInitialTouchDistance(0);
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      const newZoom = Math.max(0.5, Math.min(1.5, zoom - (e.deltaY * 0.001)));
+      setZoom(newZoom);
+    }
+  };
+
   return (
-    <div className="library-room" style={{ touchAction: 'none', pointerEvents: 'none' }}>
+    <div 
+      className="library-room" 
+      style={{ touchAction: 'none', pointerEvents: 'none' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onWheel={handleWheel}
+      ref={roomRef}
+    >
       {/* Back button */}
       <button
         onClick={() => router.push('/entrance')}
@@ -299,6 +353,28 @@ export default function LibraryRoom() {
       >
         ← Back to Entrance
       </button>
+
+      {/* Zoom controls for mobile */}
+      {isMobile && (
+        <div className="fixed bottom-4 right-4 flex gap-2 z-[2000]" style={{ pointerEvents: 'auto' }}>
+          <button
+            onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
+            className="w-12 h-12 bg-[#2B1810] text-[#F5E6D3] rounded-full 
+                      hover:bg-[#5E3023] transition-colors shadow-lg 
+                      flex items-center justify-center text-xl"
+          >
+            +
+          </button>
+          <button
+            onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
+            className="w-12 h-12 bg-[#2B1810] text-[#F5E6D3] rounded-full 
+                      hover:bg-[#5E3023] transition-colors shadow-lg 
+                      flex items-center justify-center text-xl"
+          >
+            -
+          </button>
+        </div>
+      )}
 
       {/* Room lighting effect */}
       <div className="room-lighting" />
@@ -418,7 +494,10 @@ export default function LibraryRoom() {
           position: 'relative',
           transformStyle: 'preserve-3d',
           pointerEvents: 'none',
-          transform: `translateY(${isMobile ? '-15%' : '-5%'}) rotateX(${roomRotation.x}deg) rotateY(${roomRotation.y}deg)`
+          transform: `translateY(${isMobile ? '-15%' : '-5%'}) 
+                     scale(${zoom}) 
+                     rotateX(${roomRotation.x}deg) 
+                     rotateY(${roomRotation.y}deg)`
         }}>
           {/* Left Wall */}
           <div className="bookshelf-wall left space-y-12" style={{ 
