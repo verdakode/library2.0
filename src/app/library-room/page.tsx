@@ -245,8 +245,8 @@ export default function LibraryRoom() {
   const roomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set initial zoom for mobile
-    setZoom(isMobile ? 0.7 : 1);
+    // Set initial zoom for mobile and desktop
+    setZoom(isMobile ? 0.75 : 0.9);
     
     // Check if device orientation is available
     if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
@@ -270,7 +270,7 @@ export default function LibraryRoom() {
     setIsMobile(window.innerWidth <= 768);
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      setZoom(window.innerWidth <= 768 ? 0.7 : 1);
+      setZoom(window.innerWidth <= 768 ? 0.75 : 0.9);
     };
     
     window.addEventListener('resize', handleResize);
@@ -328,7 +328,7 @@ export default function LibraryRoom() {
   const handleWheel = (e: React.WheelEvent) => {
     if (e.ctrlKey || e.metaKey) {
       e.preventDefault();
-      const newZoom = Math.max(0.5, Math.min(1.5, zoom - (e.deltaY * 0.001)));
+      const newZoom = Math.max(0.4, Math.min(1.5, zoom - (e.deltaY * 0.001)));
       setZoom(newZoom);
     }
   };
@@ -525,14 +525,14 @@ export default function LibraryRoom() {
               ? `translate(-50%, -50%) translateZ(-200px)` 
               : `translate(-50%, -50%) translateZ(-200px)`, 
             position: 'absolute', 
-            top: isMobile ? '40%' : '50%', 
+            top: isMobile ? '35%' : '35%',
             left: '50%', 
-            width: isMobile ? '40%' : '40%',
+            width: isMobile ? '35%' : '35%',
             transformStyle: 'preserve-3d',
             pointerEvents: 'auto',
-            height: '90vh',
-            gap: isMobile ? '3rem' : '2rem',
-            padding: isMobile ? '4rem 1rem' : '2rem'
+            height: isMobile ? '80vh' : '80vh',
+            gap: isMobile ? '2rem' : '1.5rem',
+            padding: isMobile ? '3rem 1rem' : '1.5rem'
           }}>
             {centerShelves.map((shelf) => (
               <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
