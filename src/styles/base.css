@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Library color palette */
+  --wood-dark: #2b1810; /* Deep mahogany */
+  --wood-medium: #5e3023; /* Rich walnut */
+  --wood-light: #8b4513; /* Warm oak */
+  --parchment: #f5e6d3; /* Warm cream */
+  --leather-dark: #2c1810; /* Dark leather */
+  --leather-medium: #703624; /* Aged leather */
+  --leather-light: #a65d37; /* Cognac leather */
+  --book-brown1: #3c2a21; /* Deep brown */
+  --book-brown2: #513b2c; /* Rich brown */
+  --book-brown3: #7d5a50; /* Medium brown */
+  --book-red: #8b3a3a; /* Subdued red */
+  --book-green: #4a5d4b; /* Forest green */
+  --book-blue: #394756; /* Navy blue */
+  --book-burgundy: #6b4449; /* Deep burgundy */
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Base styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--wood-dark);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+} 

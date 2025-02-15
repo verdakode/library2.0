@@ -1,46 +1,3 @@
-/* Import base styles */
-@import '../styles/base.css';
-
-/* Import component styles */
-@import '../styles/components/bookshelf.css';
-@import '../styles/components/books.css';
-@import '../styles/components/doors.css';
-
-/* Import room styles */
-@import '../styles/rooms/library.css';
-@import '../styles/rooms/entrance.css';
-
-/* Import responsive styles */
-@import '../styles/responsive/mobile.css';
-@import '../styles/responsive/desktop.css';
-
-/* Import browser-specific styles */
-@import '../styles/browser/firefox.css';
-@import '../styles/browser/safari.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  /* Library color palette */
-  --wood-dark: #2b1810; /* Deep mahogany */
-  --wood-medium: #2e1109; /* Rich walnut */
-  --wood-light: #49271e; /* Warm oak */
-  --parchment: #cea268; /* Warm cream */
-  --leather-dark: #2c1810; /* Dark leather */
-  --leather-medium: #703624; /* Aged leather */
-  --leather-light: #a65d37; /* Cognac leather */
-  --book-brown1: #3c2a21; /* Deep brown */
-  --book-brown2: #513b2c; /* Rich brown */
-  --book-brown3: #7d5a50; /* Medium brown */
-  --book-red: #8b3a3a; /* Subdued red */
-  --book-green: #4a5d4b; /* Forest green */
-  --book-blue: #394756; /* Navy blue */
-  --book-burgundy: #6b4449; /* Deep burgundy */
-  --shadow: rgba(0, 0, 0, 0.3);
-}
-
 /* Entrance Room Styles */
 .entrance-room {
   position: fixed;
@@ -243,4 +200,4 @@
   .welcome-text {
     transform: translate(-50%, 0) translateZ(-400px);
   }
-}
+} 

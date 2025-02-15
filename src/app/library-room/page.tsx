@@ -179,24 +179,36 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
     router.push(`/books/${shelf.id}-${index + 1}`);
   };
 
+  // Calculate random variations for each book
+  const bookVariations = [...Array(5)].map(() => ({
+    tilt: Math.random() * 2 - 1,
+    width: Math.floor(Math.random() * 10) + 25, // Slightly wider books
+    height: Math.floor(Math.random() * 5) + 95,
+  }));
+
   return (
-    <div className={`bookshelf-unit ${isCenter ? "h-56" : "h-72"}`}>
-      <div className="p-2">
-        <h2 className={`text-[#F4E4BC] font-semibold ${isCenter ? "text-lg" : "text-xl"}`} data-dewey={shelf.id}>
-          {shelf.name}
+    <div className={`bookshelf-unit`}>
+      {/* Back panel */}
+      <div className="shelf-back" />
+      
+      {/* Side panels */}
+      <div className="shelf-left" />
+      <div className="shelf-right" />
+      
+      {/* Shelf title with improved visibility */}
+      <div className="shelf-title">
+        <h2 data-dewey={shelf.id}>
+          {shelf.id} - {shelf.name}
         </h2>
-        <p className="text-[#F4E4BC]/80 text-xs">{shelf.description}</p>
+        <p>{shelf.description}</p>
       </div>
-      <div className={`book-row ${isCenter ? "h-36" : "h-48"} pt-0`} style={{ 
-        marginTop: isCenter ? "0" : "-2rem",
-        position: 'relative',
-        zIndex: 1000,
-        transformStyle: 'preserve-3d'
-      }}>
+      
+      <div className={`book-row ${isCenter ? "h-20" : "h-20"}`}>
         {[...Array(5)].map((_, i) => {
           const book = shelfBooks[i] || {
             title: `${shelf.name} - Volume ${i + 1}`,
-            color: getRandomBookColor()
+            color: getRandomBookColor(),
+            content: `This section contains information about ${shelf.name.toLowerCase()}.`
           };
           
           return (
@@ -205,28 +217,28 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
               className="book-spine"
               onClick={() => handleBookClick(i)}
               style={{
-                height: isCenter ? "85%" : "65%",
                 backgroundColor: book.color,
-                cursor: 'pointer',
-                minWidth: isCenter ? "14px" : "18px",
-                maxWidth: isCenter ? "30px" : "35px",
-                margin: "0 2px",
-                transform: 'translateY(-10%) translateZ(50px)',
-                zIndex: 1000,
+                width: `${bookVariations[i].width}px`,
+                height: `${bookVariations[i].height}%`,
+                transform: `rotate(${bookVariations[i].tilt}deg)`,
+                transformStyle: 'preserve-3d',
+                margin: '0 1px',
                 border: 'none',
-                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                position: 'relative',
                 touchAction: 'manipulation',
-                transformStyle: 'preserve-3d',
-                pointerEvents: 'auto',
-                boxShadow: '2px 2px 5px rgba(0,0,0,0.3)',
-                transition: 'all 0.3s ease'
+                pointerEvents: 'auto'
               }}
             >
-              <h3 className={`${isCenter ? "text-xs" : "text-sm"} whitespace-normal px-1`}>{book.title}</h3>
+              <h3 className="whitespace-normal px-1">{book.title}</h3>
+              
+              {/* Book preview tooltip */}
+              <div className="book-preview">
+                <h4>{book.title}</h4>
+                <p>{book.content}</p>
+                <p className="mt-2 text-xs opacity-70">Click to read more...</p>
+              </div>
             </button>
           );
         })}
@@ -336,230 +348,234 @@ export default function LibraryRoom() {
   return (
     <div 
       className="library-room" 
-      style={{ touchAction: 'none', pointerEvents: 'none' }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onWheel={handleWheel}
+      style={{ 
+        touchAction: isMobile ? 'auto' : 'none',
+        pointerEvents: isMobile ? 'auto' : 'none'
+      }}
+      {...(!isMobile && {
+        onTouchStart: handleTouchStart,
+        onTouchMove: handleTouchMove,
+        onTouchEnd: handleTouchEnd,
+        onWheel: handleWheel
+      })}
       ref={roomRef}
     >
-      {/* Back button */}
+      {/* Back door button */}
       <button
         onClick={() => router.push('/entrance')}
-        className="fixed top-4 left-4 px-4 py-2 bg-[#2B1810] text-[#F5E6D3] rounded-lg 
-                  hover:bg-[#5E3023] transition-colors z-[2000]
-                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-        style={{ pointerEvents: 'auto' }}
+        className="fixed top-4 right-4 w-16 h-24 bg-[#8B4513] rounded-t-lg 
+                  hover:bg-[#A0522D] transition-colors z-[2000]
+                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 
+                  transition-all duration-200 overflow-hidden"
+        style={{ 
+          pointerEvents: 'auto',
+          transformStyle: 'preserve-3d',
+          perspective: '1000px'
+        }}
+        aria-label="Back to Entrance"
       >
-        ← Back to Entrance
+        {/* Door frame */}
+        <div className="absolute inset-0.5 border-2 border-[#DEB887] rounded-t-lg opacity-0.7" />
+        
+        {/* Door handle */}
+        <div className="absolute right-2 top-1/2 w-2 h-6 bg-[#DEB887] rounded-full 
+                      transform -translate-y-1/2 shadow-md" />
+        
+        {/* Door panel */}
+        <div className="absolute inset-2 border border-[#DEB887] rounded-t-md opacity-0.5" />
+        
+        {/* Exit text */}
+        <span className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-[#DEB887] 
+                      text-xs font-semibold whitespace-nowrap rotate-90">
+          EXIT
+        </span>
       </button>
 
-      {/* Zoom controls for mobile */}
-      {isMobile && (
-        <div className="fixed bottom-4 right-4 flex gap-2 z-[2000]" style={{ pointerEvents: 'auto' }}>
-          <button
-            onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-            className="w-12 h-12 bg-[#2B1810] text-[#F5E6D3] rounded-full 
-                      hover:bg-[#5E3023] transition-colors shadow-lg 
-                      flex items-center justify-center text-xl"
-          >
-            +
-          </button>
-          <button
-            onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-            className="w-12 h-12 bg-[#2B1810] text-[#F5E6D3] rounded-full 
-                      hover:bg-[#5E3023] transition-colors shadow-lg 
-                      flex items-center justify-center text-xl"
-          >
-            -
-          </button>
+      {!isMobile ? (
+        <>
+          {/* Desktop view content */}
+          <div className="room-lighting" />
+          <div className="wooden-floor">
+            {/* Shoe-shaped home button */}
+            <button
+              onClick={() => router.push('/entrance')}
+              className="shoe-button"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <div style={{
+                position: 'absolute',
+                inset: '5px',
+                border: '2px solid rgba(255,255,255,0.2)',
+                clipPath: `path('M 40,0 C 60,0 75,10 75,30 L 75,90 C 75,100 65,110 50,115 C 35,120 15,115 5,100 C 0,90 0,80 0,70 L 0,30 C 0,10 20,0 40,0 Z')`,
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '20%',
+                left: '50%',
+                transform: 'translateX(-50%) rotateX(45deg)',
+                color: 'white',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+                whiteSpace: 'nowrap'
+              }}>
+                HOME
+              </div>
+            </button>
+          </div>
+          <div style={{ 
+            width: '100%',
+            height: '100%',
+            position: 'fixed',
+            inset: 0,
+            transformStyle: 'preserve-3d',
+            perspective: '2000px',
+            perspectiveOrigin: '50% 50%',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'transform 0.2s ease-out'
+          }}>
+            {/* Add decorative back wall with intricate gilded pattern */}
+            <div style={{
+              position: 'absolute',
+              width: '300%',
+              height: '300%',
+              transform: isMobile ? 'translateZ(-500px)' : 'translateZ(-1000px)',
+              background: `#2b1810`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(218, 165, 32, 0.5)' stroke-width='2'%3E%3Cpath d='M30,0 Q30,30 60,30' /%3E%3Cpath d='M30,120 Q30,90 60,90' /%3E%3Cpath d='M90,30 Q90,30 120,30' /%3E%3Cpath d='M90,90 Q90,90 120,90' /%3E%3Ccircle cx='60' cy='60' r='10' stroke='rgba(218, 165, 32, 0.8)' /%3E%3C/g%3E%3Cg fill='none' stroke='rgba(255, 215, 0, 0.4)' stroke-width='2'%3E%3Cpath d='M0,30 Q30,30 60,30' /%3E%3Cpath d='M0,90 Q30,90 60,90' /%3E%3Cpath d='M60,30 Q90,30 120,30' /%3E%3Cpath d='M60,90 Q90,90 120,90' /%3E%3C/g%3E%3C/svg%3E"),
+              linear-gradient(
+                90deg,
+                transparent 0,
+                transparent 119px,
+                rgba(218, 165, 32, 0.3) 119px,
+                rgba(218, 165, 32, 0.3) 120px
+              ),
+              linear-gradient(
+                0deg,
+                transparent 0,
+                transparent 119px,
+                rgba(218, 165, 32, 0.3) 119px,
+                rgba(218, 165, 32, 0.3) 120px
+              )`,
+              backgroundSize: isMobile ? '80px 80px' : '120px 120px',
+              backgroundPosition: 'center center',
+              boxShadow: `
+                inset 0 0 150px rgba(218, 165, 32, 0.3),
+                inset 0 0 100px rgba(218, 165, 32, 0.2),
+                inset 0 0 50px rgba(218, 165, 32, 0.1)
+              `,
+              pointerEvents: 'none',
+              zIndex: -1,
+              WebkitMaskImage: `
+                radial-gradient(
+                  circle at 50% 50%,
+                  black 0%,
+                  black 85%,
+                  transparent 100%
+                )
+              `,
+              maskImage: `
+                radial-gradient(
+                  circle at 50% 50%,
+                  black 0%,
+                  black 85%,
+                  transparent 100%
+                )
+              `
+            }} />
+
+            <div style={{ 
+              width: '100%',
+              height: '100%',
+              position: 'relative',
+              transformStyle: 'preserve-3d',
+              pointerEvents: 'none',
+              transform: `translateY(${isMobile ? '-15%' : '-5%'}) 
+                         scale(${zoom}) 
+                         rotateX(${roomRotation.x}deg) 
+                         rotateY(${roomRotation.y}deg)`
+            }}>
+              {/* Left Wall */}
+              <div className="bookshelf-wall left space-y-12" style={{ 
+                transform: isMobile 
+                  ? `translateY(-50%) rotateY(15deg) translateZ(-150px) translateX(-5%)` 
+                  : `translateY(-50%) rotateY(20deg) translateZ(-150px) translateX(-15%)`, 
+                position: 'absolute', 
+                top: isMobile ? '40%' : '50%', 
+                left: isMobile ? '0%' : '5%', 
+                width: isMobile ? '30%' : '30%',
+                transformStyle: 'preserve-3d',
+                pointerEvents: 'auto',
+                height: '90vh',
+                gap: isMobile ? '3rem' : '2rem',
+                padding: isMobile ? '4rem 1rem' : '2rem'
+              }}>
+                {leftShelves.map((shelf) => (
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
+                ))}
+              </div>
+
+              {/* Center Wall */}
+              <div className="bookshelf-wall center space-y-8" style={{ 
+                transform: isMobile 
+                  ? `translate(-50%, -50%) translateZ(-200px)` 
+                  : `translate(-50%, -50%) translateZ(-200px)`, 
+                position: 'absolute', 
+                top: isMobile ? '35%' : '35%',
+                left: '50%', 
+                width: isMobile ? '35%' : '35%',
+                transformStyle: 'preserve-3d',
+                pointerEvents: 'auto',
+                height: isMobile ? '80vh' : '80vh',
+                gap: isMobile ? '2rem' : '1.5rem',
+                padding: isMobile ? '3rem 1rem' : '1.5rem'
+              }}>
+                {centerShelves.map((shelf) => (
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
+                ))}
+              </div>
+
+              {/* Right Wall */}
+              <div className="bookshelf-wall right space-y-12" style={{ 
+                transform: isMobile 
+                  ? `translateY(-50%) rotateY(-15deg) translateZ(-150px) translateX(5%)` 
+                  : `translateY(-50%) rotateY(-20deg) translateZ(-150px) translateX(15%)`, 
+                position: 'absolute', 
+                top: isMobile ? '40%' : '50%', 
+                right: isMobile ? '0%' : '5%', 
+                width: isMobile ? '30%' : '30%',
+                transformStyle: 'preserve-3d',
+                pointerEvents: 'auto',
+                height: '90vh',
+                gap: isMobile ? '3rem' : '2rem',
+                padding: isMobile ? '4rem 1rem' : '2rem'
+              }}>
+                {rightShelves.map((shelf) => (
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="w-full">
+          <div className="w-full px-4">
+            <div className="space-y-6">
+              {leftShelves.map((shelf) => (
+                <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
+              ))}
+              {centerShelves.map((shelf) => (
+                <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
+              ))}
+              {rightShelves.map((shelf) => (
+                <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
+              ))}
+            </div>
+          </div>
         </div>
       )}
-
-      {/* Room lighting effect */}
-      <div className="room-lighting" />
-
-      {/* Wooden floor */}
-      <div className="wooden-floor">
-        {/* Shoe-shaped home button */}
-        <button
-          onClick={() => router.push('/entrance')}
-          className="shoe-button"
-          style={{
-            position: 'absolute',
-            left: '50%',
-            bottom: '30%',
-            transform: 'translate(-50%, 0) rotateX(-45deg)',
-            width: '80px',
-            height: '120px',
-            background: 'linear-gradient(135deg, #8B0000, #B22222)',
-            clipPath: `path('M 40,0 C 60,0 75,10 75,30 L 75,90 C 75,100 65,110 50,115 C 35,120 15,115 5,100 C 0,90 0,80 0,70 L 0,30 C 0,10 20,0 40,0 Z')`,
-            border: 'none',
-            cursor: 'pointer',
-            transformStyle: 'preserve-3d',
-            transition: 'transform 0.3s ease, filter 0.3s ease',
-            filter: 'drop-shadow(0 10px 8px rgba(0, 0, 0, 0.4))',
-            pointerEvents: 'auto',
-            zIndex: 1000
-          }}
-        >
-          <div style={{
-            position: 'absolute',
-            inset: '5px',
-            border: '2px solid rgba(255,255,255,0.2)',
-            clipPath: `path('M 40,0 C 60,0 75,10 75,30 L 75,90 C 75,100 65,110 50,115 C 35,120 15,115 5,100 C 0,90 0,80 0,70 L 0,30 C 0,10 20,0 40,0 Z')`,
-          }} />
-          <div style={{
-            position: 'absolute',
-            bottom: '20%',
-            left: '50%',
-            transform: 'translateX(-50%) rotateX(45deg)',
-            color: 'white',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-            whiteSpace: 'nowrap'
-          }}>
-            HOME
-          </div>
-        </button>
-      </div>
-
-      <div style={{ 
-        width: '100%',
-        height: '100%',
-        position: 'fixed',
-        inset: 0,
-        transformStyle: 'preserve-3d',
-        perspective: isMobile ? '2000px' : '2000px',
-        perspectiveOrigin: '50% 50%',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'transform 0.2s ease-out'
-      }}>
-        {/* Add decorative back wall with intricate gilded pattern */}
-        <div style={{
-          position: 'absolute',
-          width: '300%',
-          height: '300%',
-          transform: isMobile ? 'translateZ(-500px)' : 'translateZ(-1000px)',
-          background: `#2b1810`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(218, 165, 32, 0.5)' stroke-width='2'%3E%3Cpath d='M30,0 Q30,30 60,30' /%3E%3Cpath d='M30,120 Q30,90 60,90' /%3E%3Cpath d='M90,30 Q90,30 120,30' /%3E%3Cpath d='M90,90 Q90,90 120,90' /%3E%3Ccircle cx='60' cy='60' r='10' stroke='rgba(218, 165, 32, 0.8)' /%3E%3C/g%3E%3Cg fill='none' stroke='rgba(255, 215, 0, 0.4)' stroke-width='2'%3E%3Cpath d='M0,30 Q30,30 60,30' /%3E%3Cpath d='M0,90 Q30,90 60,90' /%3E%3Cpath d='M60,30 Q90,30 120,30' /%3E%3Cpath d='M60,90 Q90,90 120,90' /%3E%3C/g%3E%3C/svg%3E"),
-            linear-gradient(
-              90deg,
-              transparent 0,
-              transparent 119px,
-              rgba(218, 165, 32, 0.3) 119px,
-              rgba(218, 165, 32, 0.3) 120px
-            ),
-            linear-gradient(
-              0deg,
-              transparent 0,
-              transparent 119px,
-              rgba(218, 165, 32, 0.3) 119px,
-              rgba(218, 165, 32, 0.3) 120px
-            )`,
-          backgroundSize: isMobile ? '80px 80px' : '120px 120px',
-          backgroundPosition: 'center center',
-          boxShadow: `
-            inset 0 0 150px rgba(218, 165, 32, 0.3),
-            inset 0 0 100px rgba(218, 165, 32, 0.2),
-            inset 0 0 50px rgba(218, 165, 32, 0.1)
-          `,
-          pointerEvents: 'none',
-          zIndex: -1,
-          WebkitMaskImage: `
-            radial-gradient(
-              circle at 50% 50%,
-              black 0%,
-              black 85%,
-              transparent 100%
-            )
-          `,
-          maskImage: `
-            radial-gradient(
-              circle at 50% 50%,
-              black 0%,
-              black 85%,
-              transparent 100%
-            )
-          `
-        }} />
-
-        <div style={{ 
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          transformStyle: 'preserve-3d',
-          pointerEvents: 'none',
-          transform: `translateY(${isMobile ? '-15%' : '-5%'}) 
-                     scale(${zoom}) 
-                     rotateX(${roomRotation.x}deg) 
-                     rotateY(${roomRotation.y}deg)`
-        }}>
-          {/* Left Wall */}
-          <div className="bookshelf-wall left space-y-12" style={{ 
-            transform: isMobile 
-              ? `translateY(-50%) rotateY(15deg) translateZ(-150px) translateX(-5%)` 
-              : `translateY(-50%) rotateY(20deg) translateZ(-150px) translateX(-15%)`, 
-            position: 'absolute', 
-            top: isMobile ? '40%' : '50%', 
-            left: isMobile ? '0%' : '5%', 
-            width: isMobile ? '30%' : '30%',
-            transformStyle: 'preserve-3d',
-            pointerEvents: 'auto',
-            height: '90vh',
-            gap: isMobile ? '3rem' : '2rem',
-            padding: isMobile ? '4rem 1rem' : '2rem'
-          }}>
-            {leftShelves.map((shelf) => (
-              <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
-            ))}
-          </div>
-
-          {/* Center Wall */}
-          <div className="bookshelf-wall center space-y-8" style={{ 
-            transform: isMobile 
-              ? `translate(-50%, -50%) translateZ(-200px)` 
-              : `translate(-50%, -50%) translateZ(-200px)`, 
-            position: 'absolute', 
-            top: isMobile ? '35%' : '35%',
-            left: '50%', 
-            width: isMobile ? '35%' : '35%',
-            transformStyle: 'preserve-3d',
-            pointerEvents: 'auto',
-            height: isMobile ? '80vh' : '80vh',
-            gap: isMobile ? '2rem' : '1.5rem',
-            padding: isMobile ? '3rem 1rem' : '1.5rem'
-          }}>
-            {centerShelves.map((shelf) => (
-              <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
-            ))}
-          </div>
-
-          {/* Right Wall */}
-          <div className="bookshelf-wall right space-y-12" style={{ 
-            transform: isMobile 
-              ? `translateY(-50%) rotateY(-15deg) translateZ(-150px) translateX(5%)` 
-              : `translateY(-50%) rotateY(-20deg) translateZ(-150px) translateX(15%)`, 
-            position: 'absolute', 
-            top: isMobile ? '40%' : '50%', 
-            right: isMobile ? '0%' : '5%', 
-            width: isMobile ? '30%' : '30%',
-            transformStyle: 'preserve-3d',
-            pointerEvents: 'auto',
-            height: '90vh',
-            gap: isMobile ? '3rem' : '2rem',
-            padding: isMobile ? '4rem 1rem' : '2rem'
-          }}>
-            {rightShelves.map((shelf) => (
-              <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

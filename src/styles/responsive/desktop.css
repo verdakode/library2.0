@@ -1,0 +1,107 @@
+/* Desktop layout */
+@media (min-width: 769px) {
+  .bookshelf-wall.left {
+    left: -5%;
+    width: 40%;
+    transform: translateY(-50%) rotateY(20deg) translateZ(-50px);
+  }
+
+  .bookshelf-wall.right {
+    right: -5%;
+    width: 40%;
+    transform: translateY(-50%) rotateY(-20deg) translateZ(-50px);
+  }
+
+  .bookshelf-wall.center {
+    left: 45%;
+    width: 40%;
+    height: 10%;
+    transform: translate(-55%, -55%) translateZ(-200px);
+  }
+
+  .book-spine {
+    min-width: 45px;
+    max-width: 65px;
+  }
+  
+  .book-preview {
+    position: fixed;
+    left: 50%;
+    top: auto;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    width: 50%;
+    max-width: 300px;
+    background: var(--wood-dark);
+  }
+}
+
+/* Large screen styles */
+@media (min-width: 1920px) {
+  .entrance-room {
+    perspective: 2000px;
+  }
+
+  .left-door {
+    left: -25%;
+    transform: translate3d(-50%, -50%, 0) rotateY(89deg) translateZ(900px);
+    width: 450px;
+    height: 800px;
+  }
+
+  .center-door {
+    transform: translate3d(-50%, -57%, 0) translateZ(-2000px);
+    width: 600px;
+    height: 1000px;
+  }
+
+  .right-door {
+    left: 85%;
+    transform: translate3d(-50%, -50%, 0) rotateY(-88deg) translateZ(100px);
+    width: 450px;
+    height: 800px;
+  }
+
+  .welcome-text {
+    transform: translate(-50%, 0) translateZ(-300px);
+  }
+
+  .welcome-text h1 {
+    font-size: clamp(3rem, 6vw, 6rem);
+  }
+
+  .welcome-text p {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+}
+
+/* Extra large screen styles */
+@media (min-width: 2560px) {
+  .entrance-room {
+    perspective: 2500px;
+  }
+
+  .left-door {
+    left: -20%;
+    transform: translate3d(-50%, -50%, 0) rotateY(89deg) translateZ(1200px);
+    width: 600px;
+    height: 1000px;
+  }
+
+  .center-door {
+    transform: translate3d(-50%, -57%, 0) translateZ(-2500px);
+    width: 800px;
+    height: 1200px;
+  }
+
+  .right-door {
+    left: 80%;
+    transform: translate3d(-50%, -50%, 0) rotateY(-88deg) translateZ(150px);
+    width: 600px;
+    height: 1000px;
+  }
+
+  .welcome-text {
+    transform: translate(-50%, 0) translateZ(-400px);
+  }
+} 

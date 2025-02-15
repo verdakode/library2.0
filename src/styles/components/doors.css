@@ -1,0 +1,141 @@
+/* Base door styles */
+.door-container {
+  position: absolute;
+  top: 45%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  z-index: 1000;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  pointer-events: all;
+}
+
+.door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #8B4513, #654321) !important;
+  border-radius: 8px;
+  transition: transform 1s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  border: 4px solid #A0522D;
+  transform-origin: left;
+}
+
+/* Left Door */
+.left-door {
+  left: -30%;
+  transform: translate(-50%, -50%) rotateY(89deg) translateZ(700px);
+  width: 350px;
+  height: 600px;
+  z-index: 1001;
+}
+
+/* Center Door */
+.center-door {
+  left: 50%;
+  transform: translate(-50%, -57%) translateZ(-1500px);
+  width: 500px;
+  height: 850px;
+  z-index: 1002;
+}
+
+/* Right Door */
+.right-door {
+  left: 90%;
+  transform: translate(-50%, -50%) rotateY(-88deg) translateZ(49px);
+  width: 350px;
+  height: 600px;
+  z-index: 1001;
+}
+
+/* Door hitbox styles */
+.door-hitbox {
+  position: absolute;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  pointer-events: all;
+  transform-style: preserve-3d;
+}
+
+.door-hitbox:focus {
+  outline: none;
+}
+
+/* Door animations */
+.door-open .door {
+  transform: rotateY(-105deg) translateX(-20px);
+}
+
+/* Door handle and panel styles */
+.door-handle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 15px;
+  height: 50px;
+  background: #CD853F;
+  border-radius: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #DEB887;
+}
+
+/* Left door handle position */
+.left-door .door-handle {
+  right: auto;
+  left: 20px;
+}
+
+.door-panel {
+  position: absolute;
+  inset: 40px;
+  border: 2px solid #DEB887;
+  border-radius: 4px;
+  opacity: 0.6;
+  pointer-events: none;
+  background: linear-gradient(to bottom right, rgba(222, 184, 135, 0.1), transparent);
+}
+
+.door-title {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--parchment);
+  font-family: "Playfair Display", serif;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px var(--shadow);
+  opacity: 0.9;
+}
+
+/* Ornate door design */
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 3px double #DEB887;
+  border-radius: 4px;
+  opacity: 0.7;
+}
+
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 35px;
+  border: 2px solid #DEB887;
+  border-radius: 4px;
+  opacity: 0.5;
+  background: linear-gradient(to bottom, 
+    rgba(222, 184, 135, 0.1),
+    rgba(222, 184, 135, 0.05)
+  );
+} 

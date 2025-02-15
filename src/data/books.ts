@@ -33,24 +33,35 @@ export const SHELF_BOOKS: ShelfBooks = {
   "000": [
     {
       id: "000-1",
-      title: "How to get places cheaper",
-      content: `# Uber and Lyft
-Pit them against each other.`,
-      color: BOOK_COLORS[0]
+      title: "My Tools",
+      content: `# What I use to get things done
+- I-Term
+- Tmux
+- Neovim
+- Zed
+- Cloudflare
+- Render
+- Bambu A1
+- Onshape
+- Claude
+- will write more later its 1 am lol`,
+      color: BOOK_COLORS[13]
     },
     {
       id: "000-2",
-      title: "Run Clubs",
-      content: `# Efficient Form of Health Enhancement
-Outside time, social interaction, and physical activity. The ultimate hack for health. Important factor here is the people you are with, if they are boring and don't entertain you, the effectiveness is diminished a bit.`,
-      color: BOOK_COLORS[1]
-    },
-    {
-      id: "000-3",
-      title: "Ask and Ye Shall Recieve",
-      content: `# Ask questions, get answers
-I'm sure you've heard the "ask for 10% off" experiment where people who arbitrarily ask for 10% off at a coffee shop are 8/10 times rewarded. Try it, it works and if it doesn't, the lesson is quite good. Sample more random distributions.`,
-      color: BOOK_COLORS[2]
+      title: "3D Printing knowledge dump",
+      content: `# the everything machines
+Why you should get a 3d printer:
+- You can make anything
+- You can learn how to make anything
+- You can save money
+- You can make money
+- You can learn how to make money
+- You can save the environment
+- You can learn how to save the environment
+- You can learn how to do anything
+- You can do anything`,
+      color: BOOK_COLORS[14]
     }
   ],
   "100": [
@@ -197,35 +208,24 @@ dynamics and phenomena.`,
   "600": [
     {
       id: "600-1",
-      title: "My Tools",
-      content: `# What I use to get things done
-- I-Term
-- Tmux
-- Neovim
-- Zed
-- Cloudflare
-- Render
-- Bambu A1
-- Onshape
-- Claude
-- will write more later its 1 am lol`,
-      color: BOOK_COLORS[13]
+      title: "How to get places cheaper",
+      content: `# Uber and Lyft
+Pit them against each other.`,
+      color: BOOK_COLORS[0]
     },
     {
       id: "600-2",
-      title: "3D Printing knowledge dump",
-      content: `# the everything machines
-Why you should get a 3d printer:
-- You can make anything
-- You can learn how to make anything
-- You can save money
-- You can make money
-- You can learn how to make money
-- You can save the environment
-- You can learn how to save the environment
-- You can learn how to do anything
-- You can do anything`,
-      color: BOOK_COLORS[14]
+      title: "Run Clubs",
+      content: `# Efficient Form of Health Enhancement
+Outside time, social interaction, and physical activity. The ultimate hack for health. Important factor here is the people you are with, if they are boring and don't entertain you, the effectiveness is diminished a bit.`,
+      color: BOOK_COLORS[1]
+    },
+    {
+      id: "600-3",
+      title: "Ask and Ye Shall Recieve",
+      content: `# Ask questions, get answers
+I'm sure you've heard the "ask for 10% off" experiment where people who arbitrarily ask for 10% off at a coffee shop are 8/10 times rewarded. Try it, it works and if it doesn't, the lesson is quite good. Sample more random distributions.`,
+      color: BOOK_COLORS[2]
     }
   ],
   "700": [

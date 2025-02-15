@@ -1,0 +1,80 @@
+/* Library Room styles */
+.library-room {
+  perspective: 2000px;
+  perspective-origin: 50% calc(50% - 100px);
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--wood-dark);
+  position: relative;
+}
+
+.library-wall {
+  background-color: var(--wood-dark);
+}
+
+/* Room lighting effects */
+.room-lighting {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 70% 75%,
+    rgba(255, 248, 220, 0.3) 0%,
+    rgba(74, 59, 39, 0.2) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wooden-floor {
+  position: fixed;
+  bottom: -5vh;
+  left: -25%;
+  right: -30%;
+  height: 20vh;
+  background-color: var(--wood-medium);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--wood-dark) 0px,
+    var(--wood-dark) 2px,
+    transparent 2px,
+    transparent 30px
+  );
+  transform: rotateX(45deg);
+  transform-origin: bottom;
+  z-index: 1;
+}
+
+/* Typography */
+.library-title {
+  display: none;
+}
+
+/* Shoe button styles */
+.shoe-button {
+  position: absolute;
+  left: 50%;
+  bottom: 30%;
+  transform: translate(-50%, 0) rotateX(-45deg);
+  width: 80px;
+  height: 120px;
+  background: linear-gradient(135deg, #8B0000, #B22222);
+  clip-path: path('M 40,0 C 60,0 75,10 75,30 L 75,90 C 75,100 65,110 50,115 C 35,120 15,115 5,100 C 0,90 0,80 0,70 L 0,30 C 0,10 20,0 40,0 Z');
+  border: none;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.4));
+  pointer-events: auto;
+  z-index: 1000;
+}
+
+.shoe-button:hover {
+  transform: translate(-50%, -5px) rotateX(-45deg);
+  filter: drop-shadow(0 15px 12px rgba(0, 0, 0, 0.5));
+}
+
+.shoe-button:active {
+  transform: translate(-50%, 2px) rotateX(-45deg);
+  filter: drop-shadow(0 5px 4px rgba(0, 0, 0, 0.3));
+} 

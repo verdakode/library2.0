@@ -1,0 +1,113 @@
+/* Book styles */
+.book-row {
+  display: flex;
+  gap: 4px;
+  height: 150px;
+  align-items: flex-end;
+  padding: 0.5rem;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.book-spine {
+  position: relative;
+  min-width: 35px;
+  max-width: 40px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.book-spine:hover {
+  transform: translateX(10px) rotateY(-20deg);
+  box-shadow: 
+    -4px 0 8px rgba(0,0,0,0.3),
+    inset -1px 0 1px rgba(255,255,255,0.2);
+}
+
+/* Book variations */
+.book-spine:nth-child(odd) {
+  height: 80%;
+}
+
+.book-spine:nth-child(3n) {
+  height: 90%;
+}
+
+.book-spine:nth-child(2n) {
+  height: 97%;
+}
+
+/* Add wear and tear to some books */
+.book-spine:nth-child(3n)::before {
+  opacity: 0.8;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.3) 0%,
+    transparent 20%,
+    rgba(0,0,0,0.1) 40%,
+    transparent 60%,
+    rgba(0,0,0,0.2) 100%
+  );
+}
+
+.book-spine:nth-child(2n)::after {
+  opacity: 0.9;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Book preview improvements */
+.book-preview {
+  position: fixed;
+  left: 50% !important;
+  bottom: 2rem !important;
+  transform: translateX(-50%) !important;
+  width: 90% !important;
+  max-width: 300px;
+  background: rgba(43, 24, 16, 0.95);
+  border: 1px solid var(--wood-light);
+  border-radius: 8px;
+  padding: 1rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.book-preview h4 {
+  color: var(--parchment);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.book-preview p {
+  color: var(--parchment);
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-spine:hover .book-preview {
+  opacity: 1;
+}
+
+/* Improve book spine text */
+.book-spine h3 {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--parchment);
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 0;
+  letter-spacing: 0.05em;
+} 
