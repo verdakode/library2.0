@@ -363,30 +363,37 @@ export default function LibraryRoom() {
       {/* Back door button */}
       <button
         onClick={() => router.push('/entrance')}
-        className="fixed top-4 right-4 w-16 h-24 bg-[#8B4513] rounded-t-lg 
-                  hover:bg-[#A0522D] transition-colors z-[2000]
-                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 
-                  transition-all duration-200 overflow-hidden"
-        style={{ 
-          pointerEvents: 'auto',
-          transformStyle: 'preserve-3d',
-          perspective: '1000px'
-        }}
         aria-label="Back to Entrance"
+        className="fixed top-4 right-4 cursor-pointer"
+        style={{ 
+          width: '48px',
+          height: '96px',
+          background: 'linear-gradient(to bottom right, var(--wood-medium), var(--wood-dark))',
+          border: '2px solid var(--leather-light)',
+          borderRadius: '24px 24px 4px 4px',
+          padding: 0,
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          transformOrigin: 'right center',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
       >
-        {/* Door frame */}
-        <div className="absolute inset-0.5 border-2 border-[#DEB887] rounded-t-lg opacity-0.7" />
-        
-        {/* Door handle */}
-        <div className="absolute right-2 top-1/2 w-2 h-6 bg-[#DEB887] rounded-full 
-                      transform -translate-y-1/2 shadow-md" />
-        
-        {/* Door panel */}
-        <div className="absolute inset-2 border border-[#DEB887] rounded-t-md opacity-0.5" />
-        
-        {/* Exit text */}
-        <span className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-[#DEB887] 
-                      text-xs font-semibold whitespace-nowrap rotate-90">
+        <span
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%) rotate(90deg)',
+            color: 'var(--leather-light)',
+            fontFamily: 'Cinzel, serif',
+            fontSize: '0.7rem',
+            letterSpacing: '0.1em',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+            transition: 'all 0.3s ease'
+          }}
+        >
           EXIT
         </span>
       </button>
@@ -561,6 +568,43 @@ export default function LibraryRoom() {
         </>
       ) : (
         <div className="w-full">
+          {/* Exit door for mobile */}
+          <div
+            onClick={() => router.push('/entrance')}
+            className="fixed top-4 right-4 w-10 h-14 cursor-pointer z-[9999]"
+            style={{ 
+              pointerEvents: 'auto'
+            }}
+          >
+            {/* Door frame */}
+            <div className="absolute inset-0 bg-[#2b1810]"
+                 style={{
+                   borderRadius: '0 0 4px 4px',
+                   borderTopLeftRadius: '999px',
+                   borderTopRightRadius: '999px'
+                 }}>
+              {/* Door frame trim */}
+              <div className="absolute inset-0 border border-[#8B4513]"
+                   style={{
+                     borderRadius: '0 0 4px 4px',
+                     borderTopLeftRadius: '999px',
+                     borderTopRightRadius: '999px'
+                   }} />
+            </div>
+            
+            {/* Door */}
+            <div className="absolute inset-0.5 bg-[#5E3023]"
+                 style={{
+                   borderRadius: '0 0 3px 3px',
+                   borderTopLeftRadius: '999px',
+                   borderTopRightRadius: '999px'
+                 }}>
+              {/* Door handle */}
+              <div className="absolute right-1 top-1/2 w-1 h-2 bg-[#DEB887] rounded-sm 
+                           transform -translate-y-1/2" />
+            </div>
+          </div>
+
           <div className="w-full px-4">
             <div className="space-y-6">
               {leftShelves.map((shelf) => (

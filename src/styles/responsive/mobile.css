@@ -250,27 +250,98 @@
 
   /* Exit door button styles */
   button[aria-label="Back to Entrance"] {
-    transform-origin: right center;
+    position: fixed !important;
+    right: 1rem !important;
+    top: 1rem !important;
+    width: 48px !important;
+    height: 96px !important;
+    background: linear-gradient(to bottom right, var(--wood-medium), var(--wood-dark)) !important;
+    border: 2px solid var(--leather-light) !important;
+    border-radius: 24px 24px 4px 4px !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    transform-origin: right center !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
-  button[aria-label="Back to Entrance"]:hover {
-    transform: perspective(1000px) rotateY(-15deg) translateY(-2px);
-  }
-
-  button[aria-label="Back to Entrance"]:active {
-    transform: perspective(1000px) rotateY(-30deg) translateY(0px);
-  }
-
-  button[aria-label="Back to Entrance"] > div {
+  /* Door handle */
+  button[aria-label="Back to Entrance"]::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 6px;
+    height: 16px;
+    background: var(--leather-light);
+    border-radius: 3px;
+    transform: translateY(-50%);
     transition: all 0.3s ease;
   }
 
-  button[aria-label="Back to Entrance"]:hover > div {
-    border-color: #F5DEB3;
+  /* Exit text */
+  button[aria-label="Back to Entrance"] span {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) rotate(90deg) !important;
+    color: var(--leather-light) !important;
+    font-family: "Cinzel", serif !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.1em !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    transition: all 0.3s ease !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  button[aria-label="Back to Entrance"]:hover {
+    transform: perspective(1000px) rotateY(-15deg) !important;
+    border-color: var(--parchment) !important;
+  }
+
+  button[aria-label="Back to Entrance"]:hover::after {
+    background: var(--parchment) !important;
   }
 
   button[aria-label="Back to Entrance"]:hover span {
-    color: #F5DEB3;
+    color: var(--parchment) !important;
+  }
+
+  /* Exit door styles for mobile */
+  .library-room > div[class*="fixed"] {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    width: 2.5rem !important;
+    height: 3.5rem !important;
+    z-index: 9999 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .library-room > div[class*="fixed"] > div {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Door handle visibility fix */
+  .library-room > div[class*="fixed"] .absolute.right-1 {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
 
