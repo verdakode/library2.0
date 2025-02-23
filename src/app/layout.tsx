@@ -26,11 +26,35 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Verda's Digital Library",
   description: "A personal digital library organizing life, projects, and thoughts",
+  icons: {
+    icon: [
+      {
+        url: '/images/minecraftbookshelf.png',
+        sizes: '32x32',
+        type: 'image/png'
+      },
+      {
+        url: '/images/minecraftbookshelf.png',
+        sizes: '16x16',
+        type: 'image/png'
+      }
+    ],
+    apple: {
+      url: '/images/minecraftbookshelf.png',
+      sizes: '180x180',
+      type: 'image/png'
+    }
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${cinzel.variable} ${cormorant.variable}`}>
+      <head>
+        <link rel="icon" href="/images/minecraftbookshelf.png" />
+        <link rel="shortcut icon" href="/images/minecraftbookshelf.png" />
+        <link rel="apple-touch-icon" href="/images/minecraftbookshelf.png" />
+      </head>
       <body className={`${playfair.className} antialiased`}>{children}</body>
     </html>
   );

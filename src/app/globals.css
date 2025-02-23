@@ -9,6 +9,7 @@
 /* Import room styles */
 @import '../styles/rooms/library.css';
 @import '../styles/rooms/entrance.css';
+@import '../styles/rooms/art.css';
 
 /* Import responsive styles */
 @import '../styles/responsive/mobile.css';

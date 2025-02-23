@@ -1,0 +1,321 @@
+.art-room {
+  position: fixed;
+  inset: 0;
+  background: var(--wood-dark);
+  overflow: hidden;
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gallery Title Styles */
+.gallery-title {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 1500;
+  width: 100%;
+  pointer-events: none;
+}
+
+.gallery-title h1 {
+  font-family: "Cinzel", serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--parchment);
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(222, 184, 135, 0.2);
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+  letter-spacing: 0.1em;
+}
+
+.title-underline {
+  width: clamp(100px, 30%, 200px);
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--parchment),
+    transparent
+  );
+  margin: 0.5rem auto;
+  opacity: 0.6;
+}
+
+.art-gallery {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 6rem 2rem 2rem;
+  overflow: hidden;
+}
+
+.paintings-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.room-lighting {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 248, 220, 0.15) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.painting-frame {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  z-index: 10;
+}
+
+.painting-frame::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: linear-gradient(45deg, #8B4513, #654321);
+  border: 2px solid #DEB887;
+  border-radius: 10px;
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.painting {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.painting-image {
+  transition: transform 0.3s ease;
+}
+
+.painting-frame:hover {
+  transform: scale(1.02) translateY(-5px) rotateY(2deg) !important;
+  z-index: 20;
+}
+
+.painting-frame:hover::before {
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Spotlights */
+.art-gallery::before,
+.art-gallery::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 248, 220, 0.1) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.art-gallery::before {
+  left: 0;
+  transform: translateX(-30%);
+}
+
+.art-gallery::after {
+  right: 0;
+  transform: translateX(30%);
+}
+
+/* Exit door button styles */
+button[aria-label="Back to Entrance"] {
+  position: fixed !important;
+  right: 1rem !important;
+  top: 1rem !important;
+  width: 48px !important;
+  height: 96px !important;
+  background: linear-gradient(to bottom right, var(--wood-medium), var(--wood-dark)) !important;
+  border: 2px solid var(--leather-light) !important;
+  border-radius: 24px 24px 4px 4px !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  transform-origin: right center !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Door handle */
+button[aria-label="Back to Entrance"]::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  width: 6px;
+  height: 16px;
+  background: var(--leather-light);
+  border-radius: 3px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+/* Exit text */
+button[aria-label="Back to Entrance"] span {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) rotate(90deg) !important;
+  color: var(--leather-light) !important;
+  font-family: "Cinzel", serif !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  transition: all 0.3s ease !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Hover effects */
+button[aria-label="Back to Entrance"]:hover {
+  transform: perspective(1000px) rotateY(-15deg) !important;
+  border-color: var(--parchment) !important;
+}
+
+button[aria-label="Back to Entrance"]:hover::after {
+  background: var(--parchment) !important;
+}
+
+button[aria-label="Back to Entrance"]:hover span {
+  color: var(--parchment) !important;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .art-room {
+    overflow-y: auto;
+    perspective: none;
+  }
+
+  .gallery-title {
+    position: fixed;
+    top: 4rem;
+    padding: 0 1rem;
+  }
+
+  .gallery-title h1 {
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
+  }
+
+  .title-underline {
+    width: clamp(80px, 40%, 150px);
+  }
+
+  .art-gallery {
+    min-height: 100vh;
+    height: auto;
+    padding: 8rem 1rem 2rem;
+    overflow-y: visible;
+  }
+
+  .paintings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .painting-frame {
+    position: relative !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 400px;
+  }
+
+  .painting-frame::before {
+    inset: -12px;
+    border-width: 1px;
+  }
+
+  .painting-frame:hover {
+    transform: scale(1.02) !important;
+  }
+
+  /* Adjust spotlights for mobile */
+  .art-gallery::before,
+  .art-gallery::after {
+    display: none;
+  }
+
+  .room-lighting {
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 248, 220, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
+
+  button[aria-label="Back to Entrance"] {
+    right: 0.5rem !important;
+    top: 0.5rem !important;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .gallery-title {
+    top: 4rem;
+  }
+
+  .gallery-title h1 {
+    font-size: clamp(1.2rem, 6vw, 2rem);
+  }
+
+  .art-gallery {
+    padding-top: 7rem;
+  }
+
+  .painting-frame::before {
+    inset: -8px;
+  }
+}
+
+/* Landscape Mobile Styles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .gallery-title {
+    top: 3.5rem;
+  }
+
+  .gallery-title h1 {
+    font-size: clamp(1rem, 5vw, 1.8rem);
+  }
+
+  .art-gallery {
+    padding-top: 6rem;
+  }
+
+  .paintings-container {
+    gap: 1.5rem;
+  }
+} 
