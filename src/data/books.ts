@@ -90,33 +90,34 @@ Systematic review of growth trajectories and milestone achievements.`,
       id: "200-1",
       title: "who am i?",
       content: `#
- hi! i'm verda. who are you? ok fine i'll tell you, but first let me say that it is actually quite difficult to describe ones self. i could start by telling you my physical characteristics but that is only a fraction of who i am and not a worthy descriptor.
- i wish i could say with certainty who i am but after a long conversation with claude where
- i input all of my characteristics, life history, dreams, education, work history, family, places i've lived, and more, it told me that i "analyze things like an anthropologist"
- anyway, i'm pretty young in years but people say i'm older inside. this is probably true, i grew up
- the eldest of 4 (this has since technically become 8). with a single father and a very young autistic brother. 
- so i've kind of been an adult since i was 12.
- my eyesight is very poor, my prescription is a -6.5 so I could not see
- until my parents realized (when I was 8) that i needed glasses. anyway, i learned to read when I was 2 because I could not see anything else.
- i was homeschooled by a religious mother until 5th grade so i've read the bible 5 times, the first of which was when i was 5. 
- revelations was my favorite. after that i went to public school, then a catholic private school, then to community college/public school.
- i made my first website in high school, it was a library website! that got me my first software engineer job for a company called the pesto group, which is
- one of the many reasons i decided to skip college. 
- chalking up my life to this point, i am heavily favored by the universe because i more or less am not that great at openings.
- i'm constantly experimenting to see how far my luck will take me and how i can extend it to others.
+ hi! i'm verda. who are you? 
+ 
+ ok fine i'll tell you, kindly note that this is not an accurate representation of who i am
+ 
+ for all intents and purposes, i am a boundless being of light and energy. i was legally blind until my parents realized (when I was 8) that i needed glasses. i learned to read when I was 2 because I could only see very close up.
+ i was homeschooled in the IFB church until the 5th grade, big fan of the KJV bible. i've bounced between public school, catholic private school, and a shortlived attempt at a mechatronics degree at a community college. 
+ i made my first website in high school, it was a library website! after that I got my first software engineer job at a consultancy. i have since went on to build 3d printers, do a variety of sidequests, and as of feb 24th 2025 at 3:53am
+ when i am writing this, i live between a san francisco hacker house i started called prototype house and a robotics company in palo alto called kscale labs. 
 `,
       color: BOOK_COLORS[5]
     },
     {
       id: "200-2",
-      title: "Passions, Past and Present",
-      content: `# Everything I have ever been passionate about
-From a young age I loved to read. After entering school in the 5th grade I became even more attached to books and obsessed with getting good at school.
-I also became somewhat obsessed with making friends which I did a very bad job at. In middle school I really liked spanish, I would help a lot of people with their spanish homework
-and at one point could hold conversations. I also started an engineering club in middle school where we designed 3d models with tinkercad and 3d printed them.
-It began because I 3d printed fidget spinners and sold them to my friends. I became quite chubby in middle school and at one point was embarrassed because
-my two best friends could do cartwheels and I could not. I went on to wear a hole in the lawn teaching myself to cartwheel, went on to achieve a round-off, back 
-and front walkover and my right, left, and middle splits. (to be continued) `,
+      title: "early education",
+      content: `# on getting my young soul smashed and learning social dynamics late
+on my first day of school, I was 10 years old. my only objective was finding book-like kindred spirits (see anne and diane from green gables/nancy and detective friends).
+alas, this was not to be. only after two years, i made two good friends who attended a school across the town from me. one day i was embarrassed because
+they could do cartwheels and I could not. i resolved to cartwheel, round-off, back 
+and front walkover and do right, left, and middle splits.
+this incurred the wrath of my overstretched father who exclaimed in outrage at the sight of
+a brown dirt patch in his otherwise luscious long green grass. however, i think it made him proud. he has often cited "the time i wore a hole in the
+grass learning to cartwheel" as evidence of tenacity.
+i really enjoyed spanish class because to learn was to speak.
+in an otherwise sterile and silent school day of passive consumption, it was refreshing.
+after learning 3d modeling, i began an engineering club in middle school. we designed things with tinkercad and 3d printed them.
+i ended up 3d printed a lot of fidget spinners, selling them to people. 
+
+`,
       color: BOOK_COLORS[6]
     }
   ],
@@ -139,7 +140,7 @@ and front walkover and my right, left, and middle splits. (to be continued) `,
    giving me a kit to put together the flower lamp and he has been my favorite grand rapids friend since. if you are curious,
    you can find him at idig3d.com or on any social media @idig3d.
 - Rayleeana Hayward
-   met in the fifth grade. my first online -> real friend. after a long discussion on musically.com
+   my first online -> real friend. after a long discussion on musically.com
    we discovered we lived nearby and proceeded to meet at a bagel shop nearby to discuss various schemes
   regarding the opposite gender. 
 - Sasha Lišková 
@@ -157,8 +158,7 @@ and front walkover and my right, left, and middle splits. (to be continued) `,
    running best friend. straight forward no bullshit asian woman. my adult inspiration and motivator to run
    my first half marathon. could not have done it without her.
 - Stoney Stark
-   the name speaks for itsself here, inventor of the laser bong, currently resides in san francisco in which
-   he was born and raised.
+   inventor of the laser bong and the portal lighter 
    (to be continued)`,
       color: BOOK_COLORS[8]
     }
@@ -208,23 +208,23 @@ dynamics and phenomena.`,
   "600": [
     {
       id: "600-1",
-      title: "How to get places cheaper",
+      title: "the strangeties of transport",
       content: `# Uber and Lyft
 Pit them against each other.`,
       color: BOOK_COLORS[0]
     },
     {
       id: "600-2",
-      title: "Run Clubs",
-      content: `# Efficient Form of Health Enhancement
-Outside time, social interaction, and physical activity. The ultimate hack for health. Important factor here is the people you are with, if they are boring and don't entertain you, the effectiveness is diminished a bit.`,
+      title: "truly effective acceleration",
+      content: `# running is efficient
+Outside time, social interaction, and physical activity. The ultimate hack for health. Important factor here is the people you are with, if they are boring and don't entertain you, the effect diminishes.`,
       color: BOOK_COLORS[1]
     },
     {
       id: "600-3",
       title: "Ask and Ye Shall Recieve",
       content: `# Ask questions, get answers
-I'm sure you've heard the "ask for 10% off" experiment where people who arbitrarily ask for 10% off at a coffee shop are 8/10 times rewarded. Try it, it works and if it doesn't, the lesson is quite good. Sample more random distributions.`,
+      the "ask for 10% off" experiment where people who arbitrarily ask for 10% off at a coffee shop are 8/10 times rewarded comes to mind. try it, it usually works and if it doesn't, the lesson is quite good. Sample more random distributions.`,
       color: BOOK_COLORS[2]
     }
   ],
