@@ -2,35 +2,13 @@
   position: fixed;
   inset: 0;
   background: var(--wood-dark);
-  overflow: hidden;
+  overflow-y: auto;
   perspective: 1500px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-}
-
-/* Gallery Title Styles */
-.gallery-title {
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  z-index: 1500;
-  width: 100%;
-  pointer-events: none;
-}
-
-.gallery-title h1 {
-  font-family: "Cinzel", serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--parchment);
-  text-shadow: 
-    2px 2px 4px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(222, 184, 135, 0.2);
-  margin-bottom: 0.5rem;
-  opacity: 0.9;
-  letter-spacing: 0.1em;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 .title-underline {
@@ -49,15 +27,19 @@
 .art-gallery {
   position: relative;
   width: 100%;
-  height: 100vh;
-  padding: 6rem 2rem 2rem;
-  overflow: hidden;
+  max-width: 1400px;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  overflow: visible;
 }
 
 .paintings-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 8rem 4rem;
+  padding: 2rem;
 }
 
 .room-lighting {
@@ -73,48 +55,48 @@
 }
 
 .painting-frame {
-  position: absolute;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  transform-style: preserve-3d;
-  z-index: 10;
-}
-
-.painting-frame::before {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  background: linear-gradient(45deg, #8B4513, #654321);
-  border: 2px solid #DEB887;
-  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--aspect-ratio, 4/3);
+  background: var(--wood-light);
+  padding: 20px;
+  border-radius: 8px;
   box-shadow: 
     0 10px 20px rgba(0, 0, 0, 0.3),
-    inset 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: -1;
+    inset 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transform-origin: center;
 }
 
 .painting {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
   overflow: hidden;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  background: #fff;
 }
 
 .painting-image {
-  transition: transform 0.3s ease;
+  object-fit: cover !important;
+  border-radius: 4px;
 }
 
-.painting-frame:hover {
-  transform: scale(1.02) translateY(-5px) rotateY(2deg) !important;
-  z-index: 20;
+.painting-title {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--parchment);
+  font-family: "Cinzel", serif;
+  padding: 0.5rem;
+  opacity: 0.9;
 }
 
-.painting-frame:hover::before {
-  box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    inset 0 0 15px rgba(0, 0, 0, 0.6);
+.painting-title span {
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Spotlights */
@@ -211,11 +193,52 @@ button[aria-label="Back to Entrance"]:hover span {
   color: var(--parchment) !important;
 }
 
-/* Mobile Styles */
+/* Desktop styles */
+@media (min-width: 769px) {
+  .paintings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 6rem;
+    padding: 2rem;
+  }
+
+  .painting-frame {
+    position: relative;
+    margin: 0;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: var(--aspect-ratio, 4/3);
+  }
+
+  .painting {
+    aspect-ratio: var(--aspect-ratio, 4/3);
+  }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
   .art-room {
-    overflow-y: auto;
-    perspective: none;
+    padding: 1rem;
+  }
+
+  .art-gallery {
+    padding: 2rem 1rem;
+  }
+
+  .paintings-container {
+    grid-template-columns: 1fr;
+    gap: 6rem;
+    padding: 1rem;
+  }
+
+  .painting-frame {
+    transform: none !important;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .painting-title {
+    bottom: -50px;
   }
 
   .gallery-title {
@@ -232,36 +255,6 @@ button[aria-label="Back to Entrance"]:hover span {
     width: clamp(80px, 40%, 150px);
   }
 
-  .art-gallery {
-    min-height: 100vh;
-    height: auto;
-    padding: 8rem 1rem 2rem;
-    overflow-y: visible;
-  }
-
-  .paintings-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .painting-frame {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: 400px;
-  }
-
-  .painting-frame::before {
-    inset: -12px;
-    border-width: 1px;
-  }
-
-  .painting-frame:hover {
-    transform: scale(1.02) !important;
-  }
-
   /* Adjust spotlights for mobile */
   .art-gallery::before,
   .art-gallery::after {
@@ -274,11 +267,6 @@ button[aria-label="Back to Entrance"]:hover span {
       rgba(255, 248, 220, 0.1) 0%,
       rgba(0, 0, 0, 0.3) 100%
     );
-  }
-
-  button[aria-label="Back to Entrance"] {
-    right: 0.5rem !important;
-    top: 0.5rem !important;
   }
 }
 
@@ -296,8 +284,17 @@ button[aria-label="Back to Entrance"]:hover span {
     padding-top: 7rem;
   }
 
-  .painting-frame::before {
-    inset: -8px;
+  .paintings-container {
+    gap: 5rem;
+    padding: 0.5rem;
+  }
+
+  .painting-frame {
+    padding: 12px;
+  }
+
+  .painting-title {
+    bottom: -40px;
   }
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -14,18 +14,37 @@ interface Painting {
   src: string;
   size: [number, number];
   position?: Position;
+  title?: string;
+  description?: string;
+  additionalImage?: string;
+  ref: React.RefObject<HTMLDivElement>;
 }
 
 const paintings: Painting[] = [
   {
     id: "1",
-    src: "/images/librarypic.jpeg",
+    src: "/images/electionneedle2.png",
     size: [800, 600],
+    title: "Election Needle Analysis",
+    description: "A visual representation of election predictions and their real-time changes. Click to see the comparison between two key moments.",
+    additionalImage: "/images/electionneedle1.png",
+    ref: React.createRef<HTMLDivElement>()
   },
   {
     id: "2",
+    src: "/images/librarypic.jpeg",
+    size: [800, 600],
+    title: "Digital Library Concept",
+    description: "A conceptual visualization of the digital library interface.",
+    ref: React.createRef<HTMLDivElement>()
+  },
+  {
+    id: "3",
     src: "/images/minecraftbookshelf.png",
     size: [400, 400],
+    title: "Minecraft Bookshelf Icon",
+    description: "A pixelated bookshelf icon inspired by Minecraft's aesthetic.",
+    ref: React.createRef<HTMLDivElement>()
   },
   //{
    // id: "2",
@@ -58,7 +77,6 @@ const paintings: Painting[] = [
 export default function ArtRoom() {
   const router = useRouter();
   const [selectedPainting, setSelectedPainting] = useState<Painting | null>(null);
-  const [positionedPaintings, setPositionedPaintings] = useState<Painting[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
 
@@ -71,74 +89,6 @@ export default function ArtRoom() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  useEffect(() => {
-    const positionPaintings = () => {
-      if (!galleryRef.current) return;
-
-      const galleryWidth = galleryRef.current.clientWidth;
-      const galleryHeight = galleryRef.current.clientHeight;
-      
-      if (isMobile) {
-        // Mobile layout: stack paintings vertically with consistent sizing
-        const maxWidth = Math.min(galleryWidth - 40, 400); // Max width of 400px or gallery width - 40px padding
-        
-        const result = paintings.map((painting) => {
-          const aspectRatio = painting.size[0] / painting.size[1];
-          const width = maxWidth;
-          const height = width / aspectRatio;
-
-          return {
-            ...painting,
-            position: { left: 0, top: 0 }, // Position handled by CSS flexbox
-            size: [width, height] as [number, number],
-          };
-        });
-
-        setPositionedPaintings(result);
-      } else {
-        // Desktop layout: position paintings in a grid
-        const padding = 80;
-        const spacing = 60;
-        const maxGalleryHeight = galleryHeight * 0.8;
-        const maxRowWidth = galleryWidth - (padding * 2);
-
-        let currentX = padding;
-        let currentRow = 0;
-        const rowHeight = maxGalleryHeight / 2;
-        
-        const result = paintings.map((painting) => {
-          const aspectRatio = painting.size[0] / painting.size[1];
-          const height = rowHeight;
-          const width = height * aspectRatio;
-
-          if (currentX + width > maxRowWidth) {
-            currentX = padding;
-            currentRow++;
-          }
-
-          const position: Position = {
-            left: currentX,
-            top: padding + (currentRow * (rowHeight + spacing)),
-          };
-
-          currentX += width + spacing;
-
-          return {
-            ...painting,
-            position,
-            size: [width, height] as [number, number],
-          };
-        });
-
-        setPositionedPaintings(result);
-      }
-    };
-
-    positionPaintings();
-    window.addEventListener('resize', positionPaintings);
-    return () => window.removeEventListener('resize', positionPaintings);
-  }, [isMobile]);
 
   return (
     <div className="art-room">
@@ -180,43 +130,35 @@ export default function ArtRoom() {
         </span>
       </button>
 
-      {/* Gallery Title */}
-      <div className="gallery-title">
-        <h1>Verda&apos;s Art</h1>
-        <div className="title-underline"></div>
-      </div>
-
       {/* Room lighting effect */}
       <div className="room-lighting" />
 
       {/* Art Gallery */}
       <div className="art-gallery" ref={galleryRef}>
         <div className="paintings-container">
-          {positionedPaintings.map((painting) => (
+          {paintings.map((painting) => (
             <div
               key={painting.id}
               className="painting-frame"
               onClick={() => setSelectedPainting(painting)}
               style={{
-                width: `${painting.size[0]}px`,
-                height: `${painting.size[1]}px`,
-                ...(isMobile ? {} : {
-                  position: 'absolute',
-                  left: `${painting.position?.left}px`,
-                  top: `${painting.position?.top}px`,
-                  transform: `rotate(${Math.random() * 2 - 1}deg)`,
-                }),
-              }}
+                '--aspect-ratio': `${painting.size[0]}/${painting.size[1]}`
+              } as React.CSSProperties}
             >
               <div className="painting">
                 <Image
                   src={painting.src}
-                  alt=""
+                  alt={painting.title || ""}
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: 'contain' }}
                   className="painting-image"
                 />
               </div>
+              {painting.title && (
+                <div className="painting-title">
+                  <span>{painting.title}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -230,11 +172,12 @@ export default function ArtRoom() {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 2100,
+            padding: isMobile ? '1rem' : '2rem'
           }}
         >
           <div 
@@ -242,39 +185,103 @@ export default function ArtRoom() {
             onClick={(e) => e.stopPropagation()}
             style={{
               position: 'relative',
+              width: '100%',
               maxWidth: '90vw',
-              maxHeight: '90vh',
+              maxHeight: isMobile ? '100vh' : '90vh',
               backgroundColor: '#2B1810',
-              padding: '2rem',
+              padding: isMobile ? '1rem' : '2rem',
               borderRadius: '1rem',
               boxShadow: '0 0 30px rgba(0, 0, 0, 0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: isMobile ? '1rem' : '1.5rem',
+              overflowY: 'auto'
             }}
           >
-            <Image
-              src={selectedPainting.src}
-              alt=""
-              width={selectedPainting.size[0] * 1.5}
-              height={selectedPainting.size[1] * 1.5}
-              className="painting-modal-image"
-              style={{
-                objectFit: 'contain',
-                borderRadius: '0.5rem',
-              }}
-            />
+            {selectedPainting.title && (
+              <h2 style={{
+                color: '#F5E6D3',
+                fontSize: isMobile ? '1.2rem' : '1.5rem',
+                fontFamily: 'Cinzel, serif',
+                marginBottom: '0.5rem',
+                textAlign: 'center',
+                paddingRight: '3rem'
+              }}>
+                {selectedPainting.title}
+              </h2>
+            )}
+            
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              width: '100%'
+            }}>
+              <Image
+                src={selectedPainting.src}
+                alt=""
+                width={selectedPainting.size[0]}
+                height={selectedPainting.size[1]}
+                className="painting-modal-image"
+                style={{
+                  objectFit: 'contain',
+                  borderRadius: '0.5rem',
+                  maxHeight: isMobile ? '40vh' : '60vh',
+                  width: 'auto',
+                  maxWidth: '100%'
+                }}
+              />
+              
+              {selectedPainting.additionalImage && (
+                <Image
+                  src={selectedPainting.additionalImage}
+                  alt=""
+                  width={selectedPainting.size[0]}
+                  height={selectedPainting.size[1]}
+                  className="painting-modal-image"
+                  style={{
+                    objectFit: 'contain',
+                    borderRadius: '0.5rem',
+                    maxHeight: isMobile ? '40vh' : '60vh',
+                    width: 'auto',
+                    maxWidth: '100%'
+                  }}
+                />
+              )}
+            </div>
+
+            {selectedPainting.description && (
+              <p style={{
+                color: '#F5E6D3',
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                lineHeight: '1.6',
+                fontFamily: 'Cormorant Garamond, serif',
+                maxWidth: '800px',
+                margin: '0 auto',
+                textAlign: 'center',
+                padding: isMobile ? '0' : '0 1rem'
+              }}>
+                {selectedPainting.description}
+              </p>
+            )}
+
             <button 
               className="painting-modal-close"
               onClick={() => setSelectedPainting(null)}
               style={{
                 position: 'absolute',
-                top: '1rem',
-                right: '1rem',
-                padding: '0.5rem 1rem',
+                top: isMobile ? '0.5rem' : '1rem',
+                right: isMobile ? '0.5rem' : '1rem',
+                padding: isMobile ? '0.3rem 0.8rem' : '0.5rem 1rem',
                 backgroundColor: '#5E3023',
                 color: '#F5E6D3',
                 border: 'none',
                 borderRadius: '0.5rem',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
+                fontFamily: 'Cinzel, serif',
+                fontSize: isMobile ? '0.9rem' : '1rem'
               }}
             >
               Close

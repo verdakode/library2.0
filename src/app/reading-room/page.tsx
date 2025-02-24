@@ -21,7 +21,7 @@ export default function ReadingRoom() {
 
       <div className="construction-notice">
         <h1>🚧 Under Construction 🚧</h1>
-        <p>We&apos;re creating a cozy reading space for you.</p>
+        <p>We&apos;re creating a mueseam for you.</p>
         <p>Please check back soon!</p>
       </div>
     </div>

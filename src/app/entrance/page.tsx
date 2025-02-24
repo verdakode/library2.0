@@ -111,7 +111,7 @@ export default function Entrance() {
             <div className="door-handle" />
             <div className="door-panel" />
           </div>
-          <div className="door-title">Library</div>
+          <div className="door-title">The Library</div>
         </div>
 
         <div className="door-container right-door" onClick={() => handleDoorClick(ROUTES.READING_ROOM, 'right-door')} style={{ pointerEvents: 'auto' }}>
