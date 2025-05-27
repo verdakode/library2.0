@@ -19,7 +19,7 @@ const shelves = [
   },
   {
     id: "200",
-    name: "a girl's life",
+    name: "my life",
     description: "first hand perspective",
     color: "from-[#785C38] to-[#C4A484]",
   },
@@ -99,7 +99,7 @@ const bookColors = [
 ];
 
 const sampleBooks = [
-  { 
+  {
     title: "Introduction to Library Science",
     content: `# Introduction to Library Science
 
@@ -127,22 +127,22 @@ In this comprehensive guide, we explore the fundamental principles of library sc
 As we move further into the digital age, libraries continue to evolve...`,
     height: "85%"
   },
-  { 
+  {
     title: "Digital Archives",
     content: "An exploration of modern archival techniques and digital preservation strategies...",
     height: "90%"
   },
-  { 
+  {
     title: "Library Architecture",
     content: "A study of library design principles and their impact on user experience...",
     height: "95%"
   },
-  { 
+  {
     title: "Collection Management",
     content: "Best practices for maintaining and growing library collections...",
     height: "88%"
   },
-  { 
+  {
     title: "Information Science",
     content: "Understanding the principles of information organization and retrieval...",
     height: "92%"
@@ -190,11 +190,11 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
     <div className={`bookshelf-unit`}>
       {/* Back panel */}
       <div className="shelf-back" />
-      
+
       {/* Side panels */}
       <div className="shelf-left" />
       <div className="shelf-right" />
-      
+
       {/* Shelf title with improved visibility */}
       <div className="shelf-title">
         <h2 data-dewey={shelf.id}>
@@ -202,7 +202,7 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
         </h2>
         <p>{shelf.description}</p>
       </div>
-      
+
       <div className={`book-row ${isCenter ? "h-20" : "h-20"}`}>
         {[...Array(5)].map((_, i) => {
           const book = shelfBooks[i] || {
@@ -210,7 +210,7 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
             color: getRandomBookColor(),
             content: `This section contains information about ${shelf.name.toLowerCase()}.`
           };
-          
+
           return (
             <button
               key={i}
@@ -232,7 +232,7 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
               }}
             >
               <h3 className="whitespace-normal px-1">{book.title}</h3>
-              
+
               {/* Book preview tooltip */}
               <div className="book-preview">
                 <h4>{book.title}</h4>
@@ -259,7 +259,7 @@ export default function LibraryRoom() {
   useEffect(() => {
     // Set initial zoom for mobile and desktop
     setZoom(isMobile ? 0.75 : 0.9);
-    
+
     // Check if device orientation is available
     if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
       // Request permission for iOS devices
@@ -284,9 +284,9 @@ export default function LibraryRoom() {
       setIsMobile(window.innerWidth <= 768);
       setZoom(window.innerWidth <= 768 ? 0.75 : 0.9);
     };
-    
+
     window.addEventListener('resize', handleResize);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       if (isGyroAvailable) {
@@ -299,7 +299,7 @@ export default function LibraryRoom() {
     // Limit the rotation range to keep the room visible
     const beta = Math.max(-20, Math.min(20, event.beta || 0)); // x-axis rotation
     const gamma = Math.max(-30, Math.min(30, event.gamma || 0)); // y-axis rotation
-    
+
     setRoomRotation({
       x: beta / 2, // Reduce the rotation effect
       y: gamma / 2
@@ -323,7 +323,7 @@ export default function LibraryRoom() {
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
       );
-      
+
       if (initialTouchDistance > 0) {
         const delta = distance - initialTouchDistance;
         const newZoom = Math.max(0.5, Math.min(1.5, zoom + (delta * 0.005)));
@@ -346,9 +346,9 @@ export default function LibraryRoom() {
   };
 
   return (
-    <div 
-      className="library-room" 
-      style={{ 
+    <div
+      className="library-room"
+      style={{
         touchAction: isMobile ? 'auto' : 'none',
         pointerEvents: isMobile ? 'auto' : 'none'
       }}
@@ -365,7 +365,7 @@ export default function LibraryRoom() {
         onClick={() => router.push('/entrance')}
         aria-label="Back to Entrance"
         className="fixed top-4 right-4 cursor-pointer"
-        style={{ 
+        style={{
           width: '48px',
           height: '96px',
           background: 'linear-gradient(to bottom right, var(--wood-medium), var(--wood-dark))',
@@ -430,7 +430,7 @@ export default function LibraryRoom() {
               </div>
             </button>
           </div>
-          <div style={{ 
+          <div style={{
             width: '100%',
             height: '100%',
             position: 'fixed',
@@ -493,7 +493,7 @@ export default function LibraryRoom() {
               `
             }} />
 
-            <div style={{ 
+            <div style={{
               width: '100%',
               height: '100%',
               position: 'relative',
@@ -505,13 +505,13 @@ export default function LibraryRoom() {
                          rotateY(${roomRotation.y}deg)`
             }}>
               {/* Left Wall */}
-              <div className="bookshelf-wall left space-y-12" style={{ 
-                transform: isMobile 
-                  ? `translateY(-50%) rotateY(15deg) translateZ(-150px) translateX(-5%)` 
-                  : `translateY(-50%) rotateY(20deg) translateZ(-150px) translateX(-15%)`, 
-                position: 'absolute', 
-                top: isMobile ? '40%' : '50%', 
-                left: isMobile ? '0%' : '5%', 
+              <div className="bookshelf-wall left space-y-12" style={{
+                transform: isMobile
+                  ? `translateY(-50%) rotateY(15deg) translateZ(-150px) translateX(-5%)`
+                  : `translateY(-50%) rotateY(20deg) translateZ(-150px) translateX(-15%)`,
+                position: 'absolute',
+                top: isMobile ? '40%' : '50%',
+                left: isMobile ? '0%' : '5%',
                 width: isMobile ? '30%' : '30%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
@@ -525,13 +525,13 @@ export default function LibraryRoom() {
               </div>
 
               {/* Center Wall */}
-              <div className="bookshelf-wall center space-y-8" style={{ 
-                transform: isMobile 
-                  ? `translate(-50%, -50%) translateZ(-200px)` 
-                  : `translate(-50%, -50%) translateZ(-200px)`, 
-                position: 'absolute', 
+              <div className="bookshelf-wall center space-y-8" style={{
+                transform: isMobile
+                  ? `translate(-50%, -50%) translateZ(-200px)`
+                  : `translate(-50%, -50%) translateZ(-200px)`,
+                position: 'absolute',
                 top: isMobile ? '35%' : '35%',
-                left: '50%', 
+                left: '50%',
                 width: isMobile ? '35%' : '35%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
@@ -545,13 +545,13 @@ export default function LibraryRoom() {
               </div>
 
               {/* Right Wall */}
-              <div className="bookshelf-wall right space-y-12" style={{ 
-                transform: isMobile 
-                  ? `translateY(-50%) rotateY(-15deg) translateZ(-150px) translateX(5%)` 
-                  : `translateY(-50%) rotateY(-20deg) translateZ(-150px) translateX(15%)`, 
-                position: 'absolute', 
-                top: isMobile ? '40%' : '50%', 
-                right: isMobile ? '0%' : '5%', 
+              <div className="bookshelf-wall right space-y-12" style={{
+                transform: isMobile
+                  ? `translateY(-50%) rotateY(-15deg) translateZ(-150px) translateX(5%)`
+                  : `translateY(-50%) rotateY(-20deg) translateZ(-150px) translateX(15%)`,
+                position: 'absolute',
+                top: isMobile ? '40%' : '50%',
+                right: isMobile ? '0%' : '5%',
                 width: isMobile ? '30%' : '30%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
@@ -572,33 +572,33 @@ export default function LibraryRoom() {
           <div
             onClick={() => router.push('/entrance')}
             className="fixed top-4 right-4 w-10 h-14 cursor-pointer z-[9999]"
-            style={{ 
+            style={{
               pointerEvents: 'auto'
             }}
           >
             {/* Door frame */}
             <div className="absolute inset-0 bg-[#2b1810]"
-                 style={{
-                   borderRadius: '0 0 4px 4px',
-                   borderTopLeftRadius: '999px',
-                   borderTopRightRadius: '999px'
-                 }}>
+              style={{
+                borderRadius: '0 0 4px 4px',
+                borderTopLeftRadius: '999px',
+                borderTopRightRadius: '999px'
+              }}>
               {/* Door frame trim */}
               <div className="absolute inset-0 border border-[#8B4513]"
-                   style={{
-                     borderRadius: '0 0 4px 4px',
-                     borderTopLeftRadius: '999px',
-                     borderTopRightRadius: '999px'
-                   }} />
+                style={{
+                  borderRadius: '0 0 4px 4px',
+                  borderTopLeftRadius: '999px',
+                  borderTopRightRadius: '999px'
+                }} />
             </div>
-            
+
             {/* Door */}
             <div className="absolute inset-0.5 bg-[#5E3023]"
-                 style={{
-                   borderRadius: '0 0 3px 3px',
-                   borderTopLeftRadius: '999px',
-                   borderTopRightRadius: '999px'
-                 }}>
+              style={{
+                borderRadius: '0 0 3px 3px',
+                borderTopLeftRadius: '999px',
+                borderTopRightRadius: '999px'
+              }}>
               {/* Door handle */}
               <div className="absolute right-1 top-1/2 w-1 h-2 bg-[#DEB887] rounded-sm 
                            transform -translate-y-1/2" />

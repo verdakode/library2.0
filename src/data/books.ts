@@ -88,16 +88,16 @@ Systematic review of growth trajectories and milestone achievements.`,
   "200": [
     {
       id: "200-1",
-      title: "who am i?",
+      title: "important context on me",
       content: `#
- hi! i'm verda. who are you? 
- 
- ok fine i'll tell you, kindly note that this is not an accurate representation of who i am
- 
- for all intents and purposes, i am a boundless being of light and energy. i was legally blind until my parents realized (when I was 8) that i needed glasses. i learned to read when I was 2 because I could only see very close up.
- i was homeschooled in the IFB church until the 5th grade, big fan of the KJV bible. i've bounced between public school, catholic private school, and a shortlived attempt at a mechatronics degree at a community college. 
- i made my first website in high school, it was a library website! after that I got my first software engineer job at a consultancy. i have since went on to build 3d printers, do a variety of sidequests, and as of feb 24th 2025 at 3:53am
- when i am writing this, i live between a san francisco hacker house i started called prototype house and a robotics company in palo alto called kscale labs. 
+ hi! i'm verda!
+
+ for all intents and purposes, i am a instance of the universe. going a bit deeper than that, I am a temple of flesh predicted by my brain which in turn was predicted by someone elses brain.
+ so here are a few facts about things that I think influence and inform my opinions, ideas, and actions
+ - i was legally blind (-5.5) until my parents realized (when I was 10) that i needed glasses. i learned to read when I was 2 because I could only see very close up.
+ - i was homeschooled in the IFB church until the 5th grade, big fan of the KJV bible. i've bounced between public school, catholic private school, and a shortlived attempt at a mechatronics degree at a community college.
+ - i made my first website in high school, it was a library website! after that I got my first software engineer job at a software consultancy called the pesto group at 17 (why I did not go to college) and maybe even what lead me to move to sf. i have since built 3d printers with general fabrication, contracted with k-scale labs, started a garage factory website https://makermesh.org, do a variety of sidequests
+ - when i am writing this, i live at a san francisco hacker house i started called prototype sf. which you can read about online as https://prototypesf.org
 `,
       color: BOOK_COLORS[5]
     },
