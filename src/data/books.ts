@@ -119,6 +119,24 @@ i ended up 3d printed a lot of fidget spinners, selling them to people.
 
 `,
       color: BOOK_COLORS[6]
+    },
+    {
+      id: "200-2",
+      title: "philosophy of schedule",
+      content: `# how to structure seconds, minutes, hours, days, years, and decades
+      our brains are continuously performing active inference, continuously updating our internal models of the world in order to seek out the next tidbit of information needed to continue updating and leveling up. this is known as the free energy principle. where systems evolve over time by minimizing a quantity known as "free energy" to reduce surprise or uncertainty. The FEP is theorized to apply to all timescales, from milliseconds of perception, to evolutionary timescales. i theorize that optimizing your life for reducing uncertainty or surprise is very useful in many ways. therefore I structure my days as follows.
+      - 6-7am wake up, waking up early allows you more time conscious than the rest of the world, giving you a head start on perception and that good old internal model
+      - 6/7-8 water, stretch, maybe walk, breakfast, check messages, probably drink caffiene
+      - 8-lunch, slowly work into the daily rhythm of maintaining various projects and relationships
+      - lunch, this should usually happen with other humans, ideally you spend most of the day around other humans
+      - rest of day until bed, varies between working and admin tasks. eat a healthy dinner, get exercise if not had yet.
+      - bed, 10/11pm, wind down by reading/writing/stretching or planning for early morning tasks next day
+
+      - all of this is purposefully very flexible as to allow me to deal with the inevitably most important thing that must be done each day in service of *the arc*
+      - time is a projection of the mind, treat it as such, there is only the present and you have access to your optimal policy at all times. identifying high leverage actions is key.
+      - oft, a sense of urgency is that which clouds the mind
+`,
+      color: BOOK_COLORS[6]
     }
   ],
   "300": [

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
 import { ROUTES } from "@/lib/constants/paths";
 import { BREAKPOINTS, Z_INDEX } from "@/lib/constants/theme";
+import LoadingTransition from "@/components/shared/LoadingTransition";
 
 export default function Entrance() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -23,11 +24,12 @@ export default function Entrance() {
 
     setTimeout(() => {
       router.push(route);
-    }, 1000);
+    }, 300);
   };
 
   return (
     <div className="entrance-room">
+      <LoadingTransition isVisible={isAnimating} />
       {/* Room lighting effect */}
       <div className="room-lighting" />
 
@@ -94,7 +96,7 @@ export default function Entrance() {
         </div>
 
         {/* Visual door elements */}
-        <div className="door-container left-door" onClick={() => handleDoorClick(ROUTES.ART_ROOM, 'left-door')} style={{ pointerEvents: 'auto' }}>
+        <div className="door-container left-door" onClick={() => handleDoorClick(ROUTES.ART_ROOM, 'left-door')} style={{ pointerEvents: 'auto', willChange: 'transform' }}>
           <div className="door">
             <div className="door-handle" />
             <div className="door-panel" />
@@ -105,7 +107,8 @@ export default function Entrance() {
         <div className="door-container center-door" onClick={() => handleDoorClick(ROUTES.LIBRARY_ROOM, 'center-door')} style={{ 
           pointerEvents: 'auto',
           WebkitTransformStyle: 'preserve-3d',
-          WebkitBackfaceVisibility: 'hidden'
+          WebkitBackfaceVisibility: 'hidden',
+          willChange: 'transform'
         }}>
           <div className="door">
             <div className="door-handle" />
@@ -114,7 +117,7 @@ export default function Entrance() {
           <div className="door-title">The Library</div>
         </div>
 
-        <div className="door-container right-door" onClick={() => handleDoorClick(ROUTES.READING_ROOM, 'right-door')} style={{ pointerEvents: 'auto' }}>
+        <div className="door-container right-door" onClick={() => handleDoorClick(ROUTES.READING_ROOM, 'right-door')} style={{ pointerEvents: 'auto', willChange: 'transform' }}>
           <div className="door">
             <div className="door-handle" />
             <div className="door-panel" />
@@ -144,7 +147,8 @@ export default function Entrance() {
             pointerEvents: 'all',
             touchAction: 'manipulation',
             WebkitTransformStyle: 'preserve-3d',
-            WebkitBackfaceVisibility: 'hidden'
+            WebkitBackfaceVisibility: 'hidden',
+            willChange: 'transform'
           }}
         />
 
@@ -170,6 +174,7 @@ export default function Entrance() {
             touchAction: 'manipulation',
             WebkitTransformStyle: 'preserve-3d',
             WebkitBackfaceVisibility: 'hidden',
+            willChange: 'transform',
             WebkitTransform: isSmallMobile ? 
               'translate(-50%, -57%) translateZ(-200px)' :
               (isMobile ? 
@@ -200,7 +205,8 @@ export default function Entrance() {
             pointerEvents: 'all',
             touchAction: 'manipulation',
             WebkitTransformStyle: 'preserve-3d',
-            WebkitBackfaceVisibility: 'hidden'
+            WebkitBackfaceVisibility: 'hidden',
+            willChange: 'transform'
           }}
         />
       </div>

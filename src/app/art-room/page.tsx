@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ProjectCarousel from "../../components/shared/ProjectCarousel";
+import { projectCarousels } from "../../data/projects";
 
 interface Position {
   left: number;
@@ -46,33 +48,8 @@ const paintings: Painting[] = [
     description: "A pixelated bookshelf icon inspired by Minecraft's aesthetic.",
     ref: React.createRef<HTMLDivElement>()
   },
-  //{
-   // id: "2",
-    //src: "/images/art/painting1.jpg",
-    //size: [600, 800],
-  //},
-  //{
-    //id: "3",
-    //src: "/images/art/painting2.jpg",
-    //size: [700, 500],
-  //},
-    //{
-    //id: "4",
-    //src: "/images/librarypic.jpeg",
-    //size: [800, 600],
-  //},
-  //{
-    //id: "5",
-    //src: "/images/librarypic.jpeg",
-    //size: [800, 600],
-  //},
-  //{
-    //id: "6",
-    //src: "/images/librarypic.jpeg",
-    //size: [800, 600],
-  //},
-  // Add more paintings as needed
 ];
+
 
 export default function ArtRoom() {
   const router = useRouter();
@@ -152,6 +129,8 @@ export default function ArtRoom() {
                   fill
                   style={{ objectFit: 'contain' }}
                   className="painting-image"
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               {painting.title && (
@@ -160,6 +139,21 @@ export default function ArtRoom() {
                 </div>
               )}
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Project Carousels */}
+      <div className="project-carousels-section">
+        <h2 className="carousels-section-title">Engineering Projects</h2>
+        <div className="project-carousels-container">
+          {projectCarousels.map((project, index) => (
+            <ProjectCarousel
+              key={index}
+              title={project.title}
+              images={project.images}
+              description={project.description}
+            />
           ))}
         </div>
       </div>

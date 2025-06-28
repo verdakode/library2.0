@@ -5,6 +5,7 @@
 @import '../styles/components/bookshelf.css';
 @import '../styles/components/books.css';
 @import '../styles/components/doors.css';
+@import '../styles/components/project-carousel.css';
 
 /* Import room styles */
 @import '../styles/rooms/library.css';
@@ -29,9 +30,12 @@
   --wood-medium: #2e1109; /* Rich walnut */
   --wood-light: #49271e; /* Warm oak */
   --parchment: #cea268; /* Warm cream */
+  --parchment-light: #f5e6d3; /* Light parchment */
   --leather-dark: #2c1810; /* Dark leather */
   --leather-medium: #703624; /* Aged leather */
   --leather-light: #a65d37; /* Cognac leather */
+  --gold-light: #f4d03f; /* Light gold */
+  --gold-dark: #b87333; /* Dark gold */
   --book-brown1: #3c2a21; /* Deep brown */
   --book-brown2: #513b2c; /* Rich brown */
   --book-brown3: #7d5a50; /* Medium brown */

@@ -1,0 +1,214 @@
+.project-carousel {
+  background: linear-gradient(135deg, var(--wood-light), var(--wood-medium));
+  border: 3px solid var(--leather-dark);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-carousel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--gold-light) 0%, 
+    var(--gold-dark) 50%, 
+    var(--gold-light) 100%);
+  border-radius: 1rem 1rem 0 0;
+}
+
+.project-carousel-content {
+  position: relative;
+  z-index: 1;
+}
+
+.project-carousel-title {
+  color: var(--leather-dark);
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-wrapper {
+  margin-bottom: 2rem;
+}
+
+.carousel-container {
+  position: relative;
+  background: var(--parchment-light);
+  border: 2px solid var(--leather-medium);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 400px;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-image-container {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-image {
+  border-radius: 0.5rem;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(46, 24, 16, 0.8);
+  color: var(--parchment-light);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  border: 2px solid var(--leather-light);
+}
+
+.carousel-nav:hover {
+  background: rgba(46, 24, 16, 0.95);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-prev {
+  left: 12px;
+}
+
+.carousel-next {
+  right: 12px;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--leather-medium);
+  background: var(--parchment-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+  background: var(--leather-light);
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  background: var(--leather-dark);
+  border-color: var(--gold-dark);
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(184, 115, 51, 0.5);
+}
+
+.project-carousel-description {
+  color: var(--leather-dark);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: justify;
+  background: rgba(245, 230, 211, 0.6);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--leather-light);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.project-carousel-description p {
+  margin-bottom: 1rem;
+}
+
+.project-carousel-description p:last-child {
+  margin-bottom: 0;
+}
+
+.project-carousel-description em {
+  color: var(--leather-dark);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .project-carousel {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .project-carousel-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .carousel-container {
+    height: 300px;
+  }
+  
+  .carousel-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .carousel-prev {
+    left: 8px;
+  }
+  
+  .carousel-next {
+    right: 8px;
+  }
+  
+  .project-carousel-description {
+    font-size: 1rem;
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
