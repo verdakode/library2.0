@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import ProjectCarousel from "../../components/shared/ProjectCarousel";
 import { projectCarousels } from "../../data/projects";
 
 interface Position {
@@ -19,10 +18,22 @@ interface Painting {
   title?: string;
   description?: string;
   additionalImage?: string;
+  images?: Array<{ src: string; alt: string }>;
   ref: React.RefObject<HTMLDivElement>;
 }
 
-const paintings: Painting[] = [
+// Convert project carousels to paintings
+const engineeringPaintings: Painting[] = projectCarousels.map((project, index) => ({
+  id: `engineering-${index}`,
+  src: project.images[0].src,
+  size: [800, 600],
+  title: project.title,
+  description: project.description,
+  images: project.images,
+  ref: React.createRef<HTMLDivElement>()
+}));
+
+const artPaintings: Painting[] = [
   {
     id: "1",
     src: "/images/electionneedle2.png",
@@ -49,6 +60,8 @@ const paintings: Painting[] = [
     ref: React.createRef<HTMLDivElement>()
   },
 ];
+
+const paintings: Painting[] = [...artPaintings, ...engineeringPaintings];
 
 
 export default function ArtRoom() {
@@ -116,7 +129,7 @@ export default function ArtRoom() {
           {paintings.map((painting) => (
             <div
               key={painting.id}
-              className="painting-frame"
+              className={`painting-frame ${painting.id.startsWith('engineering-') ? 'engineering-project' : ''}`}
               onClick={() => setSelectedPainting(painting)}
               style={{
                 '--aspect-ratio': `${painting.size[0]}/${painting.size[1]}`
@@ -143,20 +156,6 @@ export default function ArtRoom() {
         </div>
       </div>
 
-      {/* Project Carousels */}
-      <div className="project-carousels-section">
-        <h2 className="carousels-section-title">Engineering Projects</h2>
-        <div className="project-carousels-container">
-          {projectCarousels.map((project, index) => (
-            <ProjectCarousel
-              key={index}
-              title={project.title}
-              images={project.images}
-              description={project.description}
-            />
-          ))}
-        </div>
-      </div>
 
       {/* Selected Painting Modal */}
       {selectedPainting && (
@@ -212,36 +211,58 @@ export default function ArtRoom() {
               flexWrap: 'wrap',
               width: '100%'
             }}>
-              <Image
-                src={selectedPainting.src}
-                alt=""
-                width={selectedPainting.size[0]}
-                height={selectedPainting.size[1]}
-                className="painting-modal-image"
-                style={{
-                  objectFit: 'contain',
-                  borderRadius: '0.5rem',
-                  maxHeight: isMobile ? '40vh' : '60vh',
-                  width: 'auto',
-                  maxWidth: '100%'
-                }}
-              />
-              
-              {selectedPainting.additionalImage && (
-                <Image
-                  src={selectedPainting.additionalImage}
-                  alt=""
-                  width={selectedPainting.size[0]}
-                  height={selectedPainting.size[1]}
-                  className="painting-modal-image"
-                  style={{
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem',
-                    maxHeight: isMobile ? '40vh' : '60vh',
-                    width: 'auto',
-                    maxWidth: '100%'
-                  }}
-                />
+              {selectedPainting.images ? (
+                selectedPainting.images.map((image, index) => (
+                  <Image
+                    key={index}
+                    src={image.src}
+                    alt={image.alt}
+                    width={selectedPainting.size[0]}
+                    height={selectedPainting.size[1]}
+                    className="painting-modal-image"
+                    style={{
+                      objectFit: 'contain',
+                      borderRadius: '0.5rem',
+                      maxHeight: isMobile ? '40vh' : '60vh',
+                      width: 'auto',
+                      maxWidth: isMobile ? '100%' : '45%'
+                    }}
+                  />
+                ))
+              ) : (
+                <>
+                  <Image
+                    src={selectedPainting.src}
+                    alt=""
+                    width={selectedPainting.size[0]}
+                    height={selectedPainting.size[1]}
+                    className="painting-modal-image"
+                    style={{
+                      objectFit: 'contain',
+                      borderRadius: '0.5rem',
+                      maxHeight: isMobile ? '40vh' : '60vh',
+                      width: 'auto',
+                      maxWidth: '100%'
+                    }}
+                  />
+                  
+                  {selectedPainting.additionalImage && (
+                    <Image
+                      src={selectedPainting.additionalImage}
+                      alt=""
+                      width={selectedPainting.size[0]}
+                      height={selectedPainting.size[1]}
+                      className="painting-modal-image"
+                      style={{
+                        objectFit: 'contain',
+                        borderRadius: '0.5rem',
+                        maxHeight: isMobile ? '40vh' : '60vh',
+                        width: 'auto',
+                        maxWidth: '100%'
+                      }}
+                    />
+                  )}
+                </>
               )}
             </div>
 

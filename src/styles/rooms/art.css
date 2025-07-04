@@ -37,9 +37,11 @@
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 8rem 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6rem 3rem;
   padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .room-lighting {
@@ -66,6 +68,33 @@
     inset 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+.painting-frame:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.painting-frame.engineering-project {
+  background: linear-gradient(135deg, var(--wood-light), var(--wood-medium));
+  border: 2px solid var(--gold-light);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    inset 0 0 10px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(218, 165, 32, 0.2);
+}
+
+.painting-frame.engineering-project::before {
+  content: '⚙️';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  z-index: 1;
 }
 
 .painting {
@@ -194,65 +223,62 @@ button[aria-label="Back to Entrance"]:hover span {
 }
 
 /* Desktop styles */
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .paintings-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 6rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 8rem 4rem;
+    padding: 3rem;
+  }
+
+  .painting-frame {
+    max-width: 450px;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .paintings-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 5rem 3rem;
     padding: 2rem;
   }
 
   .painting-frame {
-    position: relative;
-    margin: 0;
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: var(--aspect-ratio, 4/3);
-  }
-
-  .painting {
-    aspect-ratio: var(--aspect-ratio, 4/3);
+    max-width: 400px;
   }
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
   .art-room {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .art-gallery {
-    padding: 2rem 1rem;
+    padding: 1rem;
+    min-height: auto;
   }
 
   .paintings-container {
     grid-template-columns: 1fr;
-    gap: 6rem;
-    padding: 1rem;
+    gap: 4rem;
+    padding: 0.5rem;
   }
 
   .painting-frame {
     transform: none !important;
-    max-width: 500px;
+    max-width: 90vw;
     margin: 0 auto;
+    padding: 15px;
   }
 
   .painting-title {
-    bottom: -50px;
+    bottom: -35px;
+    padding: 0.25rem;
   }
 
-  .gallery-title {
-    position: fixed;
-    top: 4rem;
-    padding: 0 1rem;
-  }
-
-  .gallery-title h1 {
-    font-size: clamp(1.5rem, 7vw, 2.5rem);
-  }
-
-  .title-underline {
-    width: clamp(80px, 40%, 150px);
+  .painting-title span {
+    font-size: 0.9rem;
   }
 
   /* Adjust spotlights for mobile */
@@ -272,112 +298,106 @@ button[aria-label="Back to Entrance"]:hover span {
 
 /* Small Mobile Styles */
 @media (max-width: 480px) {
-  .gallery-title {
-    top: 4rem;
-  }
-
-  .gallery-title h1 {
-    font-size: clamp(1.2rem, 6vw, 2rem);
+  .art-room {
+    padding: 0.25rem;
   }
 
   .art-gallery {
-    padding-top: 7rem;
-  }
-
-  .paintings-container {
-    gap: 5rem;
     padding: 0.5rem;
   }
 
+  .paintings-container {
+    gap: 3rem;
+    padding: 0.25rem;
+  }
+
   .painting-frame {
-    padding: 12px;
+    padding: 10px;
+    max-width: 95vw;
   }
 
   .painting-title {
-    bottom: -40px;
+    bottom: -30px;
+  }
+
+  .painting-title span {
+    font-size: 0.8rem;
   }
 }
 
-/* Project Carousels Section */
-.project-carousels-section {
-  position: relative;
-  width: 100%;
-  max-width: 1400px;
-  margin: 4rem auto 0;
-  padding: 2rem;
-  z-index: 2;
-}
-
-.carousels-section-title {
-  color: var(--parchment);
-  font-family: 'Cinzel', serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 3rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
-
-.carousels-section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--gold-light),
-    transparent
-  );
-  opacity: 0.8;
-}
-
-.project-carousels-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-/* Mobile styles for carousels */
-@media (max-width: 768px) {
-  .project-carousels-section {
-    margin-top: 3rem;
-    padding: 1.5rem;
-  }
-  
-  .carousels-section-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .carousels-section-title::after {
-    width: 150px;
-  }
-  
-  .project-carousels-container {
-    gap: 2rem;
-  }
-}
 
 /* Landscape Mobile Styles */
 @media (max-height: 500px) and (orientation: landscape) {
-  .gallery-title {
-    top: 3.5rem;
-  }
-
-  .gallery-title h1 {
-    font-size: clamp(1rem, 5vw, 1.8rem);
-  }
-
   .art-gallery {
-    padding-top: 6rem;
+    padding: 1rem;
   }
 
   .paintings-container {
-    gap: 1.5rem;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .painting-frame {
+    padding: 8px;
+  }
+
+  .painting-title {
+    bottom: -25px;
+  }
+
+  .painting-title span {
+    font-size: 0.7rem;
+  }
+}
+
+/* Modal responsive improvements */
+.painting-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2100;
+  padding: 1rem;
+}
+
+.painting-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  background-color: #2B1810;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .painting-modal {
+    padding: 0.5rem;
+  }
+  
+  .painting-modal-content {
+    max-height: 95vh;
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .painting-modal {
+    padding: 0.25rem;
+  }
+  
+  .painting-modal-content {
+    max-height: 98vh;
+    padding: 0.75rem;
+    gap: 0.75rem;
+    border-radius: 0.5rem;
   }
 } 
