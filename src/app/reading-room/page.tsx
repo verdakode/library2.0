@@ -54,7 +54,7 @@ export default function ReadingRoom() {
     
     // Setup motion sensing for mobile devices
     checkOrientationPermission();
-  }, [isClient, isMobile]);
+  }, [isClient, isMobile, checkOrientationPermission]);
 
   const checkOrientationPermission = async () => {
     if (typeof DeviceOrientationEvent !== 'undefined') {

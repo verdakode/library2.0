@@ -30,7 +30,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
           </button>
           <div className="bg-white rounded-lg shadow-2xl p-12 text-center">
             <h1 className="text-4xl font-bold text-[#2B1810] mb-8">Book Not Found</h1>
-            <p className="text-[#2B1810] text-lg">This book doesn't exist in the collection.</p>
+            <p className="text-[#2B1810] text-lg">This book doesn&apos;t exist in the collection.</p>
           </div>
         </div>
       </div>

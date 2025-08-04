@@ -328,7 +328,7 @@ export default function LibraryRoom() {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
     };
-  }, []);
+  }, [isGyroAvailable]);
 
   const handleOrientation = (event: DeviceOrientationEvent) => {
     // Limit the rotation range to keep the room visible
