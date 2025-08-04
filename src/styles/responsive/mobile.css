@@ -1,5 +1,15 @@
+/* Hide mobile content on desktop */
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
 /* Mobile-first layout */
-@media (max-width: 500px) {
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
   html, body {
     width: 100%;
     height: 100%;
@@ -9,14 +19,21 @@
   }
 
   .library-room {
-    width: 100%;
-    min-height: 100vh;
-    padding: 2rem 1rem;
-    overflow-x: hidden;
-    position: relative;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+    transform-style: auto !important;
+    perspective: none !important;
   }
 
   .library-room::before {
@@ -33,43 +50,86 @@
     z-index: -1;
   }
 
-  /* Bookcase container - show all 3 bookcases horizontally */
+  /* Mobile 3D bookcase layout */
   .bookcase-container {
-    width: 100%;
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
     display: flex !important;
-    flex-direction: row !important;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding: 0 0.5rem;
+    align-items: center !important;
+    justify-content: center !important;
+    perspective: 800px !important;
+    perspective-origin: 50% 50% !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  /* All bookcases should be visible on mobile */
-  .bookcase {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .bookcase-left,
-  .bookcase-center, 
-  .bookcase-right {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative !important;
+  /* Override any inline transforms on mobile */
+  .library-room > div[style*="transform"] {
     transform: none !important;
   }
 
+  /* Mobile 3D bookcases */
+  .bookcase-3d {
+    position: absolute !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform-style: preserve-3d !important;
+  }
+
+  /* Left bookcase on mobile */
+  .left-bookcase {
+    top: 50% !important;
+    left: 2% !important;
+    width: 28% !important;
+    height: 70% !important;
+    transform: translateY(-50%) rotateY(20deg) translateZ(-80px) !important;
+  }
+
+  /* Center bookcase on mobile */
+  .center-bookcase {
+    top: 50% !important;
+    left: 50% !important;
+    width: 42% !important;
+    height: 80% !important;
+    transform: translate(-50%, -50%) translateZ(30px) !important;
+    z-index: 3 !important;
+  }
+
+  /* Right bookcase on mobile */
+  .right-bookcase {
+    top: 50% !important;
+    right: 2% !important;
+    width: 28% !important;
+    height: 70% !important;
+    transform: translateY(-50%) rotateY(-20deg) translateZ(-80px) !important;
+  }
+
+  /* Bookcase frames on mobile */
+  .bookcase-frame {
+    padding: 0.5rem !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+  }
+
+  .center-bookcase .bookcase-frame {
+    padding: 0.7rem !important;
+    border-radius: 10px !important;
+    border-width: 3px !important;
+  }
+
+  /* Mobile bookshelf walls inside 3D bookcases */
   .bookshelf-wall {
     width: 100%;
+    height: 100%;
     display: flex !important;
     flex-direction: column !important;
-    gap: 0.5rem;
-    padding: 0;
-    max-width: 100%;
-    overflow: visible;
+    gap: 0.3rem;
+    justify-content: space-between;
   }
 
   .hallway-wall.left {
@@ -88,94 +148,136 @@
 
   .bookshelf-unit {
     width: 100%;
-    height: auto;
-    margin: 0;
-    background: var(--wood-light);
-    border-radius: 8px;
-    padding: 0.75rem;
+    flex: 1;
+    margin: 0 0 0.8rem 0;
+    border-radius: 6px;
+    padding: 0.6rem;
     position: relative;
-    border: 2px solid var(--wood-medium);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    min-height: 200px;
+    min-height: 140px;
+    transform-style: preserve-3d;
+  }
+
+  .bookshelf-left .bookshelf-unit,
+  .bookshelf-right .bookshelf-unit {
+    min-height: 120px;
+  }
+
+  .bookshelf-center .bookshelf-unit {
+    min-height: 160px;
   }
 
   .book-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.15rem;
-    justify-content: flex-start;
+    gap: 3px;
+    justify-content: center;
     align-items: flex-end;
     min-height: 80px;
     height: auto;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
   }
 
-  /* Base book spine styles */
+  /* Mobile book spine styles */
   .book-spine {
-    width: 18px !important;
-    height: 100px !important;
+    width: 22px !important;
+    height: 70px !important;
     margin: 0;
     flex-shrink: 0;
     align-self: flex-end;
     font-size: 0.5rem !important;
+    border-radius: 2px 2px 0 0 !important;
   }
 
-  /* Stagger book heights */
+  /* Center bookcase books are slightly larger */
+  .center-bookcase .book-spine {
+    width: 26px !important;
+    height: 85px !important;
+    font-size: 0.6rem !important;
+  }
+
+  /* Varied book heights for mobile */
   .book-spine:nth-child(1) {
-    height: 95px !important;
+    height: 68px !important;
   }
 
   .book-spine:nth-child(2) {
-    height: 110px !important;
+    height: 75px !important;
   }
 
   .book-spine:nth-child(3) {
-    height: 100px !important;
+    height: 72px !important;
   }
 
   .book-spine:nth-child(4) {
-    height: 105px !important;
+    height: 70px !important;
   }
 
   .book-spine:nth-child(5) {
-    height: 98px !important;
+    height: 69px !important;
   }
 
-  /* Stagger book widths */
-  .book-spine:nth-child(odd) {
-    width: 20px !important;
+  /* Center bookcase book heights */
+  .center-bookcase .book-spine:nth-child(1) {
+    height: 82px !important;
   }
 
-  .book-spine:nth-child(3n) {
-    width: 22px !important;
+  .center-bookcase .book-spine:nth-child(2) {
+    height: 90px !important;
   }
 
-  .book-spine:nth-child(4n) {
-    width: 19px !important;
+  .center-bookcase .book-spine:nth-child(3) {
+    height: 87px !important;
+  }
+
+  .center-bookcase .book-spine:nth-child(4) {
+    height: 85px !important;
+  }
+
+  .center-bookcase .book-spine:nth-child(5) {
+    height: 84px !important;
   }
 
   .book-spine h3 {
     font-size: 0.45rem !important;
     line-height: 1.1;
-    padding: 0.15rem;
+    padding: 0.2rem;
+    writing-mode: vertical-lr !important;
+    text-orientation: mixed !important;
+    max-height: 90% !important;
+    overflow: hidden !important;
+  }
+
+  .center-bookcase .book-spine h3 {
+    font-size: 0.55rem !important;
   }
 
   .shelf-title {
     text-align: center;
-    margin-bottom: 0.75rem;
-    padding: 0;
+    margin-bottom: 0.4rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.3);
   }
 
   .shelf-title h2 {
-    font-size: 0.65rem;
-    margin-bottom: 0.2rem;
-    color: var(--parchment);
+    font-size: 0.6rem;
+    margin-bottom: 0.15rem;
+    color: #DEB887;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.02em;
   }
 
   .shelf-title p {
-    font-size: 0.55rem;
-    opacity: 0.7;
-    color: var(--leather-light);
+    font-size: 0.45rem;
+    opacity: 0.8;
+    color: #C4A484;
+    font-style: italic;
+  }
+
+  .center-bookcase .shelf-title h2 {
+    font-size: 0.7rem;
+  }
+
+  .center-bookcase .shelf-title p {
+    font-size: 0.5rem;
   }
 
   .room-lighting,
@@ -334,7 +436,7 @@
 /* iPhone SE and smaller devices */
 @media (max-width: 375px) {
   .library-room {
-    padding: 5rem 0 2rem 0;
+    padding: 0;
   }
 
   .bookshelf-wall {
@@ -401,5 +503,17 @@
     right: -10%;
     height: 15vh;
     bottom: -2vh;
+  }
+
+  /* Maintain 3D transforms on mobile */
+  .library-room .bookcase-3d,
+  .library-room .bookcase-frame,
+  .library-room .bookshelf-unit {
+    transform-style: preserve-3d !important;
+  }
+
+  /* Hide book preview tooltips on mobile */
+  .book-preview {
+    display: none !important;
   }
 } 
