@@ -49,13 +49,6 @@ export default function ReadingRoom() {
     };
   }, [isClient]);
 
-  useEffect(() => {
-    if (!isClient || !isMobile) return;
-    
-    // Setup motion sensing for mobile devices
-    checkOrientationPermission();
-  }, [isClient, isMobile, checkOrientationPermission]);
-
   const checkOrientationPermission = async () => {
     if (typeof DeviceOrientationEvent !== 'undefined') {
       // Check if we're on iOS and need permission
@@ -68,6 +61,13 @@ export default function ReadingRoom() {
       }
     }
   };
+
+  useEffect(() => {
+    if (!isClient || !isMobile) return;
+    
+    // Setup motion sensing for mobile devices
+    checkOrientationPermission();
+  }, [isClient, isMobile, checkOrientationPermission]);
 
   const requestOrientationPermission = async () => {
     try {
