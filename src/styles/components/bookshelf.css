@@ -1,7 +1,95 @@
 /* Bookshelf styles */
 .bookshelf-unit {
-  background: var(--wood-light);
+  background: var(--wood-dark);
   transform-style: preserve-3d;
+  position: relative;
+  padding: 0.9rem;
+  border-radius: 6px;
+  box-shadow: 
+    inset 0 0 25px rgba(0,0,0,0.5),
+    0 8px 20px rgba(0,0,0,0.6),
+    0 4px 12px rgba(0,0,0,0.4),
+    inset 0 2px 6px rgba(255,255,255,0.08),
+    0 0 0 2px rgba(0,0,0,0.3);
+  background-image: 
+    linear-gradient(135deg, 
+      rgba(255,255,255,0.05) 0%,
+      transparent 15%,
+      rgba(0,0,0,0.1) 85%,
+      rgba(0,0,0,0.25) 100%
+    ),
+    radial-gradient(circle at 30% 30%, rgba(139,69,19,0.3) 0%, transparent 50%);
+}
+
+@media (max-width: 768px) {
+  .bookshelf-unit {
+    background: var(--wood-medium);
+    box-shadow: 
+      inset 0 0 15px rgba(0,0,0,0.3),
+      0 4px 12px rgba(0,0,0,0.4),
+      0 2px 6px rgba(0,0,0,0.3),
+      inset 0 2px 4px rgba(255,255,255,0.15),
+      0 0 0 1px rgba(0,0,0,0.2);
+    background-image: 
+      linear-gradient(135deg, 
+        rgba(255,255,255,0.1) 0%,
+        transparent 20%,
+        rgba(0,0,0,0.05) 80%,
+        rgba(0,0,0,0.15) 100%
+      ),
+      radial-gradient(circle at 40% 20%, rgba(139,69,19,0.2) 0%, transparent 60%);
+  }
+}
+
+/* Add shelf bindings/brackets with enhanced 3D effect */
+.bookshelf-unit::before,
+.bookshelf-unit::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 16px;
+  background: linear-gradient(to right, 
+    rgba(0,0,0,0.8) 0%,
+    var(--wood-dark) 15%, 
+    var(--wood-medium) 40%, 
+    var(--wood-light) 50%,
+    var(--wood-medium) 60%,
+    var(--wood-dark) 85%,
+    rgba(0,0,0,0.8) 100%
+  );
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 0 8px rgba(0,0,0,0.8),
+    0 6px 12px rgba(0,0,0,0.6),
+    inset 3px 0 6px rgba(255,255,255,0.15),
+    inset -3px 0 6px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(0,0,0,0.4);
+  z-index: 2;
+}
+
+.bookshelf-unit::before {
+  left: -8px;
+  transform: rotateY(-8deg) translateZ(5px);
+}
+
+.bookshelf-unit::after {
+  right: -8px;
+  transform: rotateY(8deg) translateZ(5px);
+}
+
+/* Add 3D depth boxes */
+.bookshelf-unit {
+  position: relative;
+}
+
+.bookshelf-unit:before {
+  z-index: 3;
+}
+
+/* Add bottom shelf edge for more 3D effect */
+.bookshelf-unit:after {
+  z-index: 3;
 }
 
 .bookshelf-side {
@@ -40,6 +128,12 @@
   transform-origin: center center;
 }
 
+@media (max-width: 768px) {
+  .bookshelf-wall {
+    gap: 0;
+  }
+}
+
 .bookshelf-wall.left {
   left: 0%;
   width: 25%;
@@ -61,6 +155,12 @@
 /* Shelf title improvements */
 .shelf-title {
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .shelf-title {
+    margin-bottom: 0.1rem;
+  }
 }
 
 .shelf-title h2 {
@@ -107,21 +207,13 @@
   text-decoration: none;
   opacity: 0.8;
   margin-bottom: 0.25rem;
-  padding-left: 3rem;
+  padding-left: 0;
   position: relative;
 }
 
-.bookshelf-unit p::before {
-  content: attr(data-dewey);
-  color: var(--leather-light);
-  position: absolute;
-  left: 0;
-  font-size: 0.8rem;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-}
 
-.bookshelf-unit::before {
+/* Add depth shadow to shelf */
+.bookshelf-unit:last-child::after {
   content: "";
   position: absolute;
   top: 0;
@@ -130,6 +222,17 @@
   bottom: 0;
   box-shadow:
     inset 0 10px 20px -10px var(--shadow),
-    inset 0 -10px 20px -10px var(--shadow);
+    inset 0 -10px 20px -10px var(--shadow),
+    inset 0 0 15px rgba(0,0,0,0.2);
   pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .bookshelf-unit:last-child::after {
+    box-shadow:
+      inset 0 1px 2px -1px var(--shadow),
+      inset 0 -1px 2px -1px var(--shadow),
+      inset 0 0 2px rgba(0,0,0,0.05);
+  }
 } 

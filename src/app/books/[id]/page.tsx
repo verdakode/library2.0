@@ -15,24 +15,27 @@ export default function BookPage({ params }: { params: { id: string } }) {
 
   const shelfBooks = SHELF_BOOKS[shelfId] || [];
   const bookIndex = parseInt(bookNumber) - 1;
-  const book = shelfBooks[bookIndex] || {
-    title: `${shelf.name} - Volume ${bookNumber}`,
-    content: `# ${shelf.name} - Volume ${bookNumber}
-
-## Overview
-This section of the library contains knowledge about ${shelf.name.toLowerCase()}.
-
-### About This Section
-${shelf.description}
-
-### Contents
-1. Introduction to ${shelf.name}
-2. Key Concepts
-3. Modern Applications
-4. Future Developments
-
-*This book is still being written. Check back soon for more content!*`
-  };
+  const book = shelfBooks[bookIndex];
+  
+  if (!book) {
+    return (
+      <div className="min-h-screen bg-[#F5E6D3] p-8">
+        <div className="max-w-4xl mx-auto">
+          <button
+            onClick={() => router.back()}
+            className="mb-8 px-4 py-2 bg-[#2B1810] text-[#F5E6D3] rounded-lg hover:bg-[#5E3023] transition-colors
+                      shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+          >
+            ← Back to Library
+          </button>
+          <div className="bg-white rounded-lg shadow-2xl p-12 text-center">
+            <h1 className="text-4xl font-bold text-[#2B1810] mb-8">Book Not Found</h1>
+            <p className="text-[#2B1810] text-lg">This book doesn't exist in the collection.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Parse markdown with marked
   const parsedContent = marked(book.content, {

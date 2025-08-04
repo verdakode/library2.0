@@ -81,6 +81,7 @@ interface Shelf {
 interface ShelfUnitProps {
   shelf: Shelf;
   position: "left" | "center" | "right";
+  isMobile: boolean;
 }
 
 const bookColors = [
@@ -149,28 +150,8 @@ As we move further into the digital age, libraries continue to evolve...`,
   }
 ];
 
-const getBookContent = (shelf: Shelf, index: number) => {
-  return {
-    title: `${shelf.name} - Volume ${index + 1}`,
-    content: `# ${shelf.name} - Volume ${index + 1}
 
-## Overview
-This section of the library contains knowledge about ${shelf.name.toLowerCase()}.
-
-### About This Section
-${shelf.description}
-
-### Contents
-1. Introduction to ${shelf.name}
-2. Key Concepts
-3. Modern Applications
-4. Future Developments
-
-*This book is still being written. Check back soon for more content!*`
-  };
-};
-
-const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
+const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
   const router = useRouter();
   const isCenter = position === "center";
   const shelfBooks = SHELF_BOOKS[shelf.id] || [];
@@ -180,14 +161,49 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
   };
 
   // Calculate random variations for each book
-  const bookVariations = [...Array(5)].map(() => ({
+  const bookVariations = [...Array(shelfBooks.length)].map((_, index) => ({
     tilt: Math.random() * 2 - 1,
-    width: Math.floor(Math.random() * 10) + 25, // Slightly wider books
-    height: Math.floor(Math.random() * 5) + 95,
+    width: isCenter 
+      ? Math.floor(Math.random() * 8) + 28 
+      : Math.floor(Math.random() * 10) + 25,
+    height: Math.floor(Math.random() * 8) + 90,
   }));
 
+  // Create varied lighting based on position and shelf ID, emanating from lamp (top-right)
+  const getLightingGradient = () => {
+    const shelfIndex = parseInt(shelf.id);
+    const isEven = shelfIndex % 200 === 0;
+    
+    if (position === "left") {
+      // Left shelves get less direct light, more from upper right
+      return isEven 
+        ? "radial-gradient(ellipse at 85% 15%, rgba(255,220,180,0.25) 0%, rgba(255,200,140,0.1) 50%, transparent 75%)"
+        : "radial-gradient(ellipse at 90% 25%, rgba(255,200,140,0.2) 0%, rgba(255,180,120,0.08) 45%, transparent 70%)";
+    } else if (position === "right") {
+      // Right shelves get most direct light from lamp
+      return isEven
+        ? "radial-gradient(ellipse at 30% 10%, rgba(255,240,200,0.4) 0%, rgba(255,220,160,0.2) 40%, transparent 70%)"
+        : "radial-gradient(ellipse at 25% 20%, rgba(255,230,180,0.35) 0%, rgba(255,210,150,0.15) 50%, transparent 75%)";
+    } else { // center
+      // Center shelves get moderate light
+      return isEven
+        ? "radial-gradient(ellipse at 70% 8%, rgba(255,235,190,0.3) 0%, rgba(255,215,165,0.12) 45%, transparent 80%)"
+        : "radial-gradient(ellipse at 75% 18%, rgba(255,225,170,0.28) 0%, rgba(255,205,145,0.1) 50%, transparent 75%)";
+    }
+  };
+
   return (
-    <div className={`bookshelf-unit`}>
+    <div className={`bookshelf-unit`} style={{
+      backgroundImage: `
+        linear-gradient(135deg, 
+          rgba(255,255,255,0.05) 0%,
+          transparent 15%,
+          rgba(0,0,0,0.1) 85%,
+          rgba(0,0,0,0.25) 100%
+        ),
+        ${getLightingGradient()}
+      `
+    }}>
       {/* Back panel */}
       <div className="shelf-back" />
 
@@ -198,19 +214,15 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
       {/* Shelf title with improved visibility */}
       <div className="shelf-title">
         <h2 data-dewey={shelf.id}>
-          {shelf.id} - {shelf.name}
+          {shelf.name}
         </h2>
         <p>{shelf.description}</p>
       </div>
 
-      <div className={`book-row ${isCenter ? "h-20" : "h-20"}`}>
-        {[...Array(5)].map((_, i) => {
-          const book = shelfBooks[i] || {
-            title: `${shelf.name} - Volume ${i + 1}`,
-            color: getRandomBookColor(),
-            content: `This section contains information about ${shelf.name.toLowerCase()}.`
-          };
-
+      <div className={`book-row`} style={{
+        height: isMobile ? '120px' : '150px'
+      }}>
+        {shelfBooks.map((book, i) => {
           return (
             <button
               key={i}
@@ -218,20 +230,39 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
               onClick={() => handleBookClick(i)}
               style={{
                 backgroundColor: book.color,
-                width: `${bookVariations[i].width}px`,
-                height: `${bookVariations[i].height}%`,
-                transform: `rotate(${bookVariations[i].tilt}deg)`,
+                width: isMobile 
+                  ? `${Math.max(18, Math.min(30, bookVariations[i]?.width || 24))}px`
+                  : `${bookVariations[i]?.width || 32}px`,
+                height: `${bookVariations[i]?.height || 95}%`,
+                transform: `rotate(${bookVariations[i]?.tilt || 0}deg)`,
                 transformStyle: 'preserve-3d',
-                margin: '0 1px',
+                margin: isMobile ? '0 0.5px' : '0 1px',
                 border: 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 touchAction: 'manipulation',
-                pointerEvents: 'auto'
+                pointerEvents: 'auto',
+                position: 'relative'
               }}
             >
-              <h3 className="whitespace-normal px-1">{book.title}</h3>
+              <h3 
+                className="whitespace-normal px-1"
+                style={{
+                  writingMode: 'vertical-rl',
+                  textOrientation: 'mixed',
+                  transform: 'rotate(180deg)',
+                  fontSize: isMobile ? '0.55rem' : '0.7rem',
+                  fontWeight: '600',
+                  color: 'rgba(255,255,255,0.9)',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                  letterSpacing: isMobile ? '0.02em' : '0.05em',
+                  lineHeight: '1.1',
+                  padding: isMobile ? '0.15rem 0' : '0.25rem 0'
+                }}
+              >
+                {book.title}
+              </h3>
 
               {/* Book preview tooltip */}
               <div className="book-preview">
@@ -250,6 +281,7 @@ const ShelfUnit = ({ shelf, position }: ShelfUnitProps) => {
 export default function LibraryRoom() {
   const router = useRouter();
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isHydrated, setIsHydrated] = React.useState(false);
   const [roomRotation, setRoomRotation] = useState({ x: 0, y: 0 });
   const [isGyroAvailable, setIsGyroAvailable] = useState(false);
   const [zoom, setZoom] = useState(1);
@@ -257,11 +289,14 @@ export default function LibraryRoom() {
   const roomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set initial zoom for mobile and desktop
-    setZoom(isMobile ? 0.75 : 0.9);
+    // Hydration effect - runs only on client
+    setIsHydrated(true);
+    const mobile = window.innerWidth <= 768;
+    setIsMobile(mobile);
+    setZoom(mobile ? 1.2 : 0.9);
 
     // Check if device orientation is available
-    if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
+    if (window.DeviceOrientationEvent) {
       // Request permission for iOS devices
       if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
         (DeviceOrientationEvent as any).requestPermission()
@@ -279,10 +314,10 @@ export default function LibraryRoom() {
       }
     }
 
-    setIsMobile(window.innerWidth <= 768);
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setZoom(window.innerWidth <= 768 ? 0.75 : 0.9);
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setZoom(mobile ? 1.2 : 0.9);
     };
 
     window.addEventListener('resize', handleResize);
@@ -293,7 +328,7 @@ export default function LibraryRoom() {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
     };
-  }, [isGyroAvailable]);
+  }, []);
 
   const handleOrientation = (event: DeviceOrientationEvent) => {
     // Limit the rotation range to keep the room visible
@@ -349,15 +384,13 @@ export default function LibraryRoom() {
     <div
       className="library-room"
       style={{
-        touchAction: isMobile ? 'auto' : 'none',
-        pointerEvents: isMobile ? 'auto' : 'none'
+        touchAction: 'auto',
+        pointerEvents: 'auto'
       }}
-      {...(!isMobile && {
-        onTouchStart: handleTouchStart,
-        onTouchMove: handleTouchMove,
-        onTouchEnd: handleTouchEnd,
-        onWheel: handleWheel
-      })}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onWheel={handleWheel}
       ref={roomRef}
     >
       {/* Back door button */}
@@ -398,9 +431,9 @@ export default function LibraryRoom() {
         </span>
       </button>
 
-      {!isMobile ? (
+      {isHydrated ? (
         <>
-          {/* Desktop view content */}
+          {/* 3D Room view content */}
           <div className="room-lighting" />
           <div className="wooden-floor">
             {/* Shoe-shaped home button */}
@@ -499,125 +532,178 @@ export default function LibraryRoom() {
               position: 'relative',
               transformStyle: 'preserve-3d',
               pointerEvents: 'none',
-              transform: `translateY(${isMobile ? '-15%' : '-5%'}) 
+              transform: `translateY(${isMobile ? '0%' : '-5%'}) 
                          scale(${zoom}) 
                          rotateX(${roomRotation.x}deg) 
                          rotateY(${roomRotation.y}deg)`
             }}>
+              {/* Connecting chains/links between shelves */}
+              <div style={{
+                position: 'absolute',
+                top: '20%',
+                left: '25%',
+                width: '25%',
+                height: '2px',
+                background: 'linear-gradient(90deg, var(--leather-dark), var(--leather-medium), var(--leather-dark))',
+                transform: 'rotateY(15deg) translateZ(-100px)',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                borderRadius: '1px',
+                opacity: isMobile ? 0.6 : 0.8
+              }} />
+              <div style={{
+                position: 'absolute',
+                top: '40%',
+                right: '25%',
+                width: '25%',
+                height: '2px',
+                background: 'linear-gradient(90deg, var(--leather-dark), var(--leather-medium), var(--leather-dark))',
+                transform: 'rotateY(-15deg) translateZ(-100px)',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                borderRadius: '1px',
+                opacity: isMobile ? 0.6 : 0.8
+              }} />
+              <div style={{
+                position: 'absolute',
+                top: '60%',
+                left: '30%',
+                width: '20%',
+                height: '2px',
+                background: 'linear-gradient(90deg, var(--leather-dark), var(--leather-medium), var(--leather-dark))',
+                transform: 'rotateY(10deg) translateZ(-120px)',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                borderRadius: '1px',
+                opacity: isMobile ? 0.6 : 0.8
+              }} />
+              <div style={{
+                position: 'absolute',
+                top: '80%',
+                right: '30%',
+                width: '20%',
+                height: '2px',
+                background: 'linear-gradient(90deg, var(--leather-dark), var(--leather-medium), var(--leather-dark))',
+                transform: 'rotateY(-10deg) translateZ(-120px)',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                borderRadius: '1px',
+                opacity: isMobile ? 0.6 : 0.8
+              }} />
+              
+              {/* Library Lamp */}
+              <div style={{
+                position: 'absolute',
+                top: isMobile ? '10%' : '8%',
+                right: isMobile ? '15%' : '12%',
+                width: isMobile ? '8px' : '12px',
+                height: isMobile ? '80px' : '120px',
+                transformStyle: 'preserve-3d',
+                transform: 'translateZ(50px)',
+                zIndex: 5
+              }}>
+                {/* Lamp post */}
+                <div style={{
+                  width: '100%',
+                  height: '70%',
+                  background: 'linear-gradient(90deg, rgba(0,0,0,0.8), #2c1810, rgba(0,0,0,0.6))',
+                  borderRadius: '2px',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.5)'
+                }} />
+                
+                {/* Lamp shade */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-10px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: isMobile ? '24px' : '36px',
+                  height: isMobile ? '16px' : '24px',
+                  background: 'linear-gradient(135deg, #8B4513, #A0522D, #8B4513)',
+                  borderRadius: '50% 50% 20% 20%',
+                  boxShadow: 
+                    'inset 0 2px 4px rgba(255,255,255,0.2), ' +
+                    '0 4px 8px rgba(0,0,0,0.6), ' +
+                    'inset 0 -2px 4px rgba(0,0,0,0.3)'
+                }} />
+                
+                {/* Light glow */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-5px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: isMobile ? '60px' : '100px',
+                  height: isMobile ? '60px' : '100px',
+                  background: 'radial-gradient(circle, rgba(255,240,200,0.6) 0%, rgba(255,220,150,0.3) 30%, transparent 70%)',
+                  borderRadius: '50%',
+                  filter: 'blur(8px)',
+                  pointerEvents: 'none'
+                }} />
+              </div>
+              
               {/* Left Wall */}
               <div className="bookshelf-wall left space-y-12" style={{
                 transform: isMobile
-                  ? `translateY(-50%) rotateY(15deg) translateZ(-150px) translateX(-5%)`
+                  ? `translateY(-50%) rotateY(25deg) translateZ(-50px) translateX(-25%)`
                   : `translateY(-50%) rotateY(20deg) translateZ(-150px) translateX(-15%)`,
                 position: 'absolute',
-                top: isMobile ? '40%' : '50%',
-                left: isMobile ? '0%' : '5%',
+                top: isMobile ? '50%' : '40%',
+                left: isMobile ? '-5%' : '5%',
                 width: isMobile ? '30%' : '30%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
-                height: '90vh',
-                gap: isMobile ? '3rem' : '2rem',
-                padding: isMobile ? '4rem 1rem' : '2rem'
+                height: '75vh',
+                gap: isMobile ? '1rem' : '2rem',
+                padding: isMobile ? '1rem 1rem' : '2rem'
               }}>
                 {leftShelves.map((shelf) => (
-                  <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="left" isMobile={isMobile} />
                 ))}
               </div>
 
               {/* Center Wall */}
-              <div className="bookshelf-wall center space-y-8" style={{
+              <div className="bookshelf-wall center space-y-1" style={{
                 transform: isMobile
-                  ? `translate(-50%, -50%) translateZ(-200px)`
+                  ? `translate(-50%, -50%) translateZ(50px)`
                   : `translate(-50%, -50%) translateZ(-200px)`,
                 position: 'absolute',
-                top: isMobile ? '35%' : '35%',
+                top: isMobile ? '52%' : '25%',
                 left: '50%',
-                width: isMobile ? '35%' : '35%',
+                width: isMobile ? '45%' : '35%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
-                height: isMobile ? '80vh' : '80vh',
-                gap: isMobile ? '2rem' : '1.5rem',
-                padding: isMobile ? '3rem 1rem' : '1.5rem'
+                height: isMobile ? '90vh' : '80vh',
+                gap: isMobile ? '0' : '1.5rem',
+                padding: isMobile ? '1rem 1rem' : '1.5rem',
+                zIndex: isMobile ? 10 : 'auto'
               }}>
                 {centerShelves.map((shelf) => (
-                  <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="center" isMobile={isMobile} />
                 ))}
               </div>
 
               {/* Right Wall */}
               <div className="bookshelf-wall right space-y-12" style={{
                 transform: isMobile
-                  ? `translateY(-50%) rotateY(-15deg) translateZ(-150px) translateX(5%)`
+                  ? `translateY(-50%) rotateY(-25deg) translateZ(-50px) translateX(25%)`
                   : `translateY(-50%) rotateY(-20deg) translateZ(-150px) translateX(15%)`,
                 position: 'absolute',
-                top: isMobile ? '40%' : '50%',
-                right: isMobile ? '0%' : '5%',
+                top: isMobile ? '50%' : '40%',
+                right: isMobile ? '-5%' : '5%',
                 width: isMobile ? '30%' : '30%',
                 transformStyle: 'preserve-3d',
                 pointerEvents: 'auto',
-                height: '90vh',
-                gap: isMobile ? '3rem' : '2rem',
-                padding: isMobile ? '4rem 1rem' : '2rem'
+                height: '75vh',
+                gap: isMobile ? '1rem' : '2rem',
+                padding: isMobile ? '1rem 1rem' : '2rem'
               }}>
                 {rightShelves.map((shelf) => (
-                  <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
+                  <ShelfUnit key={shelf.id} shelf={shelf} position="right" isMobile={isMobile} />
                 ))}
               </div>
             </div>
           </div>
         </>
       ) : (
-        <div className="w-full">
-          {/* Exit door for mobile */}
-          <div
-            onClick={() => router.push('/entrance')}
-            className="fixed top-4 right-4 w-10 h-14 cursor-pointer z-[9999]"
-            style={{
-              pointerEvents: 'auto'
-            }}
-          >
-            {/* Door frame */}
-            <div className="absolute inset-0 bg-[#2b1810]"
-              style={{
-                borderRadius: '0 0 4px 4px',
-                borderTopLeftRadius: '999px',
-                borderTopRightRadius: '999px'
-              }}>
-              {/* Door frame trim */}
-              <div className="absolute inset-0 border border-[#8B4513]"
-                style={{
-                  borderRadius: '0 0 4px 4px',
-                  borderTopLeftRadius: '999px',
-                  borderTopRightRadius: '999px'
-                }} />
-            </div>
-
-            {/* Door */}
-            <div className="absolute inset-0.5 bg-[#5E3023]"
-              style={{
-                borderRadius: '0 0 3px 3px',
-                borderTopLeftRadius: '999px',
-                borderTopRightRadius: '999px'
-              }}>
-              {/* Door handle */}
-              <div className="absolute right-1 top-1/2 w-1 h-2 bg-[#DEB887] rounded-sm 
-                           transform -translate-y-1/2" />
-            </div>
-          </div>
-
-          <div className="w-full px-4">
-            <div className="space-y-6">
-              {leftShelves.map((shelf) => (
-                <ShelfUnit key={shelf.id} shelf={shelf} position="left" />
-              ))}
-              {centerShelves.map((shelf) => (
-                <ShelfUnit key={shelf.id} shelf={shelf} position="center" />
-              ))}
-              {rightShelves.map((shelf) => (
-                <ShelfUnit key={shelf.id} shelf={shelf} position="right" />
-              ))}
-            </div>
-          </div>
+        <div className="w-full h-screen flex items-center justify-center">
+          <div className="text-white">Loading...</div>
         </div>
       )}
     </div>
