@@ -14,6 +14,7 @@
 
 /* Import responsive styles */
 @import '../styles/responsive/mobile.css';
+@import '../styles/responsive/mobile-3d.css';
 @import '../styles/responsive/desktop.css';
 
 /* Import browser-specific styles */

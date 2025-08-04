@@ -1,0 +1,51 @@
+/* 3D Bookcase Motion Controls for Mobile Library Room */
+
+/* Additional motion-based animations based on tilt data */
+.library-room[data-bookcase="left"] .bookcase-container {
+  transform: rotateY(2deg);
+}
+
+.library-room[data-bookcase="right"] .bookcase-container {
+  transform: rotateY(-2deg);
+}
+
+.library-room[data-bookcase="center"] .bookcase-container {
+  transform: rotateY(0deg);
+}
+
+/* Enhanced 3D motion effects for smaller screens */
+@media (max-width: 375px) {
+  .bookcase-left.visible {
+    transform: translateX(-5%) rotateY(8deg) translateZ(0px);
+  }
+
+  .bookcase-right.visible {
+    transform: translateX(5%) rotateY(-8deg) translateZ(0px);
+  }
+
+  .bookcase-center.visible {
+    transform: translateZ(0px) scale(0.8); /* Even smaller for tiny screens */
+  }
+}
+
+/* Smooth transitions for all bookcase states */
+@media (prefers-reduced-motion: no-preference) {
+  .bookcase-container,
+  .bookcase,
+  .book-spine {
+    transition-duration: 0.6s;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .bookcase-container,
+  .bookcase,
+  .book-spine {
+    transition: none;
+  }
+  
+  .library-room[data-bookcase] .bookcase-container {
+    transform: none;
+  }
+}
