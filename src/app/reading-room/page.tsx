@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/constants/paths";
 import { SHELF_BOOKS } from "@/data/books";
@@ -31,6 +31,23 @@ export default function VerdasStoryRoom() {
     setSelectedBook(null);
   };
 
+  const handleDeviceOrientation = useCallback((event: DeviceOrientationEvent) => {
+    if (event.beta !== null && event.gamma !== null) {
+      // beta: front-to-back motion (-180 to 180)
+      // gamma: left-to-right motion (-90 to 90)
+      setTiltX(event.beta);
+      setTiltY(event.gamma);
+    }
+  }, []);
+
+  const startOrientationTracking = useCallback(() => {
+    if (typeof DeviceOrientationEvent !== 'undefined') {
+      window.addEventListener('deviceorientation', handleDeviceOrientation);
+      orientationRef.current = true;
+      setPermissionGranted(true);
+    }
+  }, [handleDeviceOrientation]);
+
   useEffect(() => {
     if (!isClient) return;
     
@@ -49,25 +66,25 @@ export default function VerdasStoryRoom() {
     };
   }, [isClient]);
 
-  const checkOrientationPermission = async () => {
-    if (typeof DeviceOrientationEvent !== 'undefined') {
-      // Check if we're on iOS and need permission
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      if (isIOS && 'requestPermission' in DeviceOrientationEvent) {
-        setShowPermissionButton(true);
-      } else {
-        // Android and older iOS devices
-        startOrientationTracking();
-      }
-    }
-  };
-
   useEffect(() => {
     if (!isClient || !isMobile) return;
-    
+
+    const checkOrientationPermission = async () => {
+      if (typeof DeviceOrientationEvent !== 'undefined') {
+        // Check if we're on iOS and need permission
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS && 'requestPermission' in DeviceOrientationEvent) {
+          setShowPermissionButton(true);
+        } else {
+          // Android and older iOS devices
+          startOrientationTracking();
+        }
+      }
+    };
+
     // Setup motion sensing for mobile devices
     checkOrientationPermission();
-  }, [isClient, isMobile, checkOrientationPermission]);
+  }, [isClient, isMobile, startOrientationTracking]);
 
   const requestOrientationPermission = async () => {
     try {
@@ -84,23 +101,6 @@ export default function VerdasStoryRoom() {
       console.error('Error requesting orientation permission:', error);
       // Fallback: try to start tracking anyway
       startOrientationTracking();
-    }
-  };
-
-  const startOrientationTracking = () => {
-    if (typeof DeviceOrientationEvent !== 'undefined') {
-      window.addEventListener('deviceorientation', handleDeviceOrientation);
-      orientationRef.current = true;
-      setPermissionGranted(true);
-    }
-  };
-
-  const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
-    if (event.beta !== null && event.gamma !== null) {
-      // beta: front-to-back motion (-180 to 180)
-      // gamma: left-to-right motion (-90 to 90)
-      setTiltX(event.beta);
-      setTiltY(event.gamma);
     }
   };
 
@@ -154,7 +154,7 @@ export default function VerdasStoryRoom() {
       <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40">
         <h1 className="text-2xl md:text-3xl font-bold text-[#F5E6D3] text-center
                       drop-shadow-lg font-serif tracking-wide">
-          Verda's Story Room
+          Verda&apos;s Story Room
         </h1>
         <p className="text-[#F5E6D3]/80 text-center text-sm mt-1 drop-shadow-sm">
           A collection of personal tales and thoughts

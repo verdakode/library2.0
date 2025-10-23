@@ -122,7 +122,7 @@ export default function Entrance() {
             <div className="door-handle" />
             <div className="door-panel" />
           </div>
-          <div className="door-title">Verda's Story Room</div>
+          <div className="door-title">Verda&apos;s Story Room</div>
         </div>
 
         {/* Fixed position hitboxes */}

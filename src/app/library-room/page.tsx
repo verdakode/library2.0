@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { SHELF_BOOKS, getRandomBookColor } from '@/data/books';
 
@@ -360,6 +360,37 @@ export default function LibraryRoom() {
   const [lastTiltTime, setLastTiltTime] = useState(0);
   const roomRef = useRef<HTMLDivElement>(null);
 
+  const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
+    // Limit the rotation range to keep the room visible
+    const beta = Math.max(-20, Math.min(20, event.beta || 0)); // x-axis rotation
+    const gamma = Math.max(-30, Math.min(30, event.gamma || 0)); // y-axis rotation
+
+    setRoomRotation({
+      x: beta / 2, // Reduce the rotation effect
+      y: gamma / 2
+    });
+
+    // Motion navigation: Use gamma (left-right tilt) for wall navigation (mobile only)
+    if (isMobile) {
+      const tiltThreshold = 15; // Degrees of tilt needed to trigger navigation
+      const gammaAbs = Math.abs(gamma);
+      const now = Date.now();
+      const debounceTime = 800; // Prevent rapid wall switching
+
+      if (gammaAbs > tiltThreshold && now - lastTiltTime > debounceTime) {
+        if (gamma < -tiltThreshold && currentWall < 2) {
+          // Tilt left - go to next wall
+          setCurrentWall(prev => prev + 1);
+          setLastTiltTime(now);
+        } else if (gamma > tiltThreshold && currentWall > 0) {
+          // Tilt right - go to previous wall
+          setCurrentWall(prev => prev - 1);
+          setLastTiltTime(now);
+        }
+      }
+    }
+  }, [isMobile, currentWall, lastTiltTime]);
+
   useEffect(() => {
     // Hydration effect - runs only on client
     setIsHydrated(true);
@@ -400,39 +431,7 @@ export default function LibraryRoom() {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
     };
-  }, [isGyroAvailable]);
-
-  const handleOrientation = (event: DeviceOrientationEvent) => {
-    // Limit the rotation range to keep the room visible
-    const beta = Math.max(-20, Math.min(20, event.beta || 0)); // x-axis rotation
-    const gamma = Math.max(-30, Math.min(30, event.gamma || 0)); // y-axis rotation
-
-    setRoomRotation({
-      x: beta / 2, // Reduce the rotation effect
-      y: gamma / 2
-    });
-
-    // Motion navigation: Use gamma (left-right tilt) for wall navigation (mobile only)
-    if (isMobile) {
-      const tiltThreshold = 15; // Degrees of tilt needed to trigger navigation
-      const gammaAbs = Math.abs(gamma);
-      const now = Date.now();
-      const debounceTime = 800; // Prevent rapid wall switching
-      
-      if (gammaAbs > tiltThreshold && now - lastTiltTime > debounceTime) {
-        if (gamma < -tiltThreshold && currentWall < 2) {
-          // Tilt left - go to next wall
-          setCurrentWall(prev => prev + 1);
-          setLastTiltTime(now);
-        } else if (gamma > tiltThreshold && currentWall > 0) {
-          // Tilt right - go to previous wall
-          setCurrentWall(prev => prev - 1);
-          setLastTiltTime(now);
-        }
-      }
-    }
-  };
-
+  }, [isGyroAvailable, handleOrientation]);
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {

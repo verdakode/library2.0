@@ -42,7 +42,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
   const parsedContent = marked(book.content, {
     gfm: true, // GitHub Flavored Markdown
     breaks: true, // Convert line breaks to <br>
-  });
+  }) as string;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-50 to-amber-50 p-8">
