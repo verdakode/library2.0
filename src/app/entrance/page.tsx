@@ -77,7 +77,7 @@ export default function Entrance() {
             height: '100%',
             WebkitTapHighlightColor: 'transparent'
           }}
-          aria-label="Reading Room Door"
+          aria-label="Verda's Story Room Door"
         />
       </div>
 
@@ -122,7 +122,7 @@ export default function Entrance() {
             <div className="door-handle" />
             <div className="door-panel" />
           </div>
-          <div className="door-title">Reading Room</div>
+          <div className="door-title">Verda's Story Room</div>
         </div>
 
         {/* Fixed position hitboxes */}
@@ -187,7 +187,7 @@ export default function Entrance() {
         <button 
           className="door-hitbox"
           onClick={() => handleDoorClick(ROUTES.READING_ROOM, 'right-door')}
-          aria-label="Reading Room Door"
+          aria-label="Verda's Story Room Door"
           style={{
             position: 'absolute',
             left: isSmallMobile ? '95%' : (isMobile ? '100%' : '90%'),

@@ -7,7 +7,7 @@ import { SHELF_BOOKS } from "@/data/books";
 import { BookSpine } from "@/components/shared/BookSpine";
 import { Book } from "@/components/shared/Book";
 
-export default function ReadingRoom() {
+export default function VerdasStoryRoom() {
   const router = useRouter();
   const [selectedBook, setSelectedBook] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -150,6 +150,17 @@ export default function ReadingRoom() {
 
   return (
     <div className="library-room" data-tilt-x={tiltX} data-tilt-y={tiltY} data-bookcase={visibleBookcase}>
+      {/* Room Title */}
+      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#F5E6D3] text-center
+                      drop-shadow-lg font-serif tracking-wide">
+          Verda's Story Room
+        </h1>
+        <p className="text-[#F5E6D3]/80 text-center text-sm mt-1 drop-shadow-sm">
+          A collection of personal tales and thoughts
+        </p>
+      </div>
+
       {/* Back button */}
       <button
         onClick={() => router.push(ROUTES.ENTRANCE)}
