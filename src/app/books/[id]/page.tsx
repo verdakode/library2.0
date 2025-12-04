@@ -1,23 +1,50 @@
 "use client";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import { SHELF_BOOKS } from '@/data/books';
 import { shelves } from '@/data/shelves';
 import { marked } from 'marked';
+import { GuestBook } from '@/components/features/guestbook/GuestBook';
 import '@/styles/book-page.css';
 
-export default function BookPage({ params }: { params: { id: string } }) {
+export default function BookPage() {
   const router = useRouter();
-  const [shelfId, bookNumber] = params.id.split('-');
-  
-  const shelf = shelves.find(s => s.id === shelfId);
-  if (!shelf) return null;
+  const params = useParams();
+  const [book, setBook] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const shelfBooks = SHELF_BOOKS[shelfId] || [];
-  const bookIndex = parseInt(bookNumber) - 1;
-  const book = shelfBooks[bookIndex];
-  
+  useEffect(() => {
+    if (!params?.id) {
+      setLoading(false);
+      return;
+    }
+
+    const id = typeof params.id === 'string' ? params.id : params.id[0];
+    const [shelfId, bookNumber] = id.split('-');
+    
+    const shelf = shelves.find(s => s.id === shelfId);
+    if (!shelf) {
+      setLoading(false);
+      return;
+    }
+
+    const shelfBooks = SHELF_BOOKS[shelfId] || [];
+    const bookIndex = parseInt(bookNumber) - 1;
+    const foundBook = shelfBooks[bookIndex];
+    
+    setBook(foundBook);
+    setLoading(false);
+  }, [params]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F5E6D3] p-8 flex items-center justify-center">
+        <div className="text-[#2B1810] text-xl">Loading...</div>
+      </div>
+    );
+  }
+
   if (!book) {
     return (
       <div className="min-h-screen bg-[#F5E6D3] p-8">
@@ -32,6 +59,32 @@ export default function BookPage({ params }: { params: { id: string } }) {
           <div className="bg-white rounded-lg shadow-2xl p-12 text-center">
             <h1 className="text-4xl font-bold text-[#2B1810] mb-8">Book Not Found</h1>
             <p className="text-[#2B1810] text-lg">This book doesn&apos;t exist in the collection.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if this is the guest book
+  const isGuestBook = book.id === '300-1';
+
+  // If it's the guest book, show the GuestBook component instead
+  if (isGuestBook) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-50 to-amber-50 p-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Navigation */}
+          <button
+            onClick={() => router.back()}
+            className="mb-8 px-4 py-2 bg-amber-800 text-amber-50 rounded-lg hover:bg-amber-700 transition-colors
+                      shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+          >
+            ← Back to Library
+          </button>
+
+          {/* Guest Book Component */}
+          <div className="bg-white rounded-lg shadow-2xl p-8">
+            <GuestBook />
           </div>
         </div>
       </div>

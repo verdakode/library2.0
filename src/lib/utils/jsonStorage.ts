@@ -10,8 +10,8 @@ export async function readJsonFile<T>(filename: string): Promise<T> {
     return JSON.parse(fileContents) as T;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      // File doesn't exist, return empty array or object based on type
-      return (Array.isArray([]) ? [] : {}) as T;
+      // File doesn't exist, throw error so caller can handle it
+      throw error;
     }
     throw error;
   }
