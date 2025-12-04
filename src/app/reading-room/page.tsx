@@ -64,7 +64,7 @@ export default function VerdasStoryRoom() {
         window.removeEventListener('deviceorientation', handleDeviceOrientation);
       }
     };
-  }, [isClient]);
+  }, [isClient, handleDeviceOrientation]);
 
   useEffect(() => {
     if (!isClient || !isMobile) return;

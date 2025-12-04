@@ -32,7 +32,7 @@ export const SignatureForm: React.FC<SignatureFormProps> = ({ onSubmit, isSubmit
         <p className="text-amber-900 text-sm leading-relaxed">
           <strong>What should you write?</strong> Leave a bit of advice for people visiting this website, 
           leave a link so we know who you are, or just say hello! You can either submit this anonymously 
-          or leave your name - I don't care. Please do not vandalize my guest book or I will be sad af. 💔
+          or leave your name - I don&apos;t care. Please do not vandalize my guest book or I will be sad af. 💔
         </p>
       </div>
 
