@@ -489,6 +489,7 @@ export default function LibraryRoom() {
   const [currentWall, setCurrentWall] = useState(1); // 0 = left, 1 = center, 2 = right
   const [touchStartX, setTouchStartX] = useState(0);
   const [lastTiltTime, setLastTiltTime] = useState(0);
+  const [enableTransition, setEnableTransition] = useState(false);
   const roomRef = useRef<HTMLDivElement>(null);
 
   const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
@@ -528,6 +529,13 @@ export default function LibraryRoom() {
     const mobile = window.innerWidth <= 768;
     setIsMobile(mobile);
     setZoom(mobile ? 1.2 : 0.9);
+    
+    // Enable transitions after initial render (prevents animation on page load)
+    if (mobile) {
+      setTimeout(() => {
+        setEnableTransition(true);
+      }, 100);
+    }
 
     // Check if device orientation is available
     if (window.DeviceOrientationEvent) {
@@ -1027,7 +1035,7 @@ export default function LibraryRoom() {
                   height: '100vh',
                   display: 'flex',
                   transform: `translateX(-${currentWall * 100}vw)`,
-                  transition: 'transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                  transition: enableTransition ? 'transform 0.3s ease-out' : 'none',
                   position: 'absolute',
                   left: '0',
                   top: '0',
