@@ -30,25 +30,29 @@ export default function BookPage() {
     }
 
     // Try to get book from API first (to get any edits), fallback to SHELF_BOOKS
-    try {
-      const response = await fetch(`/api/books/${id}`);
-      if (response.ok) {
-        const editedBook = await response.json();
-        setBook(editedBook);
-        setLoading(false);
-        return;
+    const fetchBook = async () => {
+      try {
+        const response = await fetch(`/api/books/${id}`);
+        if (response.ok) {
+          const editedBook = await response.json();
+          setBook(editedBook);
+          setLoading(false);
+          return;
+        }
+      } catch (error) {
+        console.error('Error fetching edited book:', error);
       }
-    } catch (error) {
-      console.error('Error fetching edited book:', error);
-    }
 
-    // Fallback to original SHELF_BOOKS
-    const shelfBooks = SHELF_BOOKS[shelfId] || [];
-    const bookIndex = parseInt(bookNumber) - 1;
-    const foundBook = shelfBooks[bookIndex];
-    
-    setBook(foundBook);
-    setLoading(false);
+      // Fallback to original SHELF_BOOKS
+      const shelfBooks = SHELF_BOOKS[shelfId] || [];
+      const bookIndex = parseInt(bookNumber) - 1;
+      const foundBook = shelfBooks[bookIndex];
+      
+      setBook(foundBook);
+      setLoading(false);
+    };
+
+    fetchBook();
   }, [params]);
 
   if (loading) {
