@@ -8,7 +8,7 @@ const shelves = [
   { id: "000", name: "Generalities" },
   { id: "100", name: "Philosophy" },
   { id: "200", name: "Spirituality" },
-  { id: "300", name: "Social" },
+  { id: "300", name: "The Glazing Shelf" },
   { id: "400", name: "Language" },
   { id: "500", name: "Science" },
   { id: "600", name: "Technology" },

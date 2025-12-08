@@ -29,6 +29,20 @@ export default function BookPage() {
       return;
     }
 
+    // Try to get book from API first (to get any edits), fallback to SHELF_BOOKS
+    try {
+      const response = await fetch(`/api/books/${id}`);
+      if (response.ok) {
+        const editedBook = await response.json();
+        setBook(editedBook);
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      console.error('Error fetching edited book:', error);
+    }
+
+    // Fallback to original SHELF_BOOKS
     const shelfBooks = SHELF_BOOKS[shelfId] || [];
     const bookIndex = parseInt(bookNumber) - 1;
     const foundBook = shelfBooks[bookIndex];
@@ -157,6 +171,23 @@ export default function BookPage() {
                 }}>
                   {book.title}
                 </h1>
+                {book.lastEdited && (
+                  <p style={{
+                    fontSize: '0.875rem',
+                    color: '#78716c',
+                    fontStyle: 'italic',
+                    marginBottom: '16px',
+                    fontFamily: 'Georgia, serif'
+                  }}>
+                    Last edited: {new Date(book.lastEdited).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </p>
+                )}
                 <div style={{
                   width: '128px',
                   height: '2px',

@@ -3,6 +3,7 @@ export interface Book {
   title: string;
   content: string;
   color: string;
+  lastEdited?: string; // ISO date string of when the book was last edited
 }
 
 export interface ShelfBooks {

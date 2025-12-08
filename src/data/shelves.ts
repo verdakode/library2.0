@@ -26,8 +26,8 @@ export const shelves: Shelf[] = [
   },
   {
     id: "300",
-    name: "Project Documentation",
-    description: "Technical specifications and project records",
+    name: "the glazing shelf",
+    description: "people",
     color: "from-[#8B4513] to-[#D2691E]",
   },
   {

@@ -291,7 +291,7 @@ function getShelfTitle(shelfId: string): string {
     "000": "Computer Science & Information",
     "100": "Philosophy & Psychology",
     "200": "Religion & Theology",
-    "300": "Social Sciences",
+    "300": "The Glazing Shelf",
     "400": "Language & Linguistics",
     "500": "Pure Sciences",
     "600": "Applied Sciences & Technology",

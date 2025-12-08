@@ -25,7 +25,7 @@ const shelves = [
   },
   {
     id: "300",
-    name: "humanity",
+    name: "the glazing shelf",
     description: "people",
     color: "from-[#8B4513] to-[#D2691E]",
   },
@@ -758,28 +758,28 @@ export default function LibraryRoom() {
           </button>
 
           {/* Navigation Indicator */}
-          <div
-            className="fixed bottom-8 left-1/2 transform -translate-x-1/2"
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              zIndex: 9999,
-              pointerEvents: 'none'
-            }}
-          >
-            {[0, 1, 2].map((index) => (
-              <div
-                key={index}
-                style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  backgroundColor: currentWall === index ? 'var(--leather-light)' : 'rgba(255,255,255,0.3)',
-                  transition: 'all 0.3s ease'
-                }}
-              />
-            ))}
-          </div>
+        <div
+          className="fixed bottom-8 left-1/2 transform -translate-x-1/2"
+          style={{
+            display: 'flex',
+            gap: '0.5rem',
+            zIndex: 9999,
+            pointerEvents: 'none'
+          }}
+        >
+          {[0, 1, 2].map((index) => (
+            <div
+              key={index}
+              style={{
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                backgroundColor: currentWall === index ? 'var(--leather-light)' : 'rgba(255,255,255,0.3)',
+                transition: 'all 0.3s ease'
+              }}
+            />
+          ))}
+        </div>
         </>
       )}
 
@@ -890,7 +890,7 @@ export default function LibraryRoom() {
               height: isMobile ? '100vh' : '100%',
               position: 'relative',
               transformStyle: isMobile ? 'flat' : 'preserve-3d',
-              pointerEvents: 'none',
+              pointerEvents: isMobile ? 'auto' : 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -1016,7 +1016,8 @@ export default function LibraryRoom() {
                   left: '0',
                   top: '0',
                   alignItems: 'center',
-                  willChange: 'transform'
+                  willChange: 'transform',
+                  pointerEvents: 'auto'
                 }}>
                   {/* Left Wall */}
                   <div style={{
