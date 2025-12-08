@@ -217,7 +217,7 @@
   }
   
   .shelf-title {
-    transform: translateY(-20px);
+    transform: none;
     margin-bottom: 0 !important;
   }
   
