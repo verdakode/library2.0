@@ -302,7 +302,9 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
           ? '0 8px 20px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.3)' 
           : 'none',
         transformStyle: 'preserve-3d',
-        position: 'relative'
+        position: 'relative',
+        zIndex: isMobile ? 5 : 'auto',
+        pointerEvents: 'auto'
       }}>
       {/* Back panel - 3D depth */}
       <div className="shelf-back" style={{
@@ -314,42 +316,49 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
         background: isMobile 
           ? 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 100%)'
           : 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 100%)',
-        transform: 'translateZ(-8px)',
+        transform: isMobile ? 'none' : 'translateZ(-8px)',
         borderRadius: isMobile ? '8px' : '6px',
-        zIndex: 0
+        zIndex: 0,
+        pointerEvents: 'none'
       }} />
 
       {/* Left side panel - 3D depth */}
-      <div className="shelf-left" style={{
-        position: 'absolute',
-        left: isMobile ? '-6px' : '-8px',
-        top: 0,
-        bottom: 0,
-        width: isMobile ? '6px' : '8px',
-        background: 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, var(--wood-dark) 50%, var(--wood-medium) 100%)',
-        transform: 'rotateY(-90deg) translateZ(4px)',
-        transformOrigin: 'left center',
-        transformStyle: 'preserve-3d',
-        borderRadius: isMobile ? '8px 0 0 8px' : '6px 0 0 6px',
-        boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.5), 2px 0 4px rgba(0,0,0,0.3)',
-        zIndex: 1
-      }} />
+      {!isMobile && (
+        <div className="shelf-left" style={{
+          position: 'absolute',
+          left: '-8px',
+          top: 0,
+          bottom: 0,
+          width: '8px',
+          background: 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, var(--wood-dark) 50%, var(--wood-medium) 100%)',
+          transform: 'rotateY(-90deg) translateZ(4px)',
+          transformOrigin: 'left center',
+          transformStyle: 'preserve-3d',
+          borderRadius: '6px 0 0 6px',
+          boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.5), 2px 0 4px rgba(0,0,0,0.3)',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }} />
+      )}
 
       {/* Right side panel - 3D depth */}
-      <div className="shelf-right" style={{
-        position: 'absolute',
-        right: isMobile ? '-6px' : '-8px',
-        top: 0,
-        bottom: 0,
-        width: isMobile ? '6px' : '8px',
-        background: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, var(--wood-dark) 50%, var(--wood-medium) 100%)',
-        transform: 'rotateY(90deg) translateZ(4px)',
-        transformOrigin: 'right center',
-        transformStyle: 'preserve-3d',
-        borderRadius: isMobile ? '0 8px 8px 0' : '0 6px 6px 0',
-        boxShadow: 'inset 2px 0 4px rgba(0,0,0,0.5), -2px 0 4px rgba(0,0,0,0.3)',
-        zIndex: 1
-      }} />
+      {!isMobile && (
+        <div className="shelf-right" style={{
+          position: 'absolute',
+          right: '-8px',
+          top: 0,
+          bottom: 0,
+          width: '8px',
+          background: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, var(--wood-dark) 50%, var(--wood-medium) 100%)',
+          transform: 'rotateY(90deg) translateZ(4px)',
+          transformOrigin: 'right center',
+          transformStyle: 'preserve-3d',
+          borderRadius: '0 6px 6px 0',
+          boxShadow: 'inset 2px 0 4px rgba(0,0,0,0.5), -2px 0 4px rgba(0,0,0,0.3)',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }} />
+      )}
 
       {/* Shelf title with improved visibility */}
       <div className="shelf-title" style={{
@@ -372,20 +381,23 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
       </div>
 
       {/* Top shelf edge - 3D depth */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: isMobile ? '4px' : '6px',
-        background: 'linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%)',
-        transform: 'rotateX(90deg) translateZ(4px)',
-        transformOrigin: 'top center',
-        transformStyle: 'preserve-3d',
-        borderRadius: isMobile ? '8px 8px 0 0' : '6px 6px 0 0',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-        zIndex: 2
-      }} />
+      {!isMobile && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '6px',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%)',
+          transform: 'rotateX(90deg) translateZ(4px)',
+          transformOrigin: 'top center',
+          transformStyle: 'preserve-3d',
+          borderRadius: '6px 6px 0 0',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+          zIndex: 2,
+          pointerEvents: 'none'
+        }} />
+      )}
 
       <div className={`book-row`} style={{
         height: isMobile ? '130px' : '150px',
@@ -397,7 +409,8 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
         alignItems: isMobile ? 'flex-end' : 'center',
         position: isMobile ? 'relative' : 'static',
         paddingBottom: isMobile ? '15px' : '0',
-        zIndex: 3
+        zIndex: 10,
+        pointerEvents: 'auto'
       }}>
         {shelfBooks.map((book, i) => {
           const bookAlignment = getBookAlignment(i);
@@ -427,6 +440,9 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
                 transform: isMobile 
                   ? `rotate(${bookVariations[i]?.tilt || 0}deg)`
                   : `rotate(${bookVariations[i]?.tilt || 0}deg)`,
+                opacity: 1,
+                visibility: 'visible',
+                zIndex: 20 + i,
                 ...getBookPosition(i)
               }}
             >
