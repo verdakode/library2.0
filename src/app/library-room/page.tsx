@@ -408,7 +408,7 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
         gap: isMobile ? '3px' : '0',
         alignItems: isMobile ? 'flex-end' : 'center',
         position: isMobile ? 'relative' : 'static',
-        paddingBottom: isMobile ? '15px' : '0',
+        paddingBottom: isMobile ? '0' : '0',
         zIndex: 10,
         pointerEvents: 'auto'
       }}>
@@ -436,7 +436,7 @@ const ShelfUnit = ({ shelf, position, isMobile }: ShelfUnitProps) => {
                 position: isMobile ? 'absolute' : 'relative',
                 borderRadius: isMobile ? '2px' : '0',
                 alignSelf: isMobile ? 'auto' : 'auto',
-                bottom: isMobile ? '15px' : 'auto',
+                bottom: isMobile ? '35px' : 'auto',
                 transform: isMobile 
                   ? `rotate(${bookVariations[i]?.tilt || 0}deg)`
                   : `rotate(${bookVariations[i]?.tilt || 0}deg)`,
@@ -691,7 +691,16 @@ export default function LibraryRoom() {
         <>
           {/* Left Arrow */}
           <button
-            onClick={() => setCurrentWall(prev => prev > 0 ? prev - 1 : 2)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentWall(prev => prev > 0 ? prev - 1 : 2);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentWall(prev => prev > 0 ? prev - 1 : 2);
+            }}
             aria-label="Previous shelf"
             style={{
               position: 'fixed',
@@ -707,10 +716,12 @@ export default function LibraryRoom() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              zIndex: 9999,
+              zIndex: 10000,
               pointerEvents: 'auto',
               boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
@@ -737,7 +748,16 @@ export default function LibraryRoom() {
 
           {/* Right Arrow */}
           <button
-            onClick={() => setCurrentWall(prev => prev < 2 ? prev + 1 : 0)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentWall(prev => prev < 2 ? prev + 1 : 0);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentWall(prev => prev < 2 ? prev + 1 : 0);
+            }}
             aria-label="Next shelf"
             style={{
               position: 'fixed',
@@ -753,10 +773,12 @@ export default function LibraryRoom() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              zIndex: 9999,
+              zIndex: 10000,
               pointerEvents: 'auto',
               boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
@@ -787,7 +809,7 @@ export default function LibraryRoom() {
           style={{
             display: 'flex',
             gap: '0.5rem',
-            zIndex: 9999,
+            zIndex: 10000,
             pointerEvents: 'none'
           }}
         >

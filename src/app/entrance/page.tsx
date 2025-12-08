@@ -93,6 +93,14 @@ export default function Entrance() {
         <div className="welcome-text">
           <h1>Quantum Libris</h1>
           <p>Reading Between the Lines</p>
+          <p style={{
+            fontSize: '0.9rem',
+            marginTop: '1rem',
+            opacity: 0.8,
+            fontStyle: 'italic'
+          }}>
+            Best experienced on desktop
+          </p>
         </div>
 
         {/* Visual door elements */}
