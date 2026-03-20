@@ -208,7 +208,7 @@ dynamics and phenomena.`,
     {
       id: "600-1",
       title: "the strangeties of transport",
-      content: `# `
+      content: `# `,
       color: BOOK_COLORS[0]
     },
     {
