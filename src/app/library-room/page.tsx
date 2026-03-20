@@ -18,7 +18,7 @@ const shelves = [
 ];
 
 export default function Library3D() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [debug, setDebug] = useState('Initializing...');
@@ -32,8 +32,8 @@ export default function Library3D() {
       return;
     }
 
-    let animationId;
-    let renderer, scene, camera;
+    let animationId: number;
+    let renderer: any, scene: any, camera: any;
 
     async function init() {
       try {
@@ -42,6 +42,7 @@ export default function Library3D() {
         setDebug('Three.js imported successfully!');
 
         const container = containerRef.current;
+        if (!container) return;
         const width = container.clientWidth;
         const height = container.clientHeight;
 
@@ -92,7 +93,7 @@ export default function Library3D() {
         scene.add(wall);
 
         // Create shelves
-        const bookObjects = [];
+        const bookObjects: any[] = [];
 
         shelves.forEach((shelf, index) => {
           const y = 0.5 + index * 0.7;
@@ -150,8 +151,8 @@ export default function Library3D() {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
-        function onMouseMove(event) {
-          const rect = container.getBoundingClientRect();
+        function onMouseMove(event: MouseEvent) {
+          const rect = container!.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
         }
@@ -173,14 +174,14 @@ export default function Library3D() {
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
 
-        container.addEventListener('mousedown', (e) => {
+        container.addEventListener('mousedown', (e: MouseEvent) => {
           isDragging = true;
           previousMousePosition = { x: e.clientX, y: e.clientY };
         });
 
         container.addEventListener('mouseup', () => isDragging = false);
 
-        container.addEventListener('mousemove', (e) => {
+        container.addEventListener('mousemove', (e: MouseEvent) => {
           if (!isDragging) return;
           const deltaX = e.clientX - previousMousePosition.x;
           cameraAngle += deltaX * 0.005;
@@ -206,7 +207,7 @@ export default function Library3D() {
 
       } catch (error) {
         console.error('Error:', error);
-        setDebug(`Error: ${error.message}`);
+        setDebug(`Error: ${(error as Error).message}`);
       }
     }
 
